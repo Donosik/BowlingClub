@@ -1,3 +1,5 @@
+using MainBackend.Databases.BowlingDb.Context;
+using MainBackend.Databases.BowlingDb.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
@@ -13,11 +15,24 @@ public class WeatherForecastController : ControllerBase
 
     private readonly ILogger<WeatherForecastController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    private BowlingDb _context;
+    
+    public WeatherForecastController(ILogger<WeatherForecastController> logger,BowlingDb context)
     {
+        _context = context;
         _logger = logger;
     }
 
+    [HttpGet("Get")]
+    public IActionResult Get1()
+    {
+        User user = new User();
+        user.Login = 1;
+        _context.Users.Add(user);
+        _context.SaveChanges();
+        return Ok();
+    }
+    
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
