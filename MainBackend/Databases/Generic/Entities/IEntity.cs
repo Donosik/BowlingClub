@@ -2,9 +2,8 @@
 
 namespace MainBackend.Databases.BowlingDb.Entities;
 
-public class User : IEntity
+public interface IEntity
 {
     [Key]
-    public int Id { get; set; }
-    public int Login { get; set; }
+    int Id { get; set; }
 }
