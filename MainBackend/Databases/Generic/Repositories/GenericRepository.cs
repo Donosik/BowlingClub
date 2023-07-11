@@ -17,33 +17,34 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
         return dbContext.Set<T>();
     }
 
-    public T Get(int id)
+    public async Task<T> Get(int id)
     {
-        throw new NotImplementedException();
+        return await GetQuery().FirstOrDefaultAsync(t=>t.Id==id);
     }
 
-    public IEnumerable<T> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
-        throw new NotImplementedException();
+        return await GetQuery().ToListAsync();
     }
 
-    public bool Create(T entity)
+    public void Create(T entity)
     {
-        throw new NotImplementedException();
+        dbContext.Set<T>().Add(entity);
     }
 
-    public bool Edit(T entity)
+    public void Edit(T entity)
     {
-        throw new NotImplementedException();
+        dbContext.Set<T>().Update(entity);
     }
 
-    public bool Delete(T entity)
+    public void Delete(T entity)
     {
-        throw new NotImplementedException();
+        dbContext.Set<T>().Remove(entity);
     }
 
-    public bool Delete(int id)
+    public async Task Delete(int id)
     {
-        throw new NotImplementedException();
+        T entity = await Get(id);
+        Delete(entity);
     }
 }

@@ -5,15 +5,14 @@ namespace MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 public interface IGenericRepository<T> where T : class, IEntity
 {
     IQueryable<T> GetQuery();
+    Task<T> Get(int id);
 
-    T Get(int id);
+    Task<IEnumerable<T>> GetAll();
 
-    IEnumerable<T> GetAll();
+    void Create(T entity);
 
-    bool Create(T entity);
+    void Edit(T entity);
 
-    bool Edit(T entity);
-
-    bool Delete(T entity);
-    bool Delete(int id);
+    void Delete(T entity);
+    Task Delete(int id);
 }
