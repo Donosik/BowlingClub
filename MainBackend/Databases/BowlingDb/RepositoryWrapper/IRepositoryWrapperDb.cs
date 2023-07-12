@@ -1,6 +1,14 @@
-﻿namespace MainBackend.Databases.BowlingDb.RepositoryWrapper;
+﻿using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 
-public interface IRepositoryWrapperDb
+namespace MainBackend.Databases.BowlingDb.RepositoryWrapper;
+
+public interface IRepositoryWrapperDb : IDisposable
 {
+    #region Entity Repositories
+
+    IUserRepository user { get; }
+
+    #endregion
     
+    bool Save();
 }

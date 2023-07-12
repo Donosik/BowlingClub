@@ -17,11 +17,4 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Databases\BowlingDb\Repositories\Classes\" />
-      <Folder Include="Databases\BowlingDb\Repositories\Interfaces\" />
-      <Folder Include="Services\Classes\" />
-      <Folder Include="Services\Interfaces\" />
-    </ItemGroup>
-
 </Project>

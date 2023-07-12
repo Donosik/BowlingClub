@@ -1,5 +1,6 @@
 using MainBackend.Databases.BowlingDb.Context;
 using MainBackend.Databases.BowlingDb.Entities;
+using MainBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
@@ -16,11 +17,13 @@ public class WeatherForecastController : ControllerBase
     private readonly ILogger<WeatherForecastController> _logger;
 
     private BowlingDb _context;
+    private IUserService userService;
     
-    public WeatherForecastController(ILogger<WeatherForecastController> logger,BowlingDb context)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger,BowlingDb context,IUserService userService)
     {
         _context = context;
         _logger = logger;
+        this.userService = userService;
     }
 
     [HttpGet("Get")]
@@ -43,5 +46,12 @@ public class WeatherForecastController : ControllerBase
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+    }
+    
+    [HttpGet("{id}")]
+    public IActionResult CreateUser(int id)
+    {
+        userService.Create(id);
+        return Ok();
     }
 }
