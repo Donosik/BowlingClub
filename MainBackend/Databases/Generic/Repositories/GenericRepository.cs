@@ -1,7 +1,7 @@
 ﻿using MainBackend.Databases.BowlingDb.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MainBackend.Databases.BowlingDb.Repositories.Interfaces;
+namespace MainBackend.Databases.Generic.Repositories;
 
 public abstract class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
 {

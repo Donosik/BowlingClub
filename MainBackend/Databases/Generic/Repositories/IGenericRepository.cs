@@ -1,6 +1,6 @@
 ﻿using MainBackend.Databases.BowlingDb.Entities;
 
-namespace MainBackend.Databases.BowlingDb.Repositories.Interfaces;
+namespace MainBackend.Databases.Generic.Repositories;
 
 public interface IGenericRepository<T> where T : class, IEntity
 {
