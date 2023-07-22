@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using MainBackend.Databases.BowlingDb.Context;
 using MainBackend.Databases.BowlingDb.Repositories.Classes;
 using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<BowlingDb>(options =>
 // Dependency Injection
 void ConfigureRepositories(IServiceCollection services)
 {
+    services.AddScoped<IUserRepository, UserRepository>();
 }
 
 void ConfigureServices(IServiceCollection services)
@@ -33,15 +35,19 @@ void ConfigureServices(IServiceCollection services)
 void ConfigureWrappers(IServiceCollection services)
 {
     services.AddScoped<IRepositoryWrapperDb, RepositoryWrapperDb>();
+    services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 }
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
 ConfigureRepositories(builder.Services);
 ConfigureServices(builder.Services);
 ConfigureWrappers(builder.Services);
+
+//Json Serialization
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
 var app = builder.Build();
 
