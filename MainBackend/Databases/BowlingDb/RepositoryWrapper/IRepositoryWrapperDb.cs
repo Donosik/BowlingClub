@@ -10,5 +10,5 @@ public interface IRepositoryWrapperDb : IDisposable
 
     #endregion
     
-    bool Save();
+    Task<bool> Save();
 }

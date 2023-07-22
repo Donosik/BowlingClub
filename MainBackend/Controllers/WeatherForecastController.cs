@@ -49,9 +49,9 @@ public class WeatherForecastController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public IActionResult CreateUser(int id)
+    public async Task<IActionResult> CreateUser(int id)
     {
-        userService.Create(id);
+        await userService.Create(id);
         return Ok();
     }
 }

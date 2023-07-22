@@ -13,11 +13,11 @@ public class UserService : IUserService
         this.repositoryWrapper = repositoryWrapper;
     }
     
-    public void Create(int login)
+    public async Task Create(int login)
     {
         User user = new User();
         user.Login = login;
         repositoryWrapper.normalDbWrapper.user.Create(user);
-        repositoryWrapper.normalDbWrapper.Save();
+        await repositoryWrapper.normalDbWrapper.Save();
     }
 }

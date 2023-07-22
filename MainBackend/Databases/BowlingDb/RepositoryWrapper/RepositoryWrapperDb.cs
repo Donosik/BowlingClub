@@ -14,9 +14,9 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
         this.user = user;
     }
 
-    public bool Save()
+    public async Task<bool> Save()
     {
-        int result = dbContext.SaveChanges();
+        int result = await dbContext.SaveChangesAsync();
         if (result > 0)
             return true;
         return false;

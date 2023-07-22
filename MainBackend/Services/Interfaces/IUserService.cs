@@ -2,5 +2,5 @@
 
 public interface IUserService
 {
-    void Create(int login);
+    Task Create(int login);
 }
