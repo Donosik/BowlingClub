@@ -4,11 +4,7 @@ namespace MainBackend.Databases.Generic.Repositories;
 
 public class RepositoryWrapper : IRepositoryWrapper
 {
-#region Variables
-
     public IRepositoryWrapperDb normalDbWrapper { get; }
-
-#endregion
 
 #region Constructors
 

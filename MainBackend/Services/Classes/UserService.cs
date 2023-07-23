@@ -1,16 +1,13 @@
 ﻿using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.Databases.Generic.Repositories;
+using MainBackend.DTO;
 using MainBackend.Services.Interfaces;
 
 namespace MainBackend.Services.Classes;
 
 public class UserService : IUserService
 {
-#region Private Variables
-
     private IRepositoryWrapper repositoryWrapper;
-
-#endregion
 
 #region Constructors
 
@@ -21,18 +18,17 @@ public class UserService : IUserService
 
 #endregion
 
-#region Methods
-
 #region Create
 
-    public async Task Create(int login)
+    public async Task<bool> Register(RegisterForm registerForm)
     {
-        User user = new User();
-        repositoryWrapper.normalDbWrapper.user.Create(user);
-        await repositoryWrapper.normalDbWrapper.Save();
+        throw new NotImplementedException();
     }
 
-#endregion
+    public async Task<bool> Login(LoginForm loginForm)
+    {
+        throw new NotImplementedException();
+    }
 
 #endregion
 }

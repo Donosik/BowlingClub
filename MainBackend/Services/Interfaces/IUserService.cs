@@ -1,14 +1,13 @@
-﻿namespace MainBackend.Services.Interfaces;
+﻿using MainBackend.DTO;
+
+namespace MainBackend.Services.Interfaces;
 
 public interface IUserService
 {
-#region Methods
-
 #region Create
 
-    Task Create(int login);
-
-#endregion
+    Task<bool> Register(RegisterForm registerForm);
+    Task<bool> Login(LoginForm loginForm);
 
 #endregion
 }

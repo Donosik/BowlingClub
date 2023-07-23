@@ -5,12 +5,7 @@ namespace MainBackend.Databases.Generic.Repositories;
 
 public abstract class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
 {
-#region Protected Variables
-
     protected readonly DbContext dbContext;
-
-#endregion
-
 
 #region Constructors
 
@@ -20,8 +15,6 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
     }
 
 #endregion
-
-#region Methods
 
     public IQueryable<T> GetQuery()
     {
@@ -76,8 +69,6 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
         T entity = await Get(id);
         Delete(entity);
     }
-
-#endregion
 
 #endregion
 }

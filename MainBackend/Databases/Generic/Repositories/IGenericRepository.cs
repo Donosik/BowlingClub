@@ -4,7 +4,6 @@ namespace MainBackend.Databases.Generic.Repositories;
 
 public interface IGenericRepository<T> where T : class, IEntity
 {
-#region Methods
 
     IQueryable<T> GetQuery();
 
@@ -38,6 +37,5 @@ public interface IGenericRepository<T> where T : class, IEntity
     Task Delete(int id);
 
 #endregion
-
-#endregion
+    
 }
