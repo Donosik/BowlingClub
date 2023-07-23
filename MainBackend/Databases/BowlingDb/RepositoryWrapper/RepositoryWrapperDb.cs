@@ -4,15 +4,30 @@ namespace MainBackend.Databases.BowlingDb.RepositoryWrapper;
 
 public class RepositoryWrapperDb : IRepositoryWrapperDb
 {
-    private readonly Context.BowlingDb dbContext;
+
+#region Variables
 
     public IUserRepository user { get; }
+
+#endregion
+    
+#region Private Variables
+
+    private readonly Context.BowlingDb dbContext;
+
+#endregion
+
+#region Constructors
 
     public RepositoryWrapperDb(Context.BowlingDb dbContext, IUserRepository user)
     {
         this.dbContext = dbContext;
         this.user = user;
     }
+
+#endregion
+
+#region Methods
 
     public async Task<bool> Save()
     {
@@ -28,9 +43,15 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
         GC.SuppressFinalize(this);
     }
 
+#endregion
+
+#region Private Methods
+
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
             dbContext.Dispose();
     }
+
+#endregion
 }

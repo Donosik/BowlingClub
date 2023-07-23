@@ -4,25 +4,20 @@ namespace MainBackend.Databases.BowlingDb.Entities;
 
 public class User : IEntity
 {
-    #region Id
+#region Variables
 
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
+    public string Login { get; set; }
+    
 
-    #endregion
+#endregion
 
-    #region Variables
-
-    public int Login { get; set; }
-
-    #endregion
-
-    #region Constructors
+#region Constructors
 
     public User()
     {
-        Login = 0;
+        Login = "";
     }
 
-    #endregion
+#endregion
 }

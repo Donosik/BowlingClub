@@ -6,6 +6,7 @@ using MainBackend.Databases.BowlingDb.RepositoryWrapper;
 using MainBackend.Databases.Generic.Repositories;
 using MainBackend.Services.Classes;
 using MainBackend.Services.Interfaces;
+using MainBackend.Services.Wrapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,7 @@ void ConfigureWrappers(IServiceCollection services)
 {
     services.AddScoped<IRepositoryWrapperDb, RepositoryWrapperDb>();
     services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+    services.AddScoped<IServiceWrapper, ServiceWrapper>();
 }
 
 ConfigureRepositories(builder.Services);

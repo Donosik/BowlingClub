@@ -30,7 +30,6 @@ public class WeatherForecastController : ControllerBase
     public IActionResult Get1()
     {
         User user = new User();
-        user.Login = 1;
         _context.Users.Add(user);
         _context.SaveChanges();
         return Ok();

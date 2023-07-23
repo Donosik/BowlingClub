@@ -4,11 +4,16 @@ namespace MainBackend.Databases.BowlingDb.RepositoryWrapper;
 
 public interface IRepositoryWrapperDb : IDisposable
 {
-    #region Entity Repositories
+#region Variables
 
     IUserRepository user { get; }
 
-    #endregion
-    
+#endregion
+
+#region Methods
+
     Task<bool> Save();
+    void Dispose();
+
+#endregion
 }

@@ -5,64 +5,66 @@ namespace MainBackend.Databases.Generic.Repositories;
 
 public abstract class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
 {
-    #region Variables
+#region Protected Variables
 
     protected readonly DbContext dbContext;
 
-    #endregion
-    
+#endregion
 
-    #region Constructors
+
+#region Constructors
 
     protected GenericRepository(DbContext dbContext)
     {
         this.dbContext = dbContext;
     }
 
-    #endregion
+#endregion
+
+#region Methods
 
     public IQueryable<T> GetQuery()
     {
         return dbContext.Set<T>();
     }
 
-    #region Get
+#region Get
 
     public async Task<T> Get(int id)
     {
         return await GetQuery().FirstOrDefaultAsync(t => t.Id == id);
     }
 
-    #endregion
+#endregion
 
-    #region GetAll
+#region GetAll
 
     public async Task<IEnumerable<T>> GetAll()
     {
         return await GetQuery().ToListAsync();
     }
 
-    #endregion
+#endregion
 
-    #region Create
+#region Create
 
     public void Create(T entity)
     {
         dbContext.Set<T>().Add(entity);
     }
 
-    #endregion
+#endregion
 
-    #region Edit
+#region Edit
 
     public void Edit(T entity)
     {
         dbContext.Set<T>().Update(entity);
     }
 
-    #endregion
+#endregion
 
-    #region Delete
+#region Delete
 
     public void Delete(T entity)
     {
@@ -75,5 +77,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
         Delete(entity);
     }
 
-    #endregion
+#endregion
+
+#endregion
 }

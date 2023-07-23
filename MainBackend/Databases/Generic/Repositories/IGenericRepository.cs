@@ -4,36 +4,40 @@ namespace MainBackend.Databases.Generic.Repositories;
 
 public interface IGenericRepository<T> where T : class, IEntity
 {
+#region Methods
+
     IQueryable<T> GetQuery();
 
-    #region Get
+#region Get
 
     Task<T> Get(int id);
 
-    #endregion
+#endregion
 
-    #region GetAll
+#region GetAll
 
     Task<IEnumerable<T>> GetAll();
 
-    #endregion
+#endregion
 
-    #region Create
+#region Create
 
     void Create(T entity);
 
-    #endregion
+#endregion
 
-    #region Edit
+#region Edit
 
     void Edit(T entity);
 
-    #endregion
+#endregion
 
-    #region Delete
+#region Delete
 
     void Delete(T entity);
     Task Delete(int id);
 
-    #endregion
+#endregion
+
+#endregion
 }

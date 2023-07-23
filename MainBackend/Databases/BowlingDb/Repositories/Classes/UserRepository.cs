@@ -7,8 +7,11 @@ namespace MainBackend.Databases.BowlingDb.Repositories.Classes;
 
 public class UserRepository : GenericRepository<User>,IUserRepository
 {
-    
+#region Constructors
+
     public UserRepository(Context.BowlingDb dbContext) : base(dbContext)
     {
     }
+
+#endregion
 }

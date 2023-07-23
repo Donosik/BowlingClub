@@ -5,18 +5,17 @@ namespace MainBackend.Databases.BowlingDb.Context;
 
 public class BowlingDb : DbContext
 {
-    #region Entities
+#region Variables
 
     public DbSet<User> Users { get; set; }
 
-    #endregion
+#endregion
 
-    #region Constructors
+#region Constructors
 
     public BowlingDb(DbContextOptions<BowlingDb> options) : base(options)
     {
-        
     }
 
-    #endregion
+#endregion
 }
