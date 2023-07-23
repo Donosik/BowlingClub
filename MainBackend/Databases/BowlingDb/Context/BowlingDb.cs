@@ -5,7 +5,7 @@ namespace MainBackend.Databases.BowlingDb.Context;
 
 public class BowlingDb : DbContext
 {
-    public DbSet<User> Users { get; set; }
+    public DbSet<User> users { get; set; }
 
 #region Constructors
 

@@ -25,7 +25,12 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public async Task<bool> Login(LoginForm loginForm)
+    public async Task<User> Login(LoginForm loginForm)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<string> GenerateToken(User user)
     {
         throw new NotImplementedException();
     }

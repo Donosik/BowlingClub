@@ -1,4 +1,5 @@
-﻿using MainBackend.DTO;
+﻿using MainBackend.Databases.BowlingDb.Entities;
+using MainBackend.DTO;
 using MainBackend.Services.Wrapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,6 @@ public class UserController : ControllerBase
 {
     private readonly IServiceWrapper serviceWrapper;
 
-
 #region Constructors
 
     public UserController(IServiceWrapper serviceWrapper)
@@ -22,8 +22,6 @@ public class UserController : ControllerBase
 
 #endregion
 
-#region Methods
-
 #region Post
 
     [AllowAnonymous]
@@ -32,22 +30,21 @@ public class UserController : ControllerBase
     {
         if (await serviceWrapper.userService.Register(registerForm))
             return Ok();
-        return BadRequest("Not implemented");
+        return NotFound("User with that login already exists");
     }
 
     [AllowAnonymous]
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginForm loginForm)
     {
-        if (await serviceWrapper.userService.Login(loginForm))
+        User user = await serviceWrapper.userService.Login(loginForm);
+        if (user != null)
         {
-            //TODO: Generate Token
-            return Ok();
+            return Ok(await serviceWrapper.userService.GenerateToken(user));
         }
-        return BadRequest("Not implemented");
-    }
 
-#endregion
+        return NotFound("User with that login and password doesn't exist");
+    }
 
 #endregion
 }
