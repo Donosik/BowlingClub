@@ -5,8 +5,6 @@ namespace MainBackend.Databases.Generic.Repositories;
 public interface IGenericRepository<T> where T : class, IEntity
 {
 
-    IQueryable<T> GetQuery();
-
 #region Get
 
     Task<T> Get(int id);

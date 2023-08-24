@@ -16,7 +16,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 
 #endregion
 
-    public IQueryable<T> GetQuery()
+    protected IQueryable<T> GetQuery()
     {
         return dbContext.Set<T>();
     }
@@ -25,7 +25,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 
     public async Task<T> Get(int id)
     {
-        return await GetQuery().FirstOrDefaultAsync(t => t.Id == id);
+        return await GetQuery().FirstOrDefaultAsync(t => t.id == id);
     }
 
 #endregion
