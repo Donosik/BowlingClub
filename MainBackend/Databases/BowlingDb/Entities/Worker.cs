@@ -2,10 +2,9 @@
 
 public class Worker  : IEntity
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public virtual int personId { get; set; }
-    public virtual Person person { get; set; }
-    public virtual ICollection<WorkSchedule> workSchedules { get; set; }
-    //public virtual ICollection<Invoice> invoices { get; set; }
+    public virtual int PersonId { get; set; }
+    public virtual Person Person { get; set; }
+    public virtual ICollection<WorkSchedule> WorkSchedules { get; set; }
 }

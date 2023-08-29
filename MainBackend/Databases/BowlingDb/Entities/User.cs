@@ -4,11 +4,11 @@ namespace MainBackend.Databases.BowlingDb.Entities;
 
 public class User : IEntity
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public string login { get; set; }
-    public string password { get; set; }
-    public bool isClient { get; set; }
+    public string Login { get; set; }
+    public string Password { get; set; }
+    public bool IsClient { get; set; }
     
-    public virtual Person person { get; set; }
+    public virtual Person Person { get; set; }
 }

@@ -4,11 +4,11 @@ namespace MainBackend.Databases.BowlingDb.Entities;
 
 public class Reservation : IEntity
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public DateTime startTime { get; set; }
-    public DateTime endTime { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
     
-    public virtual Lane lane { get; set; }
-    public virtual Client client { get; set; }
+    public virtual Lane Lane { get; set; }
+    public virtual Client Client { get; set; }
 }

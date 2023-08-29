@@ -2,9 +2,9 @@
 
 public class Lane : IEntity
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public int laneNumber { get; set; }
+    public int LaneNumber { get; set; }
     
-    public virtual ICollection<Reservation> reservations { get; set; }
+    public virtual ICollection<Reservation> Reservations { get; set; }
 }

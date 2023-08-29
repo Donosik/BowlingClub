@@ -4,11 +4,11 @@ namespace MainBackend.Databases.BowlingDb.Entities;
 
 public class WorkSchedule : IEntity
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public DateTime workStart { get; set; }
-    public DateTime workEnd { get; set; }
+    public DateTime WorkStart { get; set; }
+    public DateTime WorkEnd { get; set; }
     
-    public virtual Worker worker { get; set; }
+    public virtual ICollection<Worker> Worker { get; set; }
     
 }
