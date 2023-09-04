@@ -57,7 +57,6 @@ public class UserService : IUserService
         {
             if (person.Client != null)
                 return false;
-            //TODO: Create Client and user
             User newUser = new User(registerForm);
             newUser.Person = person;
             Client client = new Client();
