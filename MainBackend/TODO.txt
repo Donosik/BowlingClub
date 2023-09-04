@@ -1,0 +1,7 @@
+﻿Jakie trzeba funkcje do enpointów do rejestrowania i logowania:
+-Rejestrowanie całkiem nowej osoby jako klient
+-Rejestrowanie całkiem nowej osoby jako pracownik
+-Dodawanie konta pracowniczego klientowi
+-Dodawanie konta klienckiego pracownikowi 
+-Usuwanie tylko konta klienckiego
+-Usuwanie tylko konta pracowniczego

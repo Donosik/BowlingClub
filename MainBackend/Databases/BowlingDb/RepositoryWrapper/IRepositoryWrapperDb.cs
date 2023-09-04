@@ -5,6 +5,9 @@ namespace MainBackend.Databases.BowlingDb.RepositoryWrapper;
 public interface IRepositoryWrapperDb : IDisposable
 {
     IUserRepository user { get; }
+    IPersonRepository person { get; }
+    
+    IClientRepository client { get; }
 
 #region Methods
 

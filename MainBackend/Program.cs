@@ -29,11 +29,14 @@ builder.Services.AddDbContext<BowlingDb>(options =>
 void ConfigureRepositories(IServiceCollection services)
 {
     services.AddScoped<IUserRepository, UserRepository>();
+    services.AddScoped<IPersonRepository, PersonRepository>();
+    services.AddScoped<IClientRepository, ClientRepository>();
 }
 
 void ConfigureServices(IServiceCollection services)
 {
     services.AddScoped<IUserService, UserService>();
+    services.AddScoped<IPersonService, PersonService>();
 }
 
 void ConfigureWrappers(IServiceCollection services)

@@ -25,12 +25,12 @@ public class UserController : ControllerBase
 #region Post
 
     [AllowAnonymous]
-    [HttpPost("Register")]
+    [HttpPost("RegisterClient")]
     public async Task<IActionResult> Register(RegisterForm registerForm)
     {
-        if (await serviceWrapper.userService.Register(registerForm))
+        if (await serviceWrapper.userService.RegisterClient(registerForm))
             return Ok();
-        return NotFound("User with that login already exists");
+        return NotFound("User with that login already exists or client account for that email already exists");
     }
 
     [AllowAnonymous]

@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MainBackend.Databases.BowlingDb.Repositories.Classes;
 
-public class UserRepository : GenericRepository<User>, IUserRepository
+public class PersonRepository : GenericRepository<Person>, IPersonRepository
 {
-    public UserRepository(Context.BowlingDb dbContext) : base(dbContext)
+    public PersonRepository(Context.BowlingDb dbContext) : base(dbContext)
     {
     }
 
-    public async Task<User> GetUser(string login)
+    public async Task<Person> GetPerson(string email)
     {
-        return await dbContext.Set<User>().FirstOrDefaultAsync(u => u.Login == login);
+        return await dbContext.Set<Person>().FirstOrDefaultAsync(p => p.Email == email);
     }
 }

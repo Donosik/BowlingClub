@@ -24,11 +24,55 @@ public class UserService : IUserService
 
 #endregion
 
-#region Create
+#region Get
 
-    public async Task<bool> Register(RegisterForm registerForm)
+    public Task<ICollection<User>> GetUsers()
     {
         throw new NotImplementedException();
+    }
+
+#endregion
+
+#region Create
+
+    public async Task<bool> RegisterClient(RegisterForm registerForm)
+    {
+        User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Login);
+        if (user != null)
+            return false;
+        Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
+        if (person == null)
+        {
+            Person newPerson = new Person(registerForm);
+            User newUser = new User(registerForm);
+            newUser.Person = newPerson;
+            Client client = new Client();
+            client.Person = newPerson;
+            repositoryWrapper.normalDbWrapper.person.Create(newPerson);
+            repositoryWrapper.normalDbWrapper.user.Create(newUser);
+            repositoryWrapper.normalDbWrapper.client.Create(client);
+            return await repositoryWrapper.normalDbWrapper.Save();
+        }
+        else
+        {
+            if (person.Client != null)
+                return false;
+            //TODO: Create Client and user
+            User newUser = new User(registerForm);
+            newUser.Person = person;
+            Client client = new Client();
+            client.Person = person;
+            repositoryWrapper.normalDbWrapper.user.Create(newUser);
+            repositoryWrapper.normalDbWrapper.client.Create(client);
+            return await repositoryWrapper.normalDbWrapper.Save();
+        }
+
+        return true;
+    }
+
+    public async Task<bool> RegisterWorker(RegisterForm registerForm)
+    {
+        return true;
     }
 
     public async Task<User> Login(LoginForm loginForm)
@@ -61,6 +105,21 @@ public class UserService : IUserService
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+#endregion
+
+#region Delete
+
+    public async Task<bool> DeleteUser(int id)
+    {
+        if (id <= 0)
+            return false;
+        User user = await repositoryWrapper.normalDbWrapper.user.Get(id);
+        if (user == null)
+            return false;
+        await repositoryWrapper.normalDbWrapper.user.Delete(id);
+        return await repositoryWrapper.normalDbWrapper.Save();
     }
 
 #endregion

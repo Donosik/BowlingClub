@@ -3,7 +3,7 @@ using MainBackend.Databases.Generic.Repositories;
 
 namespace MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 
-public interface IUserRepository : IGenericRepository<User>
+public interface IPersonRepository : IGenericRepository<Person>
 {
-    Task<User> GetUser(string login);
+    Task<Person> GetPerson(string email);
 }
