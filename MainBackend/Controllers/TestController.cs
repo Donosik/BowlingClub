@@ -21,10 +21,10 @@ public class TestController : ControllerBase
     [HttpGet("Delete")]
     public async Task<IActionResult> DeleteDb()
     {
-        var persons = await serviceWrapper.personService.GetPersons();
+        var persons = await serviceWrapper.person.GetPersons();
         foreach (var person in persons)
         {
-            bool result=await serviceWrapper.personService.DeletePerson(person.Id);
+            bool result=await serviceWrapper.person.DeletePerson(person.Id);
             if (result == false)
             {
                 return BadRequest("Something went wrong");

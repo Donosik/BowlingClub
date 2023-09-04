@@ -7,25 +7,27 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
     public IUserRepository user { get; }
     public IPersonRepository person { get; }
     public IClientRepository client { get; }
+    public IWorkerRepository worker { get; }
     private readonly Context.BowlingDb dbContext;
 
 #region Constructors
 
     public RepositoryWrapperDb(Context.BowlingDb dbContext, IUserRepository user, IPersonRepository person,
-        IClientRepository client)
+        IClientRepository client, IWorkerRepository worker)
     {
         this.dbContext = dbContext;
         this.user = user;
         this.person = person;
         this.client = client;
+        this.worker = worker;
     }
 
 #endregion
 
-    public async Task<bool> Save()
+    public async Task<bool> Save(int entities = 1)
     {
         int result = await dbContext.SaveChangesAsync();
-        if (result > 0)
+        if (result >= entities)
             return true;
         return false;
     }

@@ -4,6 +4,6 @@ namespace MainBackend.Services.Wrapper;
 
 public interface IServiceWrapper
 {
-    IUserService userService { get; }
-    IPersonService personService { get; }
+    IUserService user { get; }
+    IPersonService person { get; }
 }

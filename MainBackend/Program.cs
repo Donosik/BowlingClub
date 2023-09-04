@@ -31,6 +31,7 @@ void ConfigureRepositories(IServiceCollection services)
     services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IPersonRepository, PersonRepository>();
     services.AddScoped<IClientRepository, ClientRepository>();
+    services.AddScoped<IWorkerRepository, WorkerRepository>();
 }
 
 void ConfigureServices(IServiceCollection services)

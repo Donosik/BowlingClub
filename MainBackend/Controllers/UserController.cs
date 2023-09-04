@@ -26,21 +26,31 @@ public class UserController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("RegisterClient")]
-    public async Task<IActionResult> Register(RegisterForm registerForm)
+    public async Task<IActionResult> RegisterClient(RegisterForm registerForm)
     {
-        if (await serviceWrapper.userService.RegisterClient(registerForm))
+        if (await serviceWrapper.user.RegisterClient(registerForm))
             return Ok();
         return NotFound("User with that login already exists or client account for that email already exists");
+    }
+
+    //TODO: Tymczasowo jest anonymous
+    [AllowAnonymous]
+    [HttpPost("RegisterWorker")]
+    public async Task<IActionResult> RegisterWorker(RegisterForm registerForm)
+    {
+        if (await serviceWrapper.user.RegisterWorker(registerForm))
+            return Ok();
+        return NotFound("User with that login already exists or worker account for that email already exists");
     }
 
     [AllowAnonymous]
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginForm loginForm)
     {
-        User user = await serviceWrapper.userService.Login(loginForm);
+        User user = await serviceWrapper.user.Login(loginForm);
         if (user != null)
         {
-            return Ok(await serviceWrapper.userService.GenerateToken(user));
+            return Ok(await serviceWrapper.user.GenerateToken(user));
         }
 
         return NotFound("User with that login and password doesn't exist");

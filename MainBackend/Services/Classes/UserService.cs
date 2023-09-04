@@ -51,7 +51,7 @@ public class UserService : IUserService
             repositoryWrapper.normalDbWrapper.person.Create(newPerson);
             repositoryWrapper.normalDbWrapper.user.Create(newUser);
             repositoryWrapper.normalDbWrapper.client.Create(client);
-            return await repositoryWrapper.normalDbWrapper.Save();
+            return await repositoryWrapper.normalDbWrapper.Save(3);
         }
         else
         {
@@ -63,7 +63,7 @@ public class UserService : IUserService
             client.Person = person;
             repositoryWrapper.normalDbWrapper.user.Create(newUser);
             repositoryWrapper.normalDbWrapper.client.Create(client);
-            return await repositoryWrapper.normalDbWrapper.Save();
+            return await repositoryWrapper.normalDbWrapper.Save(2);
         }
 
         return true;
@@ -71,6 +71,36 @@ public class UserService : IUserService
 
     public async Task<bool> RegisterWorker(RegisterForm registerForm)
     {
+        User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Login);
+        if (user != null)
+            return false;
+        Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
+        if (person == null)
+        {
+            Person newPerson = new Person(registerForm);
+            User newUser = new User(registerForm);
+            newUser.Person = newPerson;
+            Worker worker = new Worker();
+            worker.Person = newPerson;
+            repositoryWrapper.normalDbWrapper.person.Create(newPerson);
+            repositoryWrapper.normalDbWrapper.user.Create(newUser);
+            repositoryWrapper.normalDbWrapper.worker.Create(worker);
+            return await repositoryWrapper.normalDbWrapper.Save(3);
+        }
+        else
+        {
+            if (person.Client != null)
+                return false;
+            User newUser = new User(registerForm);
+            newUser.Person = person;
+            newUser.IsClient = false;
+            Worker worker = new Worker();
+            worker.Person = person;
+            repositoryWrapper.normalDbWrapper.user.Create(newUser);
+            repositoryWrapper.normalDbWrapper.worker.Create(worker);
+            return await repositoryWrapper.normalDbWrapper.Save(2);
+        }
+
         return true;
     }
 

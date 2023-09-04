@@ -4,15 +4,15 @@ namespace MainBackend.Services.Wrapper;
 
 public class ServiceWrapper : IServiceWrapper
 {
-    public IUserService userService { get; }
-    public IPersonService personService { get; }
+    public IUserService user { get; }
+    public IPersonService person { get; }
 
 #region Constructors
 
-    public ServiceWrapper(IUserService userService, IPersonService personService)
+    public ServiceWrapper(IUserService user, IPersonService person)
     {
-        this.userService = userService;
-        this.personService = personService;
+        this.user = user;
+        this.person = person;
     }
 
 #endregion
