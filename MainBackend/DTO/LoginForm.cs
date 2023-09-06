@@ -2,6 +2,6 @@
 
 public class LoginForm
 { 
-    public required string Login;
-    public required string Password;
+    public string Login { get; set; }
+    public string Password { get; set; }
 }

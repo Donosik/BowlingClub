@@ -8,7 +8,8 @@ public interface IRepositoryWrapperDb : IDisposable
     IPersonRepository person { get; }
     IClientRepository client { get; }
     IWorkerRepository worker { get; }
-
+    IWorkScheduleRepository workSchedule { get; }
+    
 #region Methods
 
     Task<bool> Save(int entities = 1);

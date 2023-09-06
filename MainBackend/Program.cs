@@ -4,6 +4,7 @@ using MainBackend.Databases.BowlingDb.Context;
 using MainBackend.Databases.BowlingDb.Repositories.Classes;
 using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 using MainBackend.Databases.BowlingDb.RepositoryWrapper;
+using MainBackend.Databases.BowlingDw.Context;
 using MainBackend.Databases.Generic.Repositories;
 using MainBackend.Services.Classes;
 using MainBackend.Services.Interfaces;
@@ -23,7 +24,9 @@ builder.Services.AddSwaggerGen();
 
 // Injecting string connections to database contexts from appsettings.json
 builder.Services.AddDbContext<BowlingDb>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BowlingDb")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BowlingDatabase")));
+builder.Services.AddDbContext<BowlingDw>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BowlingDatawarehouse")));
 
 // Dependency Injection
 void ConfigureRepositories(IServiceCollection services)
@@ -32,12 +35,16 @@ void ConfigureRepositories(IServiceCollection services)
     services.AddScoped<IPersonRepository, PersonRepository>();
     services.AddScoped<IClientRepository, ClientRepository>();
     services.AddScoped<IWorkerRepository, WorkerRepository>();
+    services.AddScoped<IWorkScheduleRepository, WorkScheduleRepository>();
 }
 
 void ConfigureServices(IServiceCollection services)
 {
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IPersonService, PersonService>();
+    services.AddScoped<IGeneratorService, GeneratorService>();
+    services.AddScoped<IWorkScheduleService, WorkScheduleService>();
+    services.AddScoped<IWorkerService, WorkerService>();
 }
 
 void ConfigureWrappers(IServiceCollection services)
@@ -63,7 +70,6 @@ builder.Services.AddAuthentication(x =>
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-
 }).AddJwtBearer(x =>
 {
     x.TokenValidationParameters = new TokenValidationParameters
@@ -75,7 +81,6 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true
-
     };
 });
 

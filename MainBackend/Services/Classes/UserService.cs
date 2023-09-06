@@ -26,9 +26,10 @@ public class UserService : IUserService
 
 #region Get
 
-    public Task<ICollection<User>> GetUsers()
+    public async Task<ICollection<User>> GetUsers()
     {
-        throw new NotImplementedException();
+        IEnumerable<User> users = await repositoryWrapper.normalDbWrapper.user.GetAll();
+        return (ICollection<User>)users;
     }
 
 #endregion
@@ -80,6 +81,7 @@ public class UserService : IUserService
             Person newPerson = new Person(registerForm);
             User newUser = new User(registerForm);
             newUser.Person = newPerson;
+            newUser.IsClient = false;
             Worker worker = new Worker();
             worker.Person = newPerson;
             repositoryWrapper.normalDbWrapper.person.Create(newPerson);
@@ -89,7 +91,7 @@ public class UserService : IUserService
         }
         else
         {
-            if (person.Client != null)
+            if (person.Worker != null)
                 return false;
             User newUser = new User(registerForm);
             newUser.Person = person;
@@ -106,7 +108,15 @@ public class UserService : IUserService
 
     public async Task<User> Login(LoginForm loginForm)
     {
-        throw new NotImplementedException();
+        foreach (var user in await GetUsers())
+        {
+            if ((user.Login == loginForm.Login) && (user.Password == loginForm.Password))
+            {
+                return user;
+            }
+        }
+
+        return null;
     }
 
     public async Task<string> GenerateToken(User user)

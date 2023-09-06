@@ -32,4 +32,13 @@ public class TestController : ControllerBase
         }
         return Ok();
     }
+
+    [HttpGet("Generate")]
+    public async Task<IActionResult> GenerateDb()
+    {
+        //10k rekordów wykonywalo sie 6,5 minuty
+        await serviceWrapper.generator.GenerateUsers(10000);
+        await serviceWrapper.generator.GenerateShifts(5,10);
+        return Ok();
+    }
 }

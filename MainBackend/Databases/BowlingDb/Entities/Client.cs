@@ -8,4 +8,10 @@ public class Client : IEntity
     public virtual Person Person { get; set; }
     public virtual ICollection<Reservation> Reservations { get; set; }
     public virtual ICollection<Invoice> Invoices { get; set; }
+
+    public Client()
+    {
+        Reservations = new List<Reservation>();
+        Invoices=new List<Invoice>();
+    }
 }

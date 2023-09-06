@@ -8,18 +8,20 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
     public IPersonRepository person { get; }
     public IClientRepository client { get; }
     public IWorkerRepository worker { get; }
+    public IWorkScheduleRepository workSchedule { get; }
     private readonly Context.BowlingDb dbContext;
 
 #region Constructors
 
     public RepositoryWrapperDb(Context.BowlingDb dbContext, IUserRepository user, IPersonRepository person,
-        IClientRepository client, IWorkerRepository worker)
+        IClientRepository client, IWorkerRepository worker, IWorkScheduleRepository workSchedule)
     {
         this.dbContext = dbContext;
         this.user = user;
         this.person = person;
         this.client = client;
         this.worker = worker;
+        this.workSchedule = workSchedule;
     }
 
 #endregion

@@ -7,4 +7,9 @@ public class Worker  : IEntity
     public virtual int PersonId { get; set; }
     public virtual Person Person { get; set; }
     public virtual ICollection<WorkSchedule> WorkSchedules { get; set; }
+
+    public Worker()
+    {
+        WorkSchedules = new List<WorkSchedule>();
+    }
 }

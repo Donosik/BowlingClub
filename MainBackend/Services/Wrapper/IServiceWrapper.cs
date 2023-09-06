@@ -6,4 +6,6 @@ public interface IServiceWrapper
 {
     IUserService user { get; }
     IPersonService person { get; }
+    IGeneratorService generator { get; }
+    IWorkScheduleService workSchedule { get; }
 }
