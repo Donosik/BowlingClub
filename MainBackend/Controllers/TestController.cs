@@ -47,6 +47,14 @@ public class TestController : ControllerBase
                 return BadRequest("Something went wrong");
         }
 
+        var reservations = await serviceWrapper.reservation.GetReservations();
+        foreach (var reservation in reservations)
+        {
+            bool result = await serviceWrapper.reservation.DeleteReservation(reservation.Id);
+            if (result == false)
+                return BadRequest("Something went wrong");
+        }
+
         return Ok();
     }
 
@@ -57,6 +65,7 @@ public class TestController : ControllerBase
         await serviceWrapper.generator.GenerateUsers(1000);
         await serviceWrapper.generator.GenerateShifts(5, 10);
         await serviceWrapper.generator.GenerateLanes(10);
+        await serviceWrapper.generator.GenerateReservations(500);
         return Ok();
     }
 }

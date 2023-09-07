@@ -47,6 +47,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddScoped<IGeneratorService, GeneratorService>();
     services.AddScoped<ILanesService, LaneService>();
     services.AddScoped<IPersonService, PersonService>();
+    services.AddScoped<IReservationService, ReservationService>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IWorkerService, WorkerService>();
     services.AddScoped<IWorkScheduleService, WorkScheduleService>();

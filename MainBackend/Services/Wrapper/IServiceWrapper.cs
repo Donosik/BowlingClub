@@ -4,9 +4,11 @@ namespace MainBackend.Services.Wrapper;
 
 public interface IServiceWrapper
 {
-    IUserService user { get; }
-    IPersonService person { get; }
     IGeneratorService generator { get; }
-    IWorkScheduleService workSchedule { get; }
     ILanesService lane { get; }
+    IPersonService person { get; }
+    IReservationService reservation { get; }
+    IUserService user { get; }
+    IWorkerService worker { get; }
+    IWorkScheduleService workSchedule { get; }
 }

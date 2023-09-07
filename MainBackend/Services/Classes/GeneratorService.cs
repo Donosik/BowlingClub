@@ -11,6 +11,7 @@ public class GeneratorService : IGeneratorService
     private IWorkScheduleService workSchedule { get; }
     private IWorkerService worker { get; }
     private ILanesService lane { get; }
+    private IReservationService reservation { get; }
 
     private readonly Random random = new Random();
 
@@ -29,12 +30,13 @@ public class GeneratorService : IGeneratorService
     };
 
     public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
-        ILanesService lane)
+        ILanesService lane,IReservationService reservation)
     {
         this.user = user;
         this.workSchedule = workSchedule;
         this.worker = worker;
         this.lane = lane;
+        this.reservation = reservation;
     }
 
     public async Task GenerateUsers(int howManyUsersToGenerate)
@@ -96,6 +98,11 @@ public class GeneratorService : IGeneratorService
         {
             await lane.AddLane(i);
         }
+    }
+
+    public async Task GenerateReservations(int howManyReservations)
+    {
+        throw new NotImplementedException();
     }
 
     private IEnumerable<DateTime> EachDay(DateTime from, DateTime to)
