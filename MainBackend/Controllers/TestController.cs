@@ -24,12 +24,29 @@ public class TestController : ControllerBase
         var persons = await serviceWrapper.person.GetPersons();
         foreach (var person in persons)
         {
-            bool result=await serviceWrapper.person.DeletePerson(person.Id);
+            bool result = await serviceWrapper.person.DeletePerson(person.Id);
             if (result == false)
             {
                 return BadRequest("Something went wrong");
             }
         }
+
+        var workSchedules = await serviceWrapper.workSchedule.GetWorkSchedules();
+        foreach (var shift in workSchedules)
+        {
+            bool result = await serviceWrapper.workSchedule.DeleteShift(shift.Id);
+            if (result == false)
+                return BadRequest("Something went wrong");
+        }
+
+        var lanes = await serviceWrapper.lane.GetLanes();
+        foreach (var lane in lanes)
+        {
+            bool result = await serviceWrapper.lane.DeleteLane(lane.Id);
+            if (result == false)
+                return BadRequest("Something went wrong");
+        }
+
         return Ok();
     }
 
@@ -37,8 +54,9 @@ public class TestController : ControllerBase
     public async Task<IActionResult> GenerateDb()
     {
         //10k rekordów wykonywalo sie 6,5 minuty
-        await serviceWrapper.generator.GenerateUsers(10000);
-        await serviceWrapper.generator.GenerateShifts(5,10);
+        await serviceWrapper.generator.GenerateUsers(1000);
+        await serviceWrapper.generator.GenerateShifts(5, 10);
+        await serviceWrapper.generator.GenerateLanes(10);
         return Ok();
     }
 }

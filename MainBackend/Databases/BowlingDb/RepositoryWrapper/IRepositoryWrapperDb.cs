@@ -4,9 +4,11 @@ namespace MainBackend.Databases.BowlingDb.RepositoryWrapper;
 
 public interface IRepositoryWrapperDb : IDisposable
 {
-    IUserRepository user { get; }
-    IPersonRepository person { get; }
     IClientRepository client { get; }
+    ILaneRepository lane { get; }
+    IPersonRepository person { get; }
+    IReservationRepository reservation { get; }
+    IUserRepository user { get; }
     IWorkerRepository worker { get; }
     IWorkScheduleRepository workSchedule { get; }
     

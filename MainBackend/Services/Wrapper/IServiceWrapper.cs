@@ -8,4 +8,5 @@ public interface IServiceWrapper
     IPersonService person { get; }
     IGeneratorService generator { get; }
     IWorkScheduleService workSchedule { get; }
+    ILanesService lane { get; }
 }

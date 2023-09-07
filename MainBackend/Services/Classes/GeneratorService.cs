@@ -9,8 +9,8 @@ public class GeneratorService : IGeneratorService
 {
     private IUserService user { get; }
     private IWorkScheduleService workSchedule { get; }
-
     private IWorkerService worker { get; }
+    private ILanesService lane { get; }
 
     private readonly Random random = new Random();
 
@@ -28,11 +28,13 @@ public class GeneratorService : IGeneratorService
         "Gajewski"
     };
 
-    public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker)
+    public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
+        ILanesService lane)
     {
         this.user = user;
         this.workSchedule = workSchedule;
         this.worker = worker;
+        this.lane = lane;
     }
 
     public async Task GenerateUsers(int howManyUsersToGenerate)
@@ -85,6 +87,14 @@ public class GeneratorService : IGeneratorService
                     await workSchedule.AddShift(worker, shiftStart, shiftEnd);
                 }
             }
+        }
+    }
+
+    public async Task GenerateLanes(int howManyLanes)
+    {
+        for (int i = 0; i < howManyLanes; i++)
+        {
+            await lane.AddLane(i);
         }
     }
 

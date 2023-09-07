@@ -29,24 +29,30 @@ builder.Services.AddDbContext<BowlingDw>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BowlingDatawarehouse")));
 
 // Dependency Injection
+// Repositories
 void ConfigureRepositories(IServiceCollection services)
 {
-    services.AddScoped<IUserRepository, UserRepository>();
-    services.AddScoped<IPersonRepository, PersonRepository>();
     services.AddScoped<IClientRepository, ClientRepository>();
+    services.AddScoped<ILaneRepository, LaneRepository>();
+    services.AddScoped<IPersonRepository, PersonRepository>();
+    services.AddScoped<IReservationRepository, ReservationRepository>();
+    services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IWorkerRepository, WorkerRepository>();
     services.AddScoped<IWorkScheduleRepository, WorkScheduleRepository>();
 }
 
+// Services
 void ConfigureServices(IServiceCollection services)
 {
-    services.AddScoped<IUserService, UserService>();
-    services.AddScoped<IPersonService, PersonService>();
     services.AddScoped<IGeneratorService, GeneratorService>();
-    services.AddScoped<IWorkScheduleService, WorkScheduleService>();
+    services.AddScoped<ILanesService, LaneService>();
+    services.AddScoped<IPersonService, PersonService>();
+    services.AddScoped<IUserService, UserService>();
     services.AddScoped<IWorkerService, WorkerService>();
+    services.AddScoped<IWorkScheduleService, WorkScheduleService>();
 }
 
+// Wrappers
 void ConfigureWrappers(IServiceCollection services)
 {
     services.AddScoped<IRepositoryWrapperDb, RepositoryWrapperDb>();
