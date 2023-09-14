@@ -12,7 +12,7 @@ public interface IReservationService
 
 #region Create
 
-    Task<bool> MakeReservation();
+    Task<bool> MakeReservation(DateTime start,DateTime end,Client client);
 
 #endregion
 

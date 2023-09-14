@@ -65,7 +65,7 @@ public class TestController : ControllerBase
         await serviceWrapper.generator.GenerateUsers(1000);
         await serviceWrapper.generator.GenerateShifts(5, 10);
         await serviceWrapper.generator.GenerateLanes(10);
-        await serviceWrapper.generator.GenerateReservations(500);
+        await serviceWrapper.generator.GenerateReservations(30,50);
         return Ok();
     }
 }

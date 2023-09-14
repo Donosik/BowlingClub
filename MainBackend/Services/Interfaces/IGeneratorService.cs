@@ -7,5 +7,5 @@ public interface IGeneratorService
     Task GenerateUsers(int howManyUsersToGenerate);
     Task GenerateShifts(int normalDayShifts, int weekendShifts);
     Task GenerateLanes(int howManyLanes);
-    Task GenerateReservations(int howManyReservations);
+    Task GenerateReservations(int normalDayReservations,int weekendReservations);
 }

@@ -12,4 +12,9 @@ public class Invoice : IEntity
     
     public virtual Client Client { get; set; }
     public virtual ICollection<BarInventory> BarInventories { get; set; }
+
+    public Invoice()
+    {
+        BarInventories = new List<BarInventory>();
+    }
 }

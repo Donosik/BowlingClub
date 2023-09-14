@@ -11,4 +11,9 @@ public class BarInventory : IEntity
     public float Price { get; set; }
     
     public virtual ICollection<Invoice> Invoices { get; set; }
+
+    public BarInventory()
+    {
+        Invoices = new List<Invoice>();
+    }
 }

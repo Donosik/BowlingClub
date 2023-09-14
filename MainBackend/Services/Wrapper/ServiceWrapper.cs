@@ -4,6 +4,7 @@ namespace MainBackend.Services.Wrapper;
 
 public class ServiceWrapper : IServiceWrapper
 {
+    public IClientService client { get; }
     public IGeneratorService generator { get; }
     public ILanesService lane { get; }
     public IPersonService person { get; }
@@ -15,7 +16,7 @@ public class ServiceWrapper : IServiceWrapper
 #region Constructors
 
     public ServiceWrapper(IUserService user, IPersonService person, IGeneratorService generator,
-        IWorkScheduleService workSchedule, ILanesService lane, IWorkerService worker, IReservationService reservation)
+        IWorkScheduleService workSchedule, ILanesService lane, IWorkerService worker, IReservationService reservation,IClientService client)
     {
         this.user = user;
         this.person = person;
@@ -24,6 +25,7 @@ public class ServiceWrapper : IServiceWrapper
         this.lane = lane;
         this.worker = worker;
         this.reservation = reservation;
+        this.client = client;
     }
 
 #endregion

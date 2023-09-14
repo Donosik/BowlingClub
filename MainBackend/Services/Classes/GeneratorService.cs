@@ -7,6 +7,7 @@ namespace MainBackend.Services.Classes;
 
 public class GeneratorService : IGeneratorService
 {
+    private IClientService client { get; }
     private IUserService user { get; }
     private IWorkScheduleService workSchedule { get; }
     private IWorkerService worker { get; }
@@ -30,13 +31,14 @@ public class GeneratorService : IGeneratorService
     };
 
     public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
-        ILanesService lane,IReservationService reservation)
+        ILanesService lane, IReservationService reservation, IClientService client)
     {
         this.user = user;
         this.workSchedule = workSchedule;
         this.worker = worker;
         this.lane = lane;
         this.reservation = reservation;
+        this.client = client;
     }
 
     public async Task GenerateUsers(int howManyUsersToGenerate)
@@ -76,14 +78,12 @@ public class GeneratorService : IGeneratorService
             {
                 if (currentDate.DayOfWeek >= DayOfWeek.Monday && currentDate.DayOfWeek <= DayOfWeek.Friday)
                 {
-                    // Dla dni roboczych - dodaj zmianę od 14:00 do 22:00
                     DateTime shiftStart = currentDate.Date.AddHours(14);
                     DateTime shiftEnd = currentDate.Date.AddHours(22);
                     await workSchedule.AddShift(worker, shiftStart, shiftEnd);
                 }
                 else
                 {
-                    // Dla weekendów - dodaj zmianę od 10:00 do 22:00
                     DateTime shiftStart = currentDate.Date.AddHours(10);
                     DateTime shiftEnd = currentDate.Date.AddHours(22);
                     await workSchedule.AddShift(worker, shiftStart, shiftEnd);
@@ -100,9 +100,37 @@ public class GeneratorService : IGeneratorService
         }
     }
 
-    public async Task GenerateReservations(int howManyReservations)
+    public async Task GenerateReservations(int normalDayReservations, int weekendReservations)
     {
-        throw new NotImplementedException();
+        DateTime startDate = DateTime.Today;
+        DateTime endDate = startDate.AddDays(30);
+        IEnumerable<Client> clients = await client.GetClients();
+        foreach (var currentDate in EachDay(startDate, endDate))
+        {
+            int reservationsToAdd =
+                currentDate.DayOfWeek >= DayOfWeek.Monday && currentDate.DayOfWeek <= DayOfWeek.Friday
+                    ? normalDayReservations
+                    : weekendReservations;
+            var selectedClients = clients.OrderBy(x => Guid.NewGuid()).Take(reservationsToAdd);
+
+            foreach (var client in selectedClients)
+            {
+                if (currentDate.DayOfWeek >= DayOfWeek.Monday && currentDate.DayOfWeek <= DayOfWeek.Friday)
+                {
+                    // Dla dni roboczych - dodaj zmianę od 14:00 do 22:00
+                    DateTime shiftStart = currentDate.Date.AddHours(14);
+                    DateTime shiftEnd = currentDate.Date.AddHours(22);
+                    await reservation.MakeReservation(shiftStart, shiftEnd, client);
+                }
+                else
+                {
+                    // Dla weekendów - dodaj zmianę od 10:00 do 22:00
+                    DateTime shiftStart = currentDate.Date.AddHours(10);
+                    DateTime shiftEnd = currentDate.Date.AddHours(22);
+                    await reservation.MakeReservation(shiftStart, shiftEnd, client);
+                }
+            }
+        }
     }
 
     private IEnumerable<DateTime> EachDay(DateTime from, DateTime to)

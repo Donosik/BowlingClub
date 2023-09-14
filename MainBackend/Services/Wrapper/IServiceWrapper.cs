@@ -4,6 +4,7 @@ namespace MainBackend.Services.Wrapper;
 
 public interface IServiceWrapper
 {
+    IClientService client { get; }
     IGeneratorService generator { get; }
     ILanesService lane { get; }
     IPersonService person { get; }

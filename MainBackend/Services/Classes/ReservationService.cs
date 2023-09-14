@@ -19,10 +19,25 @@ public class ReservationService : IReservationService
         return (ICollection<Reservation>)reservations;
     }
 
-    public async Task<bool> MakeReservation(DateTime start,DateTime end,Lane lane,Client client)
+    public async Task<bool> MakeReservation(DateTime start, DateTime end, Client client)
     {
-        //TODO: Sprawdzenie dorobic
-        
+        var lanes = await repositoryWrapper.normalDbWrapper.lane.GetAll();
+        Lane lane = null;
+        foreach (var l in lanes)
+        {
+            if (!await IsLaneOverlap(start, end, l))
+            {
+                lane = l;
+                break;
+            }
+        }
+
+        if (lane == null)
+            return false;
+
+        if (await IsClientOverlap(start, end, client))
+            return false;
+
         Reservation reservation = new Reservation();
         reservation.StartTime = start;
         reservation.EndTime = end;
@@ -43,5 +58,27 @@ public class ReservationService : IReservationService
             return false;
         await repositoryWrapper.normalDbWrapper.reservation.Delete(id);
         return await repositoryWrapper.normalDbWrapper.Save();
+    }
+
+    private async Task<bool> IsLaneOverlap(DateTime start, DateTime end, Lane lane)
+    {
+        foreach (var reservation in lane.Reservations)
+        {
+            if (start <= reservation.StartTime && end >= reservation.EndTime)
+                return true;
+        }
+
+        return false;
+    }
+
+    private async Task<bool> IsClientOverlap(DateTime start, DateTime end, Client client)
+    {
+        foreach (var reservation in client.Reservations)
+        {
+            if (start <= reservation.StartTime && end >= reservation.EndTime)
+                return true;
+        }
+
+        return false;
     }
 }

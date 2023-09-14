@@ -20,7 +20,7 @@
 
     <ItemGroup>
       <Folder Include="Databases\BowlingDw\Repositories\" />
-      <Folder Include="Databases\BowlingDw\RepositoryWrapper\" />
+      <Folder Include="Migrations\Dw\" />
     </ItemGroup>
 
 </Project>

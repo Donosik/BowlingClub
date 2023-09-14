@@ -5,6 +5,7 @@ using MainBackend.Databases.BowlingDb.Repositories.Classes;
 using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 using MainBackend.Databases.BowlingDb.RepositoryWrapper;
 using MainBackend.Databases.BowlingDw.Context;
+using MainBackend.Databases.BowlingDw.RepositoryWrapper;
 using MainBackend.Databases.Generic.Repositories;
 using MainBackend.Services.Classes;
 using MainBackend.Services.Interfaces;
@@ -44,6 +45,7 @@ void ConfigureRepositories(IServiceCollection services)
 // Services
 void ConfigureServices(IServiceCollection services)
 {
+    services.AddScoped<IClientService, ClientService>();
     services.AddScoped<IGeneratorService, GeneratorService>();
     services.AddScoped<ILanesService, LaneService>();
     services.AddScoped<IPersonService, PersonService>();
@@ -57,6 +59,7 @@ void ConfigureServices(IServiceCollection services)
 void ConfigureWrappers(IServiceCollection services)
 {
     services.AddScoped<IRepositoryWrapperDb, RepositoryWrapperDb>();
+    services.AddScoped<IRepositoryWrapperDw, RepositoryWrapperDw>();
     services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
     services.AddScoped<IServiceWrapper, ServiceWrapper>();
 }
