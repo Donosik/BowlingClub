@@ -33,7 +33,9 @@ builder.Services.AddDbContext<BowlingDw>(options =>
 // Repositories
 void ConfigureRepositories(IServiceCollection services)
 {
+    services.AddScoped<IBarInventoryRepository, BarInventoryRepository>();
     services.AddScoped<IClientRepository, ClientRepository>();
+    services.AddScoped<IInvoiceRepository, InvoiceRepository>();
     services.AddScoped<ILaneRepository, LaneRepository>();
     services.AddScoped<IPersonRepository, PersonRepository>();
     services.AddScoped<IReservationRepository, ReservationRepository>();
@@ -45,10 +47,13 @@ void ConfigureRepositories(IServiceCollection services)
 // Services
 void ConfigureServices(IServiceCollection services)
 {
+    services.AddScoped<IBarInventoryService, BarInventoryService>();
     services.AddScoped<IClientService, ClientService>();
     services.AddScoped<IGeneratorService, GeneratorService>();
+    services.AddScoped<IInvoiceService, InvoiceService>();
     services.AddScoped<ILanesService, LaneService>();
     services.AddScoped<IPersonService, PersonService>();
+    services.AddScoped<IRaportService, RaportService>();
     services.AddScoped<IReservationService, ReservationService>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IWorkerService, WorkerService>();

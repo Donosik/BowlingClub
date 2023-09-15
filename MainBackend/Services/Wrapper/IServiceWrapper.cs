@@ -1,13 +1,17 @@
-﻿using MainBackend.Services.Interfaces;
+﻿using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
+using MainBackend.Services.Interfaces;
 
 namespace MainBackend.Services.Wrapper;
 
 public interface IServiceWrapper
 {
+    IBarInventoryService barInventory { get; }
     IClientService client { get; }
     IGeneratorService generator { get; }
+    IInvoiceService invoice { get; }
     ILanesService lane { get; }
     IPersonService person { get; }
+    IRaportService raport { get; }
     IReservationService reservation { get; }
     IUserService user { get; }
     IWorkerService worker { get; }

@@ -61,11 +61,12 @@ public class TestController : ControllerBase
     [HttpGet("Generate")]
     public async Task<IActionResult> GenerateDb()
     {
-        //10k rekordów wykonywalo sie 6,5 minuty
         await serviceWrapper.generator.GenerateUsers(1000);
         await serviceWrapper.generator.GenerateShifts(5, 10);
         await serviceWrapper.generator.GenerateLanes(10);
         await serviceWrapper.generator.GenerateReservations(30,50);
+        await serviceWrapper.generator.GenerateBarInventories(1000);
+        await serviceWrapper.generator.GenerateInvoices(1000);
         return Ok();
     }
 }

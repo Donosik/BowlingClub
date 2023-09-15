@@ -1,4 +1,5 @@
-﻿using MainBackend.Databases.BowlingDb.Entities;
+﻿using System.Collections;
+using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.DTO;
 using MainBackend.Services.Interfaces;
 using MainBackend.Services.Wrapper;
@@ -13,6 +14,8 @@ public class GeneratorService : IGeneratorService
     private IWorkerService worker { get; }
     private ILanesService lane { get; }
     private IReservationService reservation { get; }
+    private IBarInventoryService barInventory { get; }
+    private IInvoiceService invoice { get; }
 
     private readonly Random random = new Random();
 
@@ -30,15 +33,25 @@ public class GeneratorService : IGeneratorService
         "Gajewski"
     };
 
-    public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
-        ILanesService lane, IReservationService reservation, IClientService client)
+    private readonly List<string> barItemsNames = new List<string>
     {
+        "Napoje alkoholowe", "Piwo", "Wódka", "Whisky", "Koktajle", "Soki", "Napoje bezalkoholowe", "Woda gazowana",
+        "Soki owocowe", "Limonada", "Przekąski", "Orzeszki", "Chipsy", "Nuggetsy", "Nachosy", "Owoce", "Cytryny",
+        "Pomarańcze", "Limonki", "Dekoracje i dodatki", "Lód", "Słomki", "Parasolki do drinków", "Owoce do dekoracji",
+        "Inne", "Kubki i szklanki", "Miksery", "Opakowania na napoje"
+    };
+
+    public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
+        ILanesService lane, IReservationService reservation, IClientService client,IBarInventoryService barInventory,IInvoiceService invoice)
+    {
+        this.barInventory = barInventory;
         this.user = user;
         this.workSchedule = workSchedule;
         this.worker = worker;
         this.lane = lane;
         this.reservation = reservation;
         this.client = client;
+        this.invoice = invoice;
     }
 
     public async Task GenerateUsers(int howManyUsersToGenerate)
@@ -130,6 +143,37 @@ public class GeneratorService : IGeneratorService
                     await reservation.MakeReservation(shiftStart, shiftEnd, client);
                 }
             }
+        }
+    }
+
+    public async Task GenerateBarInventories(int howManyItems)
+    {
+        for (int i = 0; i < howManyItems; i++)
+        {
+            String name = barItemsNames[random.Next(barItemsNames.Count)];
+            int quantity = random.Next(1, 101);
+            float price = (float)random.Next(100, 10000) / 100;
+            await barInventory.AddBarItem(name, quantity, price);
+        }
+    }
+
+    public async Task GenerateInvoices(int howManyInvoices)
+    {
+        ICollection<Client> clients = await client.GetClients();
+        ICollection<BarInventory> barInventories = await barInventory.GetBarItems();
+        for (int i = 0; i < howManyInvoices; i++)
+        {
+            Client client = clients.ElementAt(random.Next(clients.Count));
+            ICollection<BarInventory> barItems = new List<BarInventory>();
+            for (int j = 0; j < random.Next(5); i++)
+            {
+                barItems.Add(barInventories.ElementAt(random.Next(barInventories.Count)));
+            }
+
+            DateTime issueDate = DateTime.Today;
+            issueDate = issueDate.AddDays(random.Next(15));
+            DateTime dueDate = issueDate.AddDays(30);
+            invoice.AddInvoice(barItems, client, issueDate, dueDate);
         }
     }
 

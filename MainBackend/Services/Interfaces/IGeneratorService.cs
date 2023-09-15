@@ -8,4 +8,6 @@ public interface IGeneratorService
     Task GenerateShifts(int normalDayShifts, int weekendShifts);
     Task GenerateLanes(int howManyLanes);
     Task GenerateReservations(int normalDayReservations,int weekendReservations);
+    Task GenerateBarInventories(int howManyItems);
+    Task GenerateInvoices(int howManyInvoices);
 }

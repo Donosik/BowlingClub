@@ -4,7 +4,9 @@ namespace MainBackend.Databases.BowlingDb.RepositoryWrapper;
 
 public class RepositoryWrapperDb : IRepositoryWrapperDb
 {
+    public IBarInventoryRepository barInventory { get; }
     public IClientRepository client { get; }
+    public IInvoiceRepository invoice { get; }
     public ILaneRepository lane { get; }
     public IPersonRepository person { get; }
     public IReservationRepository reservation { get; }
@@ -16,16 +18,19 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
 #region Constructors
 
     public RepositoryWrapperDb(Context.BowlingDb dbContext, IUserRepository user, IPersonRepository person,
-        IClientRepository client, IWorkerRepository worker, IWorkScheduleRepository workSchedule, ILaneRepository lane,IReservationRepository reservation)
+        IClientRepository client, IWorkerRepository worker, IWorkScheduleRepository workSchedule, ILaneRepository lane,
+        IReservationRepository reservation, IInvoiceRepository invoice, IBarInventoryRepository barInventory)
     {
         this.dbContext = dbContext;
         this.user = user;
+        this.invoice = invoice;
         this.person = person;
         this.client = client;
         this.worker = worker;
         this.workSchedule = workSchedule;
         this.lane = lane;
         this.reservation = reservation;
+        this.barInventory = barInventory;
     }
 
 #endregion
