@@ -5,6 +5,8 @@ using MainBackend.Databases.BowlingDb.Repositories.Classes;
 using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 using MainBackend.Databases.BowlingDb.RepositoryWrapper;
 using MainBackend.Databases.BowlingDw.Context;
+using MainBackend.Databases.BowlingDw.Repositories.Classes;
+using MainBackend.Databases.BowlingDw.Repositories.Interfaces;
 using MainBackend.Databases.BowlingDw.RepositoryWrapper;
 using MainBackend.Databases.Generic.Repositories;
 using MainBackend.Services.Classes;
@@ -30,8 +32,8 @@ builder.Services.AddDbContext<BowlingDw>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BowlingDatawarehouse")));
 
 // Dependency Injection
-// Repositories
-void ConfigureRepositories(IServiceCollection services)
+// Repositories for BowlingDb
+void ConfigureRepositoriesDb(IServiceCollection services)
 {
     services.AddScoped<IBarInventoryRepository, BarInventoryRepository>();
     services.AddScoped<IClientRepository, ClientRepository>();
@@ -42,6 +44,14 @@ void ConfigureRepositories(IServiceCollection services)
     services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IWorkerRepository, WorkerRepository>();
     services.AddScoped<IWorkScheduleRepository, WorkScheduleRepository>();
+}
+
+// Repositories for BowlingDw
+void ConfigureRepositoriesDw(IServiceCollection services)
+{
+    services.AddScoped<IFactInvoiceRepository, FactInvoiceRepository>();
+    services.AddScoped<IFactReservationRepository, FactReservationRepository>();
+    services.AddScoped<IFactWorkScheduleRepository, FactWorkScheduleRepository>();
 }
 
 // Services
@@ -69,7 +79,8 @@ void ConfigureWrappers(IServiceCollection services)
     services.AddScoped<IServiceWrapper, ServiceWrapper>();
 }
 
-ConfigureRepositories(builder.Services);
+ConfigureRepositoriesDb(builder.Services);
+ConfigureRepositoriesDw(builder.Services);
 ConfigureServices(builder.Services);
 ConfigureWrappers(builder.Services);
 
