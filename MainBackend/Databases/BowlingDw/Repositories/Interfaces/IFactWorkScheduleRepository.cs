@@ -5,5 +5,5 @@ namespace MainBackend.Databases.BowlingDw.Repositories.Interfaces;
 
 public interface IFactWorkScheduleRepository : IGenericRepository<FactWorkSchedule>
 {
-    
+    Task<IEnumerable<FactWorkSchedule>> GetAllWithDims();
 }

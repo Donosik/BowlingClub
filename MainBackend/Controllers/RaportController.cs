@@ -13,4 +13,31 @@ public class RaportController : ControllerBase
     {
         this.serviceWrapper = serviceWrapper;
     }
+
+    [HttpGet("MostWorkerHours")]
+    public async Task<IActionResult> MostWorkedHours()
+    {
+        DateTime start = DateTime.Today;
+        DateTime end = start.AddDays(1);
+        var workerWithHours= await serviceWrapper.raport.MostWorkedHours(start,end );
+        return Ok(workerWithHours);
+    }
+
+    [HttpGet("BestBuyingClient")]
+    public async Task<IActionResult> BestBuyingClient()
+    {
+        DateTime start = DateTime.Today;
+        DateTime end = start.AddDays(30);
+        var clientWithInvoices = await serviceWrapper.raport.BestBuyingClient(start, end);
+        return Ok(clientWithInvoices);
+    }
+
+    [HttpGet("BestSellingProducts")]
+    public async Task<IActionResult> BestSellingProducts()
+    {
+        DateTime start = DateTime.Today;
+        DateTime end = start.AddDays(30);
+        var invoicesWithProducts = await serviceWrapper.raport.BestSellingProducts(start, end);
+        return Ok(invoicesWithProducts);
+    }
 }

@@ -10,4 +10,23 @@ public class FactInvoiceRepository : GenericRepository<FactInvoice>,IFactInvoice
     public FactInvoiceRepository(Context.BowlingDw dbContext) : base(dbContext)
     {
     }
+
+    public async Task<IEnumerable<FactInvoice>> GetAllWithDims()
+    {
+        return await dbContext.Set<FactInvoice>()
+            .Include(f => f.Client)
+            .Include(f => f.IssueDate)
+            .Include(f => f.DueDate)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<FactInvoice>> GetAllWithProducts()
+    {
+        return await dbContext.Set<FactInvoice>()
+            .Include(f => f.Client)
+            .Include(f => f.IssueDate)
+            .Include(f => f.DueDate)
+            .Include(f=>f.Products)
+            .ToListAsync();
+    }
 }

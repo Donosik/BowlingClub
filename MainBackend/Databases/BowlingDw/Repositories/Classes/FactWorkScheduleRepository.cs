@@ -10,4 +10,13 @@ public class FactWorkScheduleRepository : GenericRepository<FactWorkSchedule>,IF
     public FactWorkScheduleRepository(Context.BowlingDw dbContext) : base(dbContext)
     {
     }
+
+    public async Task<IEnumerable<FactWorkSchedule>> GetAllWithDims()
+    {
+        return await dbContext.Set<FactWorkSchedule>()
+            .Include(f => f.WorkEnd)
+            .Include(f => f.WorkStart)
+            .Include(f => f.Worker)
+            .ToListAsync();
+    }
 }
