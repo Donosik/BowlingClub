@@ -10,6 +10,7 @@ public class User : IEntity
     public string Login { get; set; }
     public string Password { get; set; }
     public bool IsClient { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual Person Person { get; set; }
 
@@ -22,5 +23,6 @@ public class User : IEntity
         Login = registerForm.Login;
         Password = registerForm.Password;
         IsClient = isClient;
+        IsActive = true;
     }
 }

@@ -36,12 +36,15 @@ public class UserService : IUserService
 
 #region Create
 
+    //TODO: Zrobienie lepszego zwracania kodów błędów
     public async Task<bool> RegisterClient(RegisterForm registerForm)
     {
         User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Login);
         if (user != null)
+            // Login exists in database
             return false;
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
+        // This person doesn't exist
         if (person == null)
         {
             Person newPerson = new Person(registerForm);
@@ -49,19 +52,24 @@ public class UserService : IUserService
             newUser.Person = newPerson;
             Client client = new Client();
             client.Person = newPerson;
+            client.User = newUser;
             repositoryWrapper.normalDbWrapper.person.Create(newPerson);
             repositoryWrapper.normalDbWrapper.user.Create(newUser);
             repositoryWrapper.normalDbWrapper.client.Create(client);
             return await repositoryWrapper.normalDbWrapper.Save(3);
+
         }
+        // Person exists in database
         else
         {
             if (person.Client != null)
+                // THis person has client account
                 return false;
             User newUser = new User(registerForm);
             newUser.Person = person;
             Client client = new Client();
             client.Person = person;
+            client.User = newUser;
             repositoryWrapper.normalDbWrapper.user.Create(newUser);
             repositoryWrapper.normalDbWrapper.client.Create(client);
             return await repositoryWrapper.normalDbWrapper.Save(2);
@@ -79,11 +87,11 @@ public class UserService : IUserService
         if (person == null)
         {
             Person newPerson = new Person(registerForm);
-            User newUser = new User(registerForm);
+            User newUser = new User(registerForm,false);
             newUser.Person = newPerson;
-            newUser.IsClient = false;
             Worker worker = new Worker();
             worker.Person = newPerson;
+            worker.User = newUser;
             repositoryWrapper.normalDbWrapper.person.Create(newPerson);
             repositoryWrapper.normalDbWrapper.user.Create(newUser);
             repositoryWrapper.normalDbWrapper.worker.Create(worker);
@@ -93,11 +101,11 @@ public class UserService : IUserService
         {
             if (person.Worker != null)
                 return false;
-            User newUser = new User(registerForm);
+            User newUser = new User(registerForm,false);
             newUser.Person = person;
-            newUser.IsClient = false;
             Worker worker = new Worker();
             worker.Person = person;
+            worker.User = newUser;
             repositoryWrapper.normalDbWrapper.user.Create(newUser);
             repositoryWrapper.normalDbWrapper.worker.Create(worker);
             return await repositoryWrapper.normalDbWrapper.Save(2);

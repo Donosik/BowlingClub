@@ -24,4 +24,23 @@ public class BowlingDb : DbContext
     }
 
 #endregion
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Client and User relation 1:1
+        modelBuilder.Entity<Client>()
+            .HasOne<User>(c => c.User)
+            .WithOne()
+            .HasForeignKey<Client>(c => c.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        // Worker and User relation 1:1
+        modelBuilder.Entity<Worker>()
+            .HasOne<User>(w => w.User)
+            .WithOne()
+            .HasForeignKey<Worker>(w => w.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        base.OnModelCreating(modelBuilder);
+    }
 }
