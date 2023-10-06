@@ -33,8 +33,6 @@ public class UserController : ControllerBase
         return NotFound("User with that login already exists or client account for that email already exists");
     }
 
-    //TODO: Tymczasowo jest anonymous
-    [AllowAnonymous]
     [HttpPost("RegisterWorker")]
     public async Task<IActionResult> RegisterWorker(RegisterForm registerForm)
     {

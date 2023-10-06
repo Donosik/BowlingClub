@@ -133,19 +133,18 @@ public class UserService : IUserService
         var audience = configuration["JwtSettings:Audience"];
         var key = configuration["JwtSettings:Key"];
         var expiration = DateTime.UtcNow.AddHours(8);
-
-        //TODO: Claims to add
+        
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, "Test")
+            new Claim(ClaimTypes.Name, user.Id.ToString())
         };
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: issuer,
-            audience: audience,
+            //issuer: issuer,
+            //audience: audience,
             claims: claims,
             expires: expiration,
             signingCredentials: credentials

@@ -1,8 +1,10 @@
 ﻿using MainBackend.Services.Wrapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class RaportController : ControllerBase
@@ -13,8 +15,8 @@ public class RaportController : ControllerBase
     {
         this.serviceWrapper = serviceWrapper;
     }
-
-    [HttpGet("MostWorkerHours")]
+    
+    [HttpGet("MostWorkedHours")]
     public async Task<IActionResult> MostWorkedHours()
     {
         DateTime start = DateTime.Today;
