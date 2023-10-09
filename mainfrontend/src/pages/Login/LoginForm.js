@@ -3,7 +3,7 @@ import axios from "axios";
 import {fetchAdress} from "../../util/Requests";
 import {setJWT} from "../../util/Requests";
 
-export default function Login()
+export default function LoginForm()
 {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
