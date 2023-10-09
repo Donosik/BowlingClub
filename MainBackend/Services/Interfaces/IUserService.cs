@@ -9,6 +9,7 @@ public interface IUserService
 #region Get
 
     Task<ICollection<User>> GetUsers();
+    Task<ICollection<Worker>> GetWorkers();
 
 #endregion
 
@@ -18,6 +19,12 @@ public interface IUserService
     Task<bool> RegisterWorker(RegisterForm registerForm);
     Task<User> Login(LoginForm loginForm);
     Task<string> GenerateToken(User user);
+
+#endregion
+
+#region Put
+
+    Task<bool> ChangeToAdmin(int workerId, bool isAdmin);
 
 #endregion
 

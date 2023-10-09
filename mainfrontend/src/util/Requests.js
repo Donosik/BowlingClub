@@ -5,5 +5,5 @@ export function fetchAdress()
 
 export function setJWT(token)
 {
-    //console.log(token)
+    console.log(token)
 }

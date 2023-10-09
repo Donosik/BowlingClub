@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
 
-[Authorize]
+[Authorize(Policy = "Admin")]
 [ApiController]
 [Route("[controller]")]
 public class RaportController : ControllerBase

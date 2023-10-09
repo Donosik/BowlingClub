@@ -4,6 +4,8 @@ public class Worker  : IEntity
 {
     public int Id { get; set; }
     
+    public bool IsAdmin { get; set; }
+    
     public virtual int PersonId { get; set; }
     public virtual Person Person { get; set; }
     public virtual int UserId { get; set; }
@@ -13,5 +15,6 @@ public class Worker  : IEntity
     public Worker()
     {
         WorkSchedules = new List<WorkSchedule>();
+        IsAdmin = false;
     }
 }

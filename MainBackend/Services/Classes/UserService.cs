@@ -32,6 +32,12 @@ public class UserService : IUserService
         return (ICollection<User>)users;
     }
 
+    public async Task<ICollection<Worker>> GetWorkers()
+    {
+        IEnumerable<Worker> workers = await repositoryWrapper.normalDbWrapper.worker.GetAll();
+        return (ICollection<Worker>)workers;
+    }
+
 #endregion
 
 #region Create
@@ -57,7 +63,6 @@ public class UserService : IUserService
             repositoryWrapper.normalDbWrapper.user.Create(newUser);
             repositoryWrapper.normalDbWrapper.client.Create(client);
             return await repositoryWrapper.normalDbWrapper.Save(3);
-
         }
         // Person exists in database
         else
@@ -87,7 +92,7 @@ public class UserService : IUserService
         if (person == null)
         {
             Person newPerson = new Person(registerForm);
-            User newUser = new User(registerForm,false);
+            User newUser = new User(registerForm, false);
             newUser.Person = newPerson;
             Worker worker = new Worker();
             worker.Person = newPerson;
@@ -101,7 +106,7 @@ public class UserService : IUserService
         {
             if (person.Worker != null)
                 return false;
-            User newUser = new User(registerForm,false);
+            User newUser = new User(registerForm, false);
             newUser.Person = person;
             Worker worker = new Worker();
             worker.Person = person;
@@ -133,11 +138,22 @@ public class UserService : IUserService
         var audience = configuration["JwtSettings:Audience"];
         var key = configuration["JwtSettings:Key"];
         var expiration = DateTime.UtcNow.AddHours(8);
-        
+
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.Id.ToString())
+            new Claim(ClaimTypes.Name, user.Id.ToString()),
+            new Claim(ClaimTypes.Role, "User")
         };
+
+        if (!user.IsClient)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "Worker"));
+            User workerUser = await repositoryWrapper.normalDbWrapper.user.GetWorker(user.Id);
+            if (workerUser.Person.Worker.IsAdmin)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            }
+        }
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -151,6 +167,20 @@ public class UserService : IUserService
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+#endregion
+
+#region Put
+
+    public async Task<bool> ChangeToAdmin(int workerId, bool isAdmin)
+    {
+        Worker worker = await repositoryWrapper.normalDbWrapper.worker.Get(workerId);
+        if (worker == null)
+            return false;
+        worker.IsAdmin = isAdmin;
+        repositoryWrapper.normalDbWrapper.worker.Edit(worker);
+        return await repositoryWrapper.normalDbWrapper.Save();
     }
 
 #endregion

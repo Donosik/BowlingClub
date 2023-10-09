@@ -22,6 +22,16 @@ public class UserController : ControllerBase
 
 #endregion
 
+#region Get
+
+    [HttpGet("AllWorkers")]
+    public async Task<IActionResult> AllWorkers()
+    {
+        return Ok(await serviceWrapper.user.GetWorkers());
+    }
+
+#endregion
+
 #region Post
 
     [AllowAnonymous]
@@ -33,6 +43,7 @@ public class UserController : ControllerBase
         return NotFound("User with that login already exists or client account for that email already exists");
     }
 
+    [AllowAnonymous]
     [HttpPost("RegisterWorker")]
     public async Task<IActionResult> RegisterWorker(RegisterForm registerForm)
     {
@@ -52,6 +63,18 @@ public class UserController : ControllerBase
         }
 
         return NotFound("User with that login and password doesn't exist");
+    }
+
+#endregion
+
+#region Put
+
+    [HttpPut("ChangeToAdmin/{workerId}/{isAdmin}")]
+    public async Task<IActionResult> ChangeToAdmin(int workerId, bool isAdmin)
+    {
+        if (await serviceWrapper.user.ChangeToAdmin(workerId, isAdmin))
+            return Ok();
+        return NotFound();
     }
 
 #endregion

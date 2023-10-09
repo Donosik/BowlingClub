@@ -15,4 +15,10 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
         return await dbContext.Set<User>().FirstOrDefaultAsync(u => u.Login == login);
     }
+
+    public async Task<User> GetWorker(int id)
+    {
+        return await dbContext.Set<User>().Include(u => u.Person).ThenInclude(p => p.Worker)
+            .FirstOrDefaultAsync(u => u.Id == id);
+    }
 }
