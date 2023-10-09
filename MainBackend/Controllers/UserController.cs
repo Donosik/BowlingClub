@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
 
-[Authorize]
+[Authorize(Policy = "Client")]
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase
@@ -24,6 +24,7 @@ public class UserController : ControllerBase
 
 #region Get
 
+    [Authorize(Policy = "Worker")]
     [HttpGet("AllWorkers")]
     public async Task<IActionResult> AllWorkers()
     {
@@ -42,8 +43,8 @@ public class UserController : ControllerBase
             return Ok();
         return NotFound("User with that login already exists or client account for that email already exists");
     }
-
-    [AllowAnonymous]
+    
+    [Authorize(Policy = "Admin")]
     [HttpPost("RegisterWorker")]
     public async Task<IActionResult> RegisterWorker(RegisterForm registerForm)
     {
@@ -69,6 +70,7 @@ public class UserController : ControllerBase
 
 #region Put
 
+    [Authorize(Policy = "Admin")]
     [HttpPut("ChangeToAdmin/{workerId}/{isAdmin}")]
     public async Task<IActionResult> ChangeToAdmin(int workerId, bool isAdmin)
     {

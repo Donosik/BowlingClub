@@ -1,8 +1,10 @@
 ﻿using MainBackend.Services.Wrapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
 
+[Authorize(Policy = "Admin")]
 [ApiController]
 [Route("[controller]")]
 public class TestController : ControllerBase
