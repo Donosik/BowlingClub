@@ -8,9 +8,12 @@ public class Invoice : IEntity
 
     public DateTime IssueDate { get; set; }
     public DateTime DueDate { get; set; }
-    public float Amount { get; set; }
+    //public float Amount { get; set; }
     
+    public virtual int ClientId { get; set; }
     public virtual Client Client { get; set; }
+    public virtual int WorkerId { get; set; }
+    public virtual Worker Worker { get; set; }
     public virtual ICollection<BarInventory> BarInventories { get; set; }
 
     public Invoice()
