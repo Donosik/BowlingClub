@@ -1,5 +1,6 @@
 ﻿using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.DTO;
+using MainBackend.Exceptions;
 using MainBackend.Services.Wrapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,18 +40,44 @@ public class UserController : ControllerBase
     [HttpPost("RegisterClient")]
     public async Task<IActionResult> RegisterClient(RegisterForm registerForm)
     {
-        if (await serviceWrapper.user.RegisterClient(registerForm))
-            return Ok();
-        return NotFound("User with that login already exists or client account for that email already exists");
+        try
+        {
+            if (await serviceWrapper.user.RegisterClient(registerForm))
+                return Ok();
+        }
+        //TODO: catch do niepoprawnie sparsowanych danych, np. za krotkie hasło
+        catch (LoginAlreadyExistsException ex)
+        {
+            return Conflict(ex.Message);
+        }
+        catch (PersonAlreadyHasAccountException ex)
+        {
+            return Conflict(ex.Message);
+        }
+
+        return BadRequest("Something went wrong");
     }
-    
+
     [Authorize(Policy = "Admin")]
     [HttpPost("RegisterWorker")]
     public async Task<IActionResult> RegisterWorker(RegisterForm registerForm)
     {
-        if (await serviceWrapper.user.RegisterWorker(registerForm))
-            return Ok();
-        return NotFound("User with that login already exists or worker account for that email already exists");
+        try
+        {
+            if (await serviceWrapper.user.RegisterWorker(registerForm))
+                return Ok();
+        }
+        //TODO: catch do niepoprawnie sparsowanych danych, np. za krotkie hasło
+        catch (LoginAlreadyExistsException ex)
+        {
+            return Conflict(ex.Message);
+        }
+        catch (PersonAlreadyHasAccountException ex)
+        {
+            return Conflict(ex.Message);
+        }
+
+        return BadRequest("Something went wrong");
     }
 
     [AllowAnonymous]
@@ -59,10 +86,7 @@ public class UserController : ControllerBase
     {
         User user = await serviceWrapper.user.Login(loginForm);
         if (user != null)
-        {
             return Ok(await serviceWrapper.user.GenerateToken(user));
-        }
-
         return NotFound("User with that login and password doesn't exist");
     }
 
@@ -77,6 +101,12 @@ public class UserController : ControllerBase
         if (await serviceWrapper.user.ChangeToAdmin(workerId, isAdmin))
             return Ok();
         return NotFound();
+    }
+
+    [HttpPut("ChangePassword")]
+    public async Task<IActionResult> ChangePassword(string newPassword)
+    {
+        return Ok("Not implemented");
     }
 
 #endregion

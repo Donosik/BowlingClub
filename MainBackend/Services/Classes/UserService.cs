@@ -4,6 +4,7 @@ using System.Text;
 using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.Databases.Generic.Repositories;
 using MainBackend.DTO;
+using MainBackend.Exceptions;
 using MainBackend.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
@@ -41,15 +42,14 @@ public class UserService : IUserService
 #endregion
 
 #region Create
-
-    //TODO: Zrobienie lepszego zwracania kodów błędów
+    
     public async Task<bool> RegisterClient(RegisterForm registerForm)
     {
         User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Login);
         if (user != null)
-            // Login exists in database
-            return false;
+            throw new LoginAlreadyExistsException("User with that login already exists");
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
+        //TODO: Trzeba sprawdzic czy haslo spełnia wymagania
         // This person doesn't exist
         if (person == null)
         {
@@ -68,8 +68,7 @@ public class UserService : IUserService
         else
         {
             if (person.Client != null)
-                // THis person has client account
-                return false;
+                throw new PersonAlreadyHasAccountException("This person already has an client account");
             User newUser = new User(registerForm);
             newUser.Person = person;
             Client client = new Client();
@@ -79,7 +78,6 @@ public class UserService : IUserService
             repositoryWrapper.normalDbWrapper.client.Create(client);
             return await repositoryWrapper.normalDbWrapper.Save(2);
         }
-
         return true;
     }
 
