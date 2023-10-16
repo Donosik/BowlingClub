@@ -42,14 +42,22 @@ public class UserService : IUserService
 #endregion
 
 #region Create
-    
+
     public async Task<bool> RegisterClient(RegisterForm registerForm)
     {
         User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Login);
         if (user != null)
             throw new LoginAlreadyExistsException("User with that login already exists");
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
-        //TODO: Trzeba sprawdzic czy haslo spełnia wymagania
+        try
+        {
+            await CheckRegisterForm(registerForm);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+
         // This person doesn't exist
         if (person == null)
         {
@@ -78,6 +86,7 @@ public class UserService : IUserService
             repositoryWrapper.normalDbWrapper.client.Create(client);
             return await repositoryWrapper.normalDbWrapper.Save(2);
         }
+
         return true;
     }
 
@@ -114,6 +123,25 @@ public class UserService : IUserService
             return await repositoryWrapper.normalDbWrapper.Save(2);
         }
 
+        return true;
+    }
+
+    private async Task<bool> CheckRegisterForm(RegisterForm form)
+    {
+        if (form.Login.Length < 3)
+            throw new Exception("Login too short");
+
+        if (form.Password.Length < 8)
+            throw new Exception("Password too short");
+
+        if (form.FirstName.Length < 3)
+            throw new Exception("First name is too short");
+
+        if (form.LastName.Length < 3)
+            throw new Exception("Last name is too short");
+
+        if (!form.Email.Contains("@"))
+            throw new Exception("Email doesn't contain @");
         return true;
     }
 

@@ -54,6 +54,14 @@ public class UserController : ControllerBase
         {
             return Conflict(ex.Message);
         }
+        catch (RegisterFormException ex)
+        {
+            return 
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
 
         return BadRequest("Something went wrong");
     }
@@ -75,6 +83,10 @@ public class UserController : ControllerBase
         catch (PersonAlreadyHasAccountException ex)
         {
             return Conflict(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
 
         return BadRequest("Something went wrong");
