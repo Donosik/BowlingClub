@@ -6,15 +6,14 @@ export default function LoginPage()
 {
     const [isLogin, setIsLogin] = useState(true)
 
-    function signUpCallback()
+    function changeForm()
     {
         setIsLogin(!isLogin)
-        console.log(isLogin)
     }
 
     return (
         <>
-            {isLogin ? <LoginForm signUpCallback={signUpCallback}/> : <RegisterForm/>}
+            {isLogin ? <LoginForm signUpCallback={changeForm}/> : <RegisterForm loginCallback={changeForm}/>}
         </>
     )
 }

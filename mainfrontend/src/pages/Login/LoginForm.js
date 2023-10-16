@@ -30,6 +30,7 @@ export default function LoginForm(props)
         } catch (error)
         {
             setIsLoginFailed(true)
+            //Jeśli fetche idą na zły endpoint to to powoduje error
             setErrorMessage(error.response.data)
         }
     }
