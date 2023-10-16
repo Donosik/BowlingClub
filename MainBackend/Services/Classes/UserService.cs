@@ -49,14 +49,9 @@ public class UserService : IUserService
         if (user != null)
             throw new LoginAlreadyExistsException("User with that login already exists");
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
-        try
-        {
-            await CheckRegisterForm(registerForm);
-        }
-        catch (Exception ex)
-        {
-            throw;
-        }
+
+        await CheckRegisterForm(registerForm);
+
 
         // This person doesn't exist
         if (person == null)
@@ -96,6 +91,9 @@ public class UserService : IUserService
         if (user != null)
             return false;
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
+
+        await CheckRegisterForm(registerForm);
+        
         if (person == null)
         {
             Person newPerson = new Person(registerForm);
@@ -131,7 +129,7 @@ public class UserService : IUserService
         if (form.Login.Length < 3)
             throw new Exception("Login too short");
 
-        if (form.Password.Length < 8)
+        if (form.Password.Length < 4)
             throw new Exception("Password too short");
 
         if (form.FirstName.Length < 3)

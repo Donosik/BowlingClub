@@ -45,7 +45,6 @@ public class UserController : ControllerBase
             if (await serviceWrapper.user.RegisterClient(registerForm))
                 return Ok();
         }
-        //TODO: catch do niepoprawnie sparsowanych danych, np. za krotkie hasło
         catch (LoginAlreadyExistsException ex)
         {
             return Conflict(ex.Message);
@@ -56,7 +55,7 @@ public class UserController : ControllerBase
         }
         catch (RegisterFormException ex)
         {
-            return 
+            return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
@@ -75,7 +74,6 @@ public class UserController : ControllerBase
             if (await serviceWrapper.user.RegisterWorker(registerForm))
                 return Ok();
         }
-        //TODO: catch do niepoprawnie sparsowanych danych, np. za krotkie hasło
         catch (LoginAlreadyExistsException ex)
         {
             return Conflict(ex.Message);
@@ -83,6 +81,10 @@ public class UserController : ControllerBase
         catch (PersonAlreadyHasAccountException ex)
         {
             return Conflict(ex.Message);
+        }
+        catch (RegisterFormException ex)
+        {
+            return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
