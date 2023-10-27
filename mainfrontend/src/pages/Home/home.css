@@ -1,8 +1,9 @@
 
 body{
-    margin-top: 20px;
+    margin-top: auto;
     background-size: cover;
     background-image: url('tło-test.png');
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-/* Add CSS rules for other elements as needed */
+

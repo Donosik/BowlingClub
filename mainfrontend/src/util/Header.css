@@ -1,5 +1,8 @@
+
+
 .container-style {
     background-color: #E6D1C0;
+
 }
 
 .bowling-text{
@@ -12,4 +15,9 @@
 
 .menu-link-text{  left: 408px;
     color: rgba(153, 86, 62, 1);
-    text-decoration: none;}
+    text-decoration: none;
+font-size: 20px;}
+
+a{ color: #591914;
+    text-decoration: none;
+font-size: 40px;}
