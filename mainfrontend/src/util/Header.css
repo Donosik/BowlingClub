@@ -1,131 +1,15 @@
-.container {
-    width: 100%;
-    display: flex;
-    overflow: auto;
-    min-height: 10vh;
-    align-items: center;
-    flex-direction: column;
+.container-style {
     background-color: #E6D1C0;
 }
-.header {
-    width: 1440px;
-    height: 154px;
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    flex-shrink: 1;
-}
-.nagwek {
-    top: 0px;
-    left: 0px;
-    width: 1440px;
-    height: 154px;
-    display: flex;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 1;
-}
-.rectangle1 {
-    top: 0px;
-    left: 0px;
-    width: 1440px;
-    height: 154px;
-    position: absolute;
-}
-.text {
-    top: 24px;
-    left: 155px;
-    color: rgba(153, 86, 62, 1);
-    width: 349px;
-    height: auto;
-    position: absolute;
-    font-size: 32px;
-    font-style: Bold;
-    text-align: left;
-    font-family: Saira Condensed;
+
+.bowling-text{
+    color: #591914;
+    text-decoration: none;
+    font-family: 'Saira Condensed';
     font-weight: 700;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
+    word-wrap: break-word;
 }
-.text05 {
-    top: 38px;
-    left: 204px;
-    color: rgba(89, 25, 20, 1);
-    width: 245px;
-    height: auto;
-    position: absolute;
-    font-size: 64px;
-    font-style: Bold;
-    text-align: left;
-    font-family: Saira Condensed;
-    font-weight: 700;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
-}
-.menuugryzprzyciskami {
-    top: 59px;
-    right: 164px;
-    width: 510px;
-    height: 38px;
-    display: flex;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 1;
-}
-.text07 {
-    left: 408px;
+
+.menu-link-text{  left: 408px;
     color: rgba(153, 86, 62, 1);
-    height: auto;
-    position: absolute;
-    font-size: 24px;
-    font-style: Regular;
-    text-align: left;
-    font-family: Saira Condensed;
-    font-weight: 400;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
-}
-.text09 {
-    left: 272px;
-    color: rgba(153, 86, 62, 1);
-    height: auto;
-    position: absolute;
-    font-size: 24px;
-    font-style: Regular;
-    text-align: left;
-    font-family: Saira Condensed;
-    font-weight: 400;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
-}
-.text11 {
-    left: 136px;
-    color: rgba(153, 86, 62, 1);
-    height: auto;
-    position: absolute;
-    font-size: 24px;
-    font-style: Regular;
-    text-align: left;
-    font-family: Saira Condensed;
-    font-weight: 400;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
-}
-.text13 {
-    color: rgba(153, 86, 62, 1);
-    height: auto;
-    position: absolute;
-    font-size: 24px;
-    font-style: Regular;
-    text-align: left;
-    font-family: Saira Condensed;
-    font-weight: 400;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
-}
+    text-decoration: none;}

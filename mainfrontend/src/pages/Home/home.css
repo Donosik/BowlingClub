@@ -1,16 +1,8 @@
-.container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background: white;
-}
 
-.outer-box {
-    width: 3374px;
-    height: 3128px;
-    left: -952px;
-    top: -616px;
-    position: absolute;
+body{
+    margin-top: 20px;
+    background-size: cover;
+    background-image: url('tło-test.png');
+    background-repeat: no-repeat;
 }
-
 /* Add CSS rules for other elements as needed */
