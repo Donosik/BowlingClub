@@ -3,6 +3,7 @@ import axios from "axios";
 import './login.css';
 import {fetchAdress} from "../../util/Requests";
 import {setJWT} from "../../util/Requests";
+import google from './google_icon.png'
 
 export default function LoginForm(props) {
     const {signUpCallback} = props
@@ -44,16 +45,16 @@ export default function LoginForm(props) {
                 <div className="container page d-flex justify-content-center align-items-center min-vh-100">
                     <div className="row">
                         <div className="login-box">
-                            <h1 className="text-login">Logowanie</h1>
+                            <h1 className="text-login">LOGOWANIE</h1>
                             <form>
                                 <label>
                                     Login:
                                     <input type="text" name="login" onChange={e => setLogin(e.target.value)}/>
-                                </label>
+                                </label><br/>
                                 <label>
                                     Hasło:
                                     <input type="password" name="password" onChange={e => setPassword(e.target.value)}/>
-                                </label>
+                                </label><br/>
                                 <label>
                                     <input type="checkbox" name="rememberMe"/>
                                     Zapamiętaj mnie
@@ -73,7 +74,7 @@ export default function LoginForm(props) {
                                     <br/>
                                     {isLoginFailed ? <div className="error-message">{errorMessage}</div> : null}
 
-                                    <img src="google_icon.png" alt="Google"/>
+                                    <div className="logo-google"> <img src={google} alt="Google"/></div>
                                 </div>
                             </form>
                         </div>

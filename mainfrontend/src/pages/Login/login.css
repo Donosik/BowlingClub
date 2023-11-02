@@ -13,28 +13,30 @@ input[type="password"] {
     width: 100%;
 }
 
-button {
+div button {
     margin: 10px 0;
     padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #591914;
     color: #fff;
     cursor: pointer;
     text-align: center;
 }
-
+img{
+    height: 40px;
+    width: 40px;
+}
 .error-message {
     color: red;
     margin-top: 10px;
 }
-
 .login-box{
-    width: 350px;
-    height: 430px;
+    padding: 15px;
     background-color: #E6D1C0;
     border-radius:20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 150px;
 }
 
 
@@ -48,23 +50,22 @@ button {
     margin-bottom: 10px;
     text-align: center;
     font-size: 22px;
+    color: #591914;
 }
 
 .form-group{
     font-size: 15px;
+    margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 40px;
     margin-right: 40px;
 }
 
-.button-login{
-    background-color: #570CFA;
-    color: white;
-    text-align: center;
-    font-size: 15px;
-}
 
 .forgot-pass{
     text-align: center;
     margin-top:5px;
 }
+
+form{  margin-left: 8vh;
+    margin-right: 8vh;}
