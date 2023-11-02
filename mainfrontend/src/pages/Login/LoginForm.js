@@ -1,5 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
+import './login.css';
 import {fetchAdress} from "../../util/Requests";
 import {setJWT} from "../../util/Requests";
 
@@ -44,40 +45,29 @@ export default function LoginForm(props)
 
     return (
         <>
-            <form>
-                Login Page
+            <div>
+            <form className="form-container">
+                <div>Login Page</div>
                 <label>
                     Login:
-                    <input type={"text"}
-                           name={"login"}
-                           onChange={e => setLogin(e.target.value)}/>
+                    <input type="text" name="login" onChange={e => setLogin(e.target.value)} />
                 </label>
                 <label>
                     Hasło:
-                    <input type={"password"}
-                           name={"password"}
-                           onChange={e => setPassword(e.target.value)}/>
+                    <input type="password" name="password" onChange={e => setPassword(e.target.value)} />
                 </label>
+                <label>Zapomniałeś hasła?</label>
                 <label>
-                    Zapomniałeś hasła?
+                    <input type="checkbox" name="rememberMe" />
+                    Zapamiętaj mnie
                 </label>
-                <label>
-                    <input type={"checkbox"}
-                           name={"rememberMe"}/>
-                    Zapamietaj mnie
-                </label>
-                <input type={"button"}
-                       value={"Zaloguj się"}
-                       onClick={handleSubmit}/>
-                {isLoginFailed ? errorMessage : null}
-                <input type={"button"}
-                       value={"Zarejestruj się"}
-                       onClick={handleSignUp}/>
-                <input type={"button"}
-                       value={"Zaloguj się z Google"}/>
-                <input type={"button"}
-                       value={"Zaloguj się z Fb"}/>
-            </form>
+                <button type="button" onClick={handleSubmit}>Zaloguj się</button><br/>
+                {isLoginFailed ? <div className="error-message">{errorMessage}</div> : null}
+                <img src="google_icon.png" alt="Google" onClick={handleSignUp} />
+
+                <button type="button">Google</button>
+
+            </form></div>
         </>
     )
 }
