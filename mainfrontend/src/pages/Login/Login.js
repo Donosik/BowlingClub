@@ -2,7 +2,7 @@ import LoginForm from "./LoginForm";
 import {useState} from "react";
 import RegisterForm from "./RegisterForm";
 
-export default function LoginPage()
+export default function Login()
 {
     const [isLogin, setIsLogin] = useState(true)
 

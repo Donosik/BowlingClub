@@ -4,7 +4,9 @@ import Layout from "./Layout";
 import NoMatch from "../pages/NoMatch/NoMatch";
 import LoginForm from "../pages/Login/LoginForm";
 import RegisterForm from "../pages/Login/RegisterForm";
-import LoginPage from "../pages/Login/LoginPage";
+import Login from "../pages/Login/Login";
+import Contact from "../pages/Contact/Contact";
+import Offer from "../pages/Offer/Offer";
 
 export default function Router()
 {
@@ -17,8 +19,14 @@ export default function Router()
                        element={<Layout/>}>
                     <Route index
                            element={<Home/>}/>
+                    <Route path={"home"}
+                           element={<Home/>}/>
                     <Route path={"login"}
-                           element={<LoginPage/>}/>
+                           element={<Login/>}/>
+                    <Route path={"kontakt"}
+                           element={<Contact/>}/>
+                    <Route path={"oferta"}
+                           element={<Offer/>}/>
                     <Route path={"*"}
                            element={<NoMatch/>}/>
                 </Route>
