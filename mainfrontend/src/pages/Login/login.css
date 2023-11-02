@@ -1,15 +1,4 @@
-div .form-container {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    width: 70vh;
-    height: 60vh;
-    text-align: center;
-    background-color: #E6D1C0;
-    -webkit-box-shadow: 8px 9px 7px -7px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 8px 9px 7px -7px rgba(66, 68, 90, 1);
-    box-shadow: 8px 9px 7px -7px rgba(66, 68, 90, 1);
-}
+
 
 label {
     display: block;
@@ -24,18 +13,59 @@ input[type="password"] {
     width: 100%;
 }
 
-button {
+div button {
     margin: 10px 0;
     padding: 10px 15px;
     border: none;
-    border-radius: 5px;
-    background-color: #007bff;
+    border-radius: 10px;
+    background-color: #591914;
     color: #fff;
     cursor: pointer;
     text-align: center;
 }
-
+img{
+    height: 40px;
+    width: 40px;
+}
 .error-message {
     color: red;
     margin-top: 10px;
 }
+.login-box{
+    padding: 15px;
+    background-color: #E6D1C0;
+    border-radius:20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 150px;
+}
+
+
+.auth-page{
+
+    height: 100vh;
+}
+
+.text-login{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 22px;
+    color: #591914;
+}
+
+.form-group{
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+
+.forgot-pass{
+    text-align: center;
+    margin-top:5px;
+}
+
+form{  margin-left: 8vh;
+    margin-right: 8vh;}
