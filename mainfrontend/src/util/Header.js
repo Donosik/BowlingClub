@@ -7,7 +7,7 @@ import google from "../pages/Login/google_icon.png";
 export default function Header() {
     return (
 
-        <nav className="container-style sticky-top navbar navbar-expand-lg ">
+        <nav className="container-style sticky-top navbar navbar-expand-lg">
             <div className="menu-link-text container">
                 <Link className="bowling-text navbar-text" to="/">
                     <div className="logo">
