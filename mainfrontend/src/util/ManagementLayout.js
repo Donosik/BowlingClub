@@ -1,12 +1,12 @@
 import {Outlet} from "react-router-dom";
-import Header from "./Header";
 import Footer from "./Footer";
+import ManagementHeader from "./ManagementHeader";
 
-export default function Layout()
+export default function ManagementLayout()
 {
-    return (
+    return(
         <>
-            <Header/>
+            <ManagementHeader/>
             <Outlet/>
             <Footer/>
         </>
