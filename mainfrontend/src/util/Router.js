@@ -3,7 +3,6 @@ import Home from "../pages/Home/Home";
 import ClientLayout from "./ClientLayout";
 import NoMatch from "../pages/NoMatch/NoMatch";
 import LoginForm from "../pages/Login/LoginForm";
-import RegisterForm from "../pages/Login/RegisterForm";
 import Login from "../pages/Login/Login";
 import Contact from "../pages/Contact/Contact";
 import Offer from "../pages/Offer/Offer";
