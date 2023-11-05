@@ -3,6 +3,7 @@ using MainBackend.DTO;
 using MainBackend.Exceptions;
 using MainBackend.Services.Wrapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
@@ -64,6 +65,23 @@ public class UserController : ControllerBase
 
         return BadRequest("Something went wrong");
     }
+    
+    [AllowAnonymous]
+    [HttpPost("RegisterClientGoogle")]
+    public async Task<IActionResult> RegisterClientGoogle()
+    {
+        try
+        {
+            if (await serviceWrapper.user.RegisterClientGoogle())
+                return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+        return BadRequest("Something went wrong");
+    }
 
     [Authorize(Policy = "Admin")]
     [HttpPost("RegisterWorker")]
@@ -102,6 +120,16 @@ public class UserController : ControllerBase
         if (user != null)
             return Ok(await serviceWrapper.user.GenerateToken(user));
         return NotFound("User with that login and password doesn't exist");
+    }
+
+    [AllowAnonymous]
+    [HttpPost("LoginGoogle")]
+    public async Task<IActionResult> LoginGoogle()
+    {
+        User user = await serviceWrapper.user.LoginGoogle();
+        if (user != null)
+            return Ok(await serviceWrapper.user.GenerateToken(user));
+        return NotFound("User with that google account doesn't exist");
     }
 
 #endregion

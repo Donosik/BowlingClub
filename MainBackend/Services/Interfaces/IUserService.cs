@@ -16,8 +16,10 @@ public interface IUserService
 #region Create
 
     Task<bool> RegisterClient(RegisterForm registerForm);
+    Task<bool> RegisterClientGoogle();
     Task<bool> RegisterWorker(RegisterForm registerForm);
     Task<User> Login(LoginForm loginForm);
+    Task<User> LoginGoogle();
     Task<string> GenerateToken(User user);
 
 #endregion

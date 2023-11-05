@@ -85,6 +85,12 @@ public class UserService : IUserService
         return true;
     }
 
+    public async Task<bool> RegisterClientGoogle()
+    {
+        //TODO
+        return false;
+    }
+
     public async Task<bool> RegisterWorker(RegisterForm registerForm)
     {
         User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Login);
@@ -153,6 +159,11 @@ public class UserService : IUserService
             }
         }
 
+        return null;
+    }
+
+    public async Task<User> LoginGoogle()
+    {
         return null;
     }
 
