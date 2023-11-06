@@ -11,14 +11,12 @@ public class TestController : ControllerBase
 {
     private readonly IServiceWrapper serviceWrapper;
 
-#region Constructors
-
     public TestController(IServiceWrapper serviceWrapper)
     {
         this.serviceWrapper = serviceWrapper;
     }
 
-#endregion
+#region Get
 
     [HttpGet("Delete")]
     public async Task<IActionResult> DeleteDb()
@@ -66,9 +64,11 @@ public class TestController : ControllerBase
         await serviceWrapper.generator.GenerateUsers(1000);
         await serviceWrapper.generator.GenerateShifts(5, 10);
         await serviceWrapper.generator.GenerateLanes(10);
-        await serviceWrapper.generator.GenerateReservations(30,50);
+        await serviceWrapper.generator.GenerateReservations(30, 50);
         await serviceWrapper.generator.GenerateBarInventories(1000);
         await serviceWrapper.generator.GenerateInvoices(1000);
         return Ok();
     }
+
+#endregion
 }

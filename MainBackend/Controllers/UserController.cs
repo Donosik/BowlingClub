@@ -15,14 +15,10 @@ public class UserController : ControllerBase
 {
     private readonly IServiceWrapper serviceWrapper;
 
-#region Constructors
-
     public UserController(IServiceWrapper serviceWrapper)
     {
         this.serviceWrapper = serviceWrapper;
     }
-
-#endregion
 
 #region Get
 
@@ -65,7 +61,7 @@ public class UserController : ControllerBase
 
         return BadRequest("Something went wrong");
     }
-    
+
     [AllowAnonymous]
     [HttpPost("RegisterClientGoogle")]
     public async Task<IActionResult> RegisterClientGoogle()

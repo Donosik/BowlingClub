@@ -15,16 +15,20 @@ public class RaportController : ControllerBase
     {
         this.serviceWrapper = serviceWrapper;
     }
-    
+
+#region Get
+
+    [Authorize(Policy = "Worker")]
     [HttpGet("MostWorkedHours")]
     public async Task<IActionResult> MostWorkedHours()
     {
         DateTime start = DateTime.Today;
         DateTime end = start.AddDays(1);
-        var workerWithHours= await serviceWrapper.raport.MostWorkedHours(start,end );
+        var workerWithHours = await serviceWrapper.raport.MostWorkedHours(start, end);
         return Ok(workerWithHours);
     }
 
+    [Authorize(Policy = "Worker")]
     [HttpGet("BestBuyingClient")]
     public async Task<IActionResult> BestBuyingClient()
     {
@@ -34,6 +38,7 @@ public class RaportController : ControllerBase
         return Ok(clientWithInvoices);
     }
 
+    [Authorize(Policy = "Worker")]
     [HttpGet("BestSellingProducts")]
     public async Task<IActionResult> BestSellingProducts()
     {
@@ -42,4 +47,6 @@ public class RaportController : ControllerBase
         var invoicesWithProducts = await serviceWrapper.raport.BestSellingProducts(start, end);
         return Ok(invoicesWithProducts);
     }
+
+#endregion
 }
