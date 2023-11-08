@@ -26,7 +26,7 @@ export default function Router()
                 <Route path={"/management"}
                        element={<ManagementLayout/>}>
                     <Route index
-                           element={<LoginForm/>}/>
+                           element={<Home/>}/>
                     <Route path={"uzytkownicy"}
                         element={<Users/>}/>
                     <Route path={"magazyn"}
