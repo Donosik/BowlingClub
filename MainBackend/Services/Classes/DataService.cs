@@ -25,13 +25,14 @@ public class DataService : IDataService
 
     public async Task<bool> CreateDefaultOpenHours()
     {
+        await DeleteAllOpenHours();
         var defaultOpenHours = new List<OpenHour>();
 
-        foreach (DayOfWeek dayOfWeek in Enum.GetValues(typeof(DayOfWeek)))
+        for (int i = 1; i <= 7; i++)
         {
             var openHour = new OpenHour
             {
-                dayOfWeek = dayOfWeek,
+                dayOfWeek = (DayOfWeek)(i % 7) ,
                 startTime = new TimeSpan(10, 0, 0),
                 endTime = new TimeSpan(20, 0, 0)
             };
@@ -66,6 +67,17 @@ public class DataService : IDataService
         }
 
         return await repositoryWrapper.normalDbWrapper.Save(updatedEntities);
+    }
+
+    public async Task<bool> DeleteAllOpenHours()
+    {
+        var allOpenHours = await GetOpenHours();
+        foreach (var openHour in allOpenHours)
+        {
+            repositoryWrapper.normalDbWrapper.openHour.Delete(openHour);
+        }
+        
+        return await repositoryWrapper.normalDbWrapper.Save(allOpenHours.Count);
     }
 
     private async Task<ICollection<OpenHour>> CheckDuplicates(ICollection<OpenHour> openHours)
