@@ -81,7 +81,7 @@ export default function LoginForm(props)
                                     <br/>
                                     {isLoginFailed ? <div className="error-message">{errorMessage}</div> : null}
 
-                                    <div className="logo-google"> <img src={google} alt="Google"/></div>
+                                    <div className="logo-google"> <img className="google-img" src={google} alt="Google"/></div>
                                 </div>
                             </form>
                         </div>
