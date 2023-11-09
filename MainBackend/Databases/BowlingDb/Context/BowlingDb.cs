@@ -1,4 +1,5 @@
 ﻿using MainBackend.Databases.BowlingDb.Entities;
+using MainBackend.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace MainBackend.Databases.BowlingDb.Context;
@@ -14,6 +15,7 @@ public class BowlingDb : DbContext
 
     public DbSet<Lane> Lanes { get; set; }
 
+    public DbSet<OpenHour> OpenHours { get; set; }
     //public DbSet<NormalInventory> NormalInventories { get; set; }
     public DbSet<Person> Persons { get; set; }
     public DbSet<Reservation> Reservations { get; set; }

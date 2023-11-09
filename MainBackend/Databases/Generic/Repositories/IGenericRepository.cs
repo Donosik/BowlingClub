@@ -13,7 +13,7 @@ public interface IGenericRepository<T> where T : class, IEntity
 
 #region GetAll
 
-    Task<IEnumerable<T>> GetAll();
+    Task<ICollection<T>> GetAll();
 
 #endregion
 

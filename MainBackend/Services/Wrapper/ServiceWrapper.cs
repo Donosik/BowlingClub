@@ -7,6 +7,7 @@ public class ServiceWrapper : IServiceWrapper
 {
     public IBarInventoryService barInventory { get; }
     public IClientService client { get; }
+    public IDataService data { get; }
     public IGeneratorService generator { get; }
     public IInvoiceService invoice { get; }
     public ILanesService lane { get; }
@@ -21,7 +22,7 @@ public class ServiceWrapper : IServiceWrapper
 
     public ServiceWrapper(IUserService user, IPersonService person, IGeneratorService generator,
         IWorkScheduleService workSchedule, ILanesService lane, IWorkerService worker, IReservationService reservation,
-        IClientService client, IInvoiceService invoice, IBarInventoryService barInventory, IRaportService raport)
+        IClientService client, IInvoiceService invoice, IBarInventoryService barInventory, IRaportService raport,IDataService data)
     {
         this.user = user;
         this.person = person;
@@ -34,6 +35,7 @@ public class ServiceWrapper : IServiceWrapper
         this.invoice = invoice;
         this.barInventory = barInventory;
         this.raport = raport;
+        this.data = data;
     }
 
 #endregion

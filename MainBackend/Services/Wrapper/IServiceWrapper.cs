@@ -7,6 +7,7 @@ public interface IServiceWrapper
 {
     IBarInventoryService barInventory { get; }
     IClientService client { get; }
+    IDataService data { get; }
     IGeneratorService generator { get; }
     IInvoiceService invoice { get; }
     ILanesService lane { get; }

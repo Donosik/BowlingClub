@@ -32,7 +32,7 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 
 #region GetAll
 
-    public async Task<IEnumerable<T>> GetAll()
+    public async Task<ICollection<T>> GetAll()
     {
         return await GetQuery().ToListAsync();
     }

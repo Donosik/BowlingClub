@@ -8,6 +8,7 @@ public interface IRepositoryWrapperDb : IDisposable
     IClientRepository client { get; }
     IInvoiceRepository invoice { get; }
     ILaneRepository lane { get; }
+    IOpenHourRepository openHour { get; }
     IPersonRepository person { get; }
     IReservationRepository reservation { get; }
     IUserRepository user { get; }
