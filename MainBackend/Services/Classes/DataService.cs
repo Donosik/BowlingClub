@@ -32,7 +32,7 @@ public class DataService : IDataService
         {
             var openHour = new OpenHour
             {
-                dayOfWeek = (DayOfWeek)(i % 7) ,
+                dayOfWeek = (DayOfWeek)(i % 7),
                 startTime = new TimeSpan(10, 0, 0),
                 endTime = new TimeSpan(20, 0, 0)
             };
@@ -54,6 +54,12 @@ public class DataService : IDataService
         int updatedEntities = 0;
         foreach (var updatedOpenHour in updatedOpenHours)
         {
+            // Delete this if open hours can only end after open hours, not the other way
+            if (!ChechIfOpenHoursPossible(updatedOpenHour))
+            {
+                return false;
+            }
+
             var existingOpenHour = currentOpenHours.FirstOrDefault(o => o.dayOfWeek == updatedOpenHour.dayOfWeek);
 
             if (existingOpenHour != null)
@@ -76,8 +82,15 @@ public class DataService : IDataService
         {
             repositoryWrapper.normalDbWrapper.openHour.Delete(openHour);
         }
-        
+
         return await repositoryWrapper.normalDbWrapper.Save(allOpenHours.Count);
+    }
+
+    private bool ChechIfOpenHoursPossible(OpenHour openHour)
+    {
+        if (openHour.startTime >= openHour.endTime)
+            return false;
+        return true;
     }
 
     private async Task<ICollection<OpenHour>> CheckDuplicates(ICollection<OpenHour> openHours)
