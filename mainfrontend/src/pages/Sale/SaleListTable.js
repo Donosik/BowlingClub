@@ -1,3 +1,4 @@
+
 export default function SaleListTable({sales})
 {
     return(

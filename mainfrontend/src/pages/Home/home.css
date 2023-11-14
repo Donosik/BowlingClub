@@ -1,13 +1,16 @@
 
 body{
+    
     margin-top: auto;
     background-size: cover;
     background-image: url('tło-test.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
+
 }
 /* Dodaj białą ramkę */
 .box-1 {
+
     padding: 20px; /* Dla lepszego wyglądu */
     background-color: rgba(230, 209, 192, 0.3); /* Przejrzyste białe tło */
     text-align: left; /* Wyśrodkowanie tekstu */

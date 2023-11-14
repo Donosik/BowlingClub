@@ -1,6 +1,7 @@
-.table-container {
+div .table-container {
     border-radius: 10px;
     overflow: hidden;
+
 }
 
 table{
@@ -12,15 +13,30 @@ table{
 }
 
 tr{
+    color: #e4e4e4;
     text-align: center;
     text-transform: uppercase;
-    background-color: #e4e4e4;
+    background-color:#591914 ;
     border: 1px solid;
     border-color: #000000;
 }
 
 td{
-    background-color: #ffffff;
+    color: #591914;
+    background-color:  #E6D1C0;
     border: 1px solid;
     border-color: #818181;
+}
+
+.table-name{
+    font-weight: bold;
+    background-color: #E6D1C0;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    border-color: #591914;
+    border: 1px solid;
+    width: 40%;
+    text-align: center;
+
 }

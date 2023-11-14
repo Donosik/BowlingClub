@@ -1,5 +1,8 @@
 import MagazineTable from "./MagazineTable";
-import "./Magazine.css"
+import "./Magazine.css";
+import lupa from "./Vector.png"
+import logo from "../../util/Layout/logo-bowl.png";
+import React from "react";
 
 export default function Magazine()
 {
@@ -11,8 +14,13 @@ export default function Magazine()
     ]
     return(
         <>
-           
-            <MagazineTable products={products}/>
+            <div className="magazine-container">
+           <button>MAGAZYN SPRZĘTU</button>
+            <button>MAGAZYN BARU</button> <br/>
+
+            <input/><img src={lupa} alt="lupa"/><button>DODAJ NOWY ARTUKUŁ
+            </button><br/>
+            <MagazineTable products={products}/> </div>
         </>
     )
 }
