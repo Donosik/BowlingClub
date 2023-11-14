@@ -1,4 +1,5 @@
 import MagazineTable from "./MagazineTable";
+import "./Magazine.css"
 
 export default function Magazine()
 {
@@ -10,7 +11,7 @@ export default function Magazine()
     ]
     return(
         <>
-            Magazyn
+           
             <MagazineTable products={products}/>
         </>
     )

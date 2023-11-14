@@ -1,9 +1,11 @@
+import "./Magazine_table.css"
 export default function MagazineTable({products})
 {
     return(
         <>
             <h2>Bowling Alley Inventory</h2>
-            <table>
+            <div className="table-container">
+            <table className="table-bordered">
                 <thead>
                 <tr>
                     <th>Id Produktu</th>
@@ -19,6 +21,7 @@ export default function MagazineTable({products})
                 ))}
                 </tbody>
             </table>
+            </div>
         </>
     )
 }
