@@ -1,7 +1,9 @@
+import "./UserListTable.css"
 export default function UserListTable({users})
 {
     return(
-        <table>
+        <div className="table-container">
+        <table className="table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -12,6 +14,7 @@ export default function UserListTable({users})
                 <th>Aktywny</th>
                 <th>Email</th>
                 <th>Data urodzenia</th>
+                <th>Przyciski akcji</th>
             </tr>
             </thead>
             <tbody>
@@ -25,9 +28,10 @@ export default function UserListTable({users})
                     <td>{user.IsActive ? 'Yes' : 'No'}</td>
                     <td>{user.Person.Email}</td>
                     <td>{user.Person.DateOfBirth}</td>
+                    <td><button>EDYTUJ</button><button>USUŃ</button></td>
                 </tr>
             ))}
             </tbody>
-        </table>
+        </table></div>
     )
 }

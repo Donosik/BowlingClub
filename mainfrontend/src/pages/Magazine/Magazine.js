@@ -15,6 +15,7 @@ export default function Magazine()
     return(
         <>
             <div className="magazine-container">
+                <div className="table-name">MAGAZYN PRZEDMIOTÓW</div>
            <button>MAGAZYN SPRZĘTU</button>
             <button>MAGAZYN BARU</button> <br/>
 

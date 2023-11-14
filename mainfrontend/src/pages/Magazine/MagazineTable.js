@@ -3,7 +3,7 @@ export default function MagazineTable({products})
 {
     return(
         <>
-            <div className="table-name">MAGAZYN PRZEDMIOTÓW</div>
+
             <div className="table-container">
             <table className="table-bordered">
                 <thead>

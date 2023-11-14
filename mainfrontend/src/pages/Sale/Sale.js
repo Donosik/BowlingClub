@@ -1,5 +1,7 @@
 import SaleListTable from "./SaleListTable";
-
+import "./Sale.css"
+import lupa from "../Magazine/Vector.png";
+import React from "react";
 export default function Sale()
 {
     const sales = [
@@ -25,8 +27,10 @@ export default function Sale()
 
     return (
         <>
-            Sprzedaż - lista faktur
-            <SaleListTable sales={sales}/>
+            <div className="magazine-container">
+           <div className="table-name"> FAKTURY I SPRZEDAŻE</div>
+                <input/><img src={lupa} alt="lupa"/><button>ZAREJESTRUJ SPRZEDAŻ
+            </button><br/><SaleListTable sales={sales}/></div>
         </>
     )
 }

@@ -2,7 +2,8 @@
 export default function SaleListTable({sales})
 {
     return(
-        <table>
+        <div className="table-container">
+        <table className="table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -15,6 +16,8 @@ export default function SaleListTable({sales})
                     <th>Imię pracownika</th>
                     <th>Nazwisko pracownika</th>
                     <th>Zawartość</th>
+                    <th>Pobierz</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -30,9 +33,10 @@ export default function SaleListTable({sales})
                     <td>{sale.Worker.FirstName}</td>
                     <td>{sale.Worker.LastName}</td>
                     <td>{sale.content}</td>
+                    <td><button>Faktura</button></td>
                 </tr>
             ))}
             </tbody>
-        </table>
+        </table></div>
     )
 }

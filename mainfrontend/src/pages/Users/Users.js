@@ -1,5 +1,7 @@
 import UserListTable from "./UserListTable";
-
+import "./Users.css"
+import lupa from "../Magazine/Vector.png";
+import React from "react";
 export default function Users()
 {
     const users = [
@@ -19,8 +21,12 @@ export default function Users()
 
     return (
         <>
-            Uzytkownicy
-            <UserListTable users={users}/>
+            <div className="users-container">
+                <div className="table-name">UŻYTKOWNICY</div>
+                <input/><img src={lupa} alt="lupa"/><button>DODAJ UŻYTKOWNIKA
+            </button><br/>
+
+                <UserListTable users={users}/> </div>
         </>
     )
 }

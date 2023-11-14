@@ -1,0 +1,26 @@
+div .users-container{
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 50px;
+}
+
+div button{
+    margin: 5px;
+}
+
+div input{
+    width: 40%;
+    margin: 5px;
+}
+
+.table-name{
+    font-weight: bold;
+    background-color: #E6D1C0;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    border-color: #591914;
+    border: 1px solid;
+    width: 40%;
+    text-align: center;
+}
