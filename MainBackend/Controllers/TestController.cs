@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
 
-[Authorize(Policy = "Admin")]
+//[Authorize(Policy = "Admin")]
 [ApiController]
 [Route("[controller]")]
 public class TestController : ControllerBase
@@ -66,7 +66,7 @@ public class TestController : ControllerBase
         await serviceWrapper.generator.GenerateLanes(10);
         await serviceWrapper.generator.GenerateReservations(30, 50);
         await serviceWrapper.generator.GenerateBarInventories(1000);
-        await serviceWrapper.generator.GenerateInvoices(1000);
+        //await serviceWrapper.generator.GenerateInvoices(1000);
         return Ok();
     }
 

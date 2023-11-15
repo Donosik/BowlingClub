@@ -18,19 +18,7 @@ export default function UserListTable({users})
             </tr>
             </thead>
             <tbody>
-            {users.map((user) => (
-                <tr key={user.Id}>
-                    <td>{user.Id}</td>
-                    <td>{user.Person.FirstName}</td>
-                    <td>{user.Person.LastName}</td>
-                    <td>{user.Login}</td>
-                    <td>{user.IsClient ? 'Yes' : 'No'}</td>
-                    <td>{user.IsActive ? 'Yes' : 'No'}</td>
-                    <td>{user.Person.Email}</td>
-                    <td>{user.Person.DateOfBirth}</td>
-                    <td><button>EDYTUJ</button><button>USUŃ</button></td>
-                </tr>
-            ))}
+
             </tbody>
         </table></div>
     )

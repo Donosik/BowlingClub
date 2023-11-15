@@ -1,6 +1,5 @@
 import {useState} from "react";
-import {fetchAdress} from "../../util/Requests";
-import axios from "axios";
+import { mainBackendApi} from "../../util/Requests";
 
 export default function RegisterForm(props)
 {
@@ -30,7 +29,7 @@ export default function RegisterForm(props)
                 "email":email,
                 "dateOfBirth":dateOfBirth
             }
-            const response=await axios.post(fetchAdress()+'User/RegisterClient',reguestData)
+            const response=await mainBackendApi().post('User/RegisterClient',reguestData)
             console.log(response)
 
         }

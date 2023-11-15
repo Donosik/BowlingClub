@@ -1,10 +1,22 @@
-export function fetchAdress()
+import axios from "axios";
+
+export function mainBackendApi()
 {
-    return "https://localhost:44302/"
-    //return "http://localhost:5000/"
+    const api=axios.create({
+        baseURL:'https://localhost:44302/',
+        headers:
+            {
+                'Content-Type':'application/json'
+            }
+    })
+    return api
 }
 
-export function setJWT(token)
+export function setAuth(token)
 {
-    console.log(token)
+    if(token)
+    {
+        mainBackendApi().defaults.headers.common['Authorization'] = `Bearer ${token}`
+        console.log("token is set")
+    }
 }

@@ -29,6 +29,13 @@ public class UserController : ControllerBase
         return Ok(await serviceWrapper.user.GetWorkers());
     }
 
+    [AllowAnonymous]
+    [HttpGet("AllUsers")]
+    public async Task<IActionResult> AllUsers()
+    {
+        return Ok(await serviceWrapper.user.GetUsers());
+    }
+
 #endregion
 
 #region Post

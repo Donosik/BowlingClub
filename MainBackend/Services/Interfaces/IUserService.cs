@@ -7,7 +7,7 @@ namespace MainBackend.Services.Interfaces;
 public interface IUserService
 {
 #region Get
-
+    
     Task<ICollection<User>> GetUsers();
     Task<ICollection<Worker>> GetWorkers();
 

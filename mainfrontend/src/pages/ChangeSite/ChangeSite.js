@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import {fetchAdress} from '../../util/Requests'
+import { mainBackendApi} from '../../util/Requests'
 
 export default function ChangeSite()
 {
@@ -22,7 +22,7 @@ export default function ChangeSite()
     {
         try
         {
-            const response = await axios.get(`${fetchAdress()}Data`)
+            const response = await mainBackendApi().get('Data')
             const data = response.data
             setOpenHours(data)
             setEditedOpenHours(data)
@@ -61,11 +61,7 @@ export default function ChangeSite()
                 startTime: getBigHour(day.startTime),
                 endTime: getBigHour(day.endTime),
             }))
-
-            const response = await axios.put(
-                fetchAdress() + 'Data',
-                formattedOpenHours
-            )
+            const response = await mainBackendApi().put('Data',formattedOpenHours)
         } catch (error)
         {
             console.error('Error updating opening hours:', error)

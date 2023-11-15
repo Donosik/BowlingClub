@@ -1,8 +1,7 @@
 import './home.css'
 import bowling_photo from './pobrany plik.jpeg'
 import {useEffect, useState} from "react";
-import {fetchAdress} from "../../util/Requests";
-import axios from "axios";
+import { mainBackendApi} from "../../util/Requests";
 
 export default function Home()
 {
@@ -61,7 +60,7 @@ export default function Home()
     {
         try
         {
-            const response = await axios.get(fetchAdress() + 'Data')
+            const response = await mainBackendApi().get('Data')
             const data = response.data
             setOpeningHours(data)
         } catch (error)

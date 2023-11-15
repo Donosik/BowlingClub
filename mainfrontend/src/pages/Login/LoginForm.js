@@ -1,9 +1,8 @@
 import {useState} from "react";
 import axios from "axios";
 import './login.css';
-import {fetchAdress} from "../../util/Requests";
-import {setJWT} from "../../util/Requests";
 import google from './google_icon.png'
+import {mainBackendApi, setAuth} from "../../util/Requests";
 
 export default function LoginForm(props)
 {
@@ -27,8 +26,8 @@ export default function LoginForm(props)
                 "login": login,
                 "password": password
             }
-            const response = await axios.post(fetchAdress() + 'User/Login', requestData)
-            setJWT(response.data)
+            const response = await mainBackendApi().post('User/Login',requestData)
+            setAuth(response.data)
         } catch (error)
         {
             setIsLoginFailed(true)
