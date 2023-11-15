@@ -1,6 +1,11 @@
 import "./UserListTable.css"
 export default function UserListTable({users})
 {
+    function formatData(data)
+    {
+        const dateObject=new Date(data)
+        return dateObject.toLocaleDateString()
+    }
     return(
         <div className="table-container">
         <table className="table-bordered">
@@ -19,15 +24,15 @@ export default function UserListTable({users})
             </thead>
             <tbody>
             {users.map((user) => (
-                <tr key={user.Id}>
-                    <td>{user.Id}</td>
-                    <td>{user.Person.FirstName}</td>
-                    <td>{user.Person.LastName}</td>
-                    <td>{user.Login}</td>
-                    <td>{user.IsClient ? 'Yes' : 'No'}</td>
-                    <td>{user.IsActive ? 'Yes' : 'No'}</td>
-                    <td>{user.Person.Email}</td>
-                    <td>{user.Person.DateOfBirth}</td>
+                <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.person.firstName}</td>
+                    <td>{user.person.lastName}</td>
+                    <td>{user.login}</td>
+                    <td>{user.isClient ? 'Yes' : 'No'}</td>
+                    <td>{user.isActive ? 'Yes' : 'No'}</td>
+                    <td>{user.person.email}</td>
+                    <td>{formatData(user.person.dateOfBirth)}</td>
                     <td><button>EDYTUJ</button><button>USUŃ</button></td>
                 </tr>
             ))}

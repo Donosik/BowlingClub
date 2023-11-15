@@ -1,22 +1,32 @@
 import axios from "axios";
 
-export function mainBackendApi()
+
+export const mainBackendApi = axios.create({
+    baseURL: 'https://localhost:44302/',
+    headers:
+        {
+            'Content-Type': 'application/json'
+        }
+})
+
+
+mainBackendApi.interceptors.request.use(config =>
 {
-    const api=axios.create({
-        baseURL:'https://localhost:44302/',
-        headers:
-            {
-                'Content-Type':'application/json'
-            }
-    })
-    return api
-}
+    const token = localStorage.getItem('token');
+    //console.log(token)
+    if (token)
+    {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
 
 export function setAuth(token)
 {
-    if(token)
+    if (token)
     {
-        mainBackendApi().defaults.headers.common['Authorization'] = `Bearer ${token}`
+        localStorage.setItem('token', token)
         console.log("token is set")
+        console.log(token)
     }
 }

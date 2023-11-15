@@ -26,7 +26,7 @@ export default function LoginForm(props)
                 "login": login,
                 "password": password
             }
-            const response = await mainBackendApi().post('User/Login',requestData)
+            const response = await mainBackendApi.post('User/Login',requestData)
             setAuth(response.data)
         } catch (error)
         {

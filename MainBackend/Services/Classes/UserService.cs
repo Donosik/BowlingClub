@@ -184,7 +184,7 @@ public class UserService : IUserService
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, "User")
+            new Claim(ClaimTypes.Role, "Client")
         };
 
         if (!user.IsClient)

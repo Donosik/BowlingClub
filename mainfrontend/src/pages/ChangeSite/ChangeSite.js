@@ -22,7 +22,7 @@ export default function ChangeSite()
     {
         try
         {
-            const response = await mainBackendApi().get('Data')
+            const response = await mainBackendApi.get('Data')
             const data = response.data
             setOpenHours(data)
             setEditedOpenHours(data)
@@ -61,7 +61,7 @@ export default function ChangeSite()
                 startTime: getBigHour(day.startTime),
                 endTime: getBigHour(day.endTime),
             }))
-            const response = await mainBackendApi().put('Data',formattedOpenHours)
+            const response = await mainBackendApi.put('Data',formattedOpenHours)
         } catch (error)
         {
             console.error('Error updating opening hours:', error)

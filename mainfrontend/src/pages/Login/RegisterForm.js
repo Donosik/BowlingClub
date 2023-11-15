@@ -29,7 +29,7 @@ export default function RegisterForm(props)
                 "email":email,
                 "dateOfBirth":dateOfBirth
             }
-            const response=await mainBackendApi().post('User/RegisterClient',reguestData)
+            const response=await mainBackendApi.post('User/RegisterClient',reguestData)
             console.log(response)
 
         }

@@ -60,7 +60,7 @@ export default function Home()
     {
         try
         {
-            const response = await mainBackendApi().get('Data')
+            const response = await mainBackendApi.get('Data')
             const data = response.data
             setOpeningHours(data)
         } catch (error)

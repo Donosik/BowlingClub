@@ -29,7 +29,7 @@ public class UserController : ControllerBase
         return Ok(await serviceWrapper.user.GetWorkers());
     }
 
-    [AllowAnonymous]
+    [Authorize(Policy = "Worker")]
     [HttpGet("AllUsers")]
     public async Task<IActionResult> AllUsers()
     {

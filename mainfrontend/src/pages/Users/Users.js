@@ -2,37 +2,23 @@ import UserListTable from "./UserListTable";
 import "./Users.css"
 import lupa from "../Magazine/Vector.png";
 import React, {useEffect, useState} from "react";
-import { mainBackendApi} from "../../util/Requests";
+import {mainBackendApi} from "../../util/Requests";
 
 export default function Users()
 {
-    const [users, setUsers] = useState([
-        {
-            Id: 1,
-            Login: 'user1',
-            IsClient: true,
-            IsActive: true,
-            Person: {
-                FirstName: 'John',
-                LastName: 'Doe',
-                Email: 'john@example.com',
-                DateOfBirth: '1990-01-01',
-            },
-        },
-    ])
+    const [users, setUsers] = useState([])
 
     useEffect(() =>
     {
         fetchUsers()
-    },[])
+    }, [])
 
     async function fetchUsers()
     {
         try
         {
-            const response = await mainBackendApi().get('User/AllUsers')
-            const data=response.data
-            console.log(data)
+            const response = await mainBackendApi.get('User/AllUsers')
+            const data = response.data
             setUsers(data)
         } catch (error)
         {
