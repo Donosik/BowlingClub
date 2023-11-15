@@ -47,10 +47,17 @@ public class UserService : IUserService
     {
         User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Login);
         if (user != null)
-            throw new LoginAlreadyExistsException("User with that login already exists");
+            return false;
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
 
-        await CheckRegisterForm(registerForm);
+        try
+        {
+            await CheckRegisterForm(registerForm);
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
 
 
         // This person doesn't exist
@@ -71,7 +78,7 @@ public class UserService : IUserService
         else
         {
             if (person.Client != null)
-                throw new PersonAlreadyHasAccountException("This person already has an client account");
+                return false;
             User newUser = new User(registerForm);
             newUser.Person = person;
             Client client = new Client();

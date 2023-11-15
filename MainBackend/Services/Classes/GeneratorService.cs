@@ -42,7 +42,8 @@ public class GeneratorService : IGeneratorService
     };
 
     public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
-        ILanesService lane, IReservationService reservation, IClientService client,IBarInventoryService barInventory,IInvoiceService invoice)
+        ILanesService lane, IReservationService reservation, IClientService client, IBarInventoryService barInventory,
+        IInvoiceService invoice)
     {
         this.barInventory = barInventory;
         this.user = user;
@@ -65,7 +66,7 @@ public class GeneratorService : IGeneratorService
                 await user.RegisterClient(registerForm);
             }
 
-            int isWorker = random.Next(100);
+            int isWorker = random.Next(20);
             if (isWorker == 0)
             {
                 registerForm.Login = GenerateRandomLogin(registerForm.FirstName, registerForm.LastName);
