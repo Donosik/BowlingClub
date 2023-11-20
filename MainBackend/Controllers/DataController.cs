@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MainBackend.Controllers;
 
-//[Authorize(Policy = "Worker")]
+[Authorize(Policy = "Worker")]
 [ApiController]
 [Route("[controller]")]
 public class DataController : ControllerBase

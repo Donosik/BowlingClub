@@ -11,6 +11,11 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
     }
 
+    public async Task<ICollection<User>> GetAll()
+    {
+        return await dbContext.Set<User>().Include(u => u.Person).ThenInclude(p => p.Client).Include(u=>u.Person).ThenInclude(p=>p.Worker).ToListAsync();
+    }
+
     public async Task<User> GetUser(string login)
     {
         return await dbContext.Set<User>().FirstOrDefaultAsync(u => u.Login == login);

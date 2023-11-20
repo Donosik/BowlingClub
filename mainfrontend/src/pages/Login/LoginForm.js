@@ -1,8 +1,8 @@
-import {useState} from "react";
-import axios from "axios";
+import React, {useState} from "react";
 import './login.css';
 import google from './google_icon.png'
 import {mainBackendApi, setAuth} from "../../util/Requests";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function LoginForm(props)
 {
@@ -12,6 +12,8 @@ export default function LoginForm(props)
     const [password, setPassword] = useState('')
     const [isLoginFailed, setIsLoginFailed] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+
+    const navigate=useNavigate()
 
     async function handleSubmit(e)
     {
@@ -28,11 +30,10 @@ export default function LoginForm(props)
             }
             const response = await mainBackendApi.post('User/Login',requestData)
             setAuth(response.data)
+            navigate('/management')
         } catch (error)
         {
             setIsLoginFailed(true)
-            //Jeśli fetche idą na zły endpoint to to powoduje error
-            //setErrorMessage(error)
             setErrorMessage("Błąd")
             console.log(error)
         }
@@ -68,6 +69,7 @@ export default function LoginForm(props)
                                 <div className="forgot-pass d-flex justify-content-center align-items-center">
                                     <label>Zapomniałeś hasła?</label>
                                 </div>
+                                {isLoginFailed ? <div className="error-message">{errorMessage}</div> : null}
                                 <div className="d-flex justify-content-center align-items-center">
                                     <button type="button" onClick={handleSubmit}>ZALOGUJ SIĘ</button>
                                 </div>
@@ -78,7 +80,6 @@ export default function LoginForm(props)
                                     </div>
 
                                     <br/>
-                                    {isLoginFailed ? <div className="error-message">{errorMessage}</div> : null}
 
                                     <div className="logo-google"> <img className="google-img" src={google} alt="Google"/></div>
                                 </div>

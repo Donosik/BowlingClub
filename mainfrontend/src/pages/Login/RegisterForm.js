@@ -35,9 +35,8 @@ export default function RegisterForm(props)
         }
         catch (error)
         {
-            //setIsRegisterFailed(true)
-            //Jeśli fetche idą na zły endpoint to to powoduje error
-            //setErrorMessage(error.response.data)
+            setIsRegisterFailed(true)
+            setErrorMessage("Błąd")
             console.log(error)
         }
     }
