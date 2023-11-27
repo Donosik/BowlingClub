@@ -44,8 +44,8 @@ export default function Users()
             <div className="users-container">
                 <div className="table-name">UŻYTKOWNICY</div>
                 <input/>
-                <input type="checkbox" onChange={()=>setOnlyWorker(!onlyWorker)}/>
                 <img src={lupa} alt="lupa"/>
+                Tylko pracownicy<input type="checkbox" onChange={()=>setOnlyWorker(!onlyWorker)}/>
                 <button onClick={() => navigate('dodaj')}>DODAJ PRACOWNIKA
                 </button>
                 <br/>
