@@ -69,11 +69,18 @@ export default function ChangeSite()
         await fetchOpeningHours()
     }
 
+    async function createOpenHours()
+    {
+        const response=await mainBackendApi.post('Data')
+        console.log(response)
+    }
+
     return (
         <>
             <div className="table-container">
                 <form>
                 <div className="table-name">ZMIANA GODZIN OTWARCIA LOKALU</div>
+                    <button type="button" onClick={(e)=>createOpenHours()}>Stwórz domyślny harmonogram</button>
                 <div className="table-container">
                     <table className="table-bordered">
                         <thead>
