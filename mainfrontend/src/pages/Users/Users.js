@@ -51,7 +51,7 @@ export default function Users()
                 POKAŻ TYLKO PRACOWNIKÓW<br/>
 
                 <br/>
-                <UserListTable users={filteredUsers(users)}/></div>
+                <UserListTable users={filteredUsers(users)} deletedUserCallback={fetchUsers}/></div>
         </>
     )
 }

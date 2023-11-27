@@ -106,7 +106,7 @@ public class UserService : IUserService
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
 
         await CheckRegisterForm(registerForm);
-        
+
         if (person == null)
         {
             Person newPerson = new Person(registerForm);
@@ -256,8 +256,31 @@ public class UserService : IUserService
         User user = await repositoryWrapper.normalDbWrapper.user.Get(id);
         if (user == null)
             return false;
-        repositoryWrapper.normalDbWrapper.person.Delete(user.Person);
-        await repositoryWrapper.normalDbWrapper.user.Delete(id);
+        Person person = user.Person;
+        if (user.IsClient)
+        {
+            Client client = user.Person.Client;
+            if (client != null)
+            {
+                repositoryWrapper.normalDbWrapper.client.Delete(client);
+                repositoryWrapper.normalDbWrapper.user.Delete(user);
+            }
+        }
+        else
+        {
+            Worker worker = user.Person.Worker;
+            if (worker != null)
+            {
+                repositoryWrapper.normalDbWrapper.worker.Delete(worker);
+                repositoryWrapper.normalDbWrapper.user.Delete(user);
+            }
+        }
+
+        if (person.Client == null && person.Worker == null)
+        {
+            repositoryWrapper.normalDbWrapper.person.Delete(user.Person);
+            return await repositoryWrapper.normalDbWrapper.Save(3);
+        }
         return await repositoryWrapper.normalDbWrapper.Save(2);
     }
 
