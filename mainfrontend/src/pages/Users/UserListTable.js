@@ -1,7 +1,7 @@
 import "./UserListTable.css"
 import {useNavigate} from "react-router-dom";
 import {mainBackendApi} from "../../util/Requests";
-export default function UserListTable({users},deletedUserCallback)
+export default function UserListTable({users,deletedUserCallback})
 {
     const navigate=useNavigate()
     function formatData(data)
@@ -13,7 +13,7 @@ export default function UserListTable({users},deletedUserCallback)
     {
         const response = await mainBackendApi.delete('User/DeleteUser/'+id)
         console.log(response)
-        vadeletedCallback=deletedUserCallback
+        deletedUserCallback()
     }
     return(
         <div className="table-container">
