@@ -1,8 +1,7 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {mainBackendApi} from "../../util/Requests";
 
-export default function AddWorker()
-{
+export default function AddWorker() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -12,15 +11,13 @@ export default function AddWorker()
     const [isRegisterFailed, setIsRegisterFailed] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
-    async function handleSubmit(e)
-    {
+    async function handleSubmit(e) {
         e.preventDefault()
 
         setIsRegisterFailed(false)
         setErrorMessage('')
 
-        try
-        {
+        try {
             const requestData = {
                 "login": login,
                 "password": password,
@@ -31,8 +28,7 @@ export default function AddWorker()
             }
             const response = await mainBackendApi.post('User/RegisterWorker', requestData)
             console.log(response)
-        } catch (error)
-        {
+        } catch (error) {
             setIsRegisterFailed(true)
             setErrorMessage("Błąd")
             console.log(error)
@@ -42,47 +38,57 @@ export default function AddWorker()
 
     return (
         <>
-            Formularz dodawania pracownika
-            <label>
-                Login:
-                <input type={"text"}
-                       name={"login"}
-                       onChange={e => setLogin(e.target.value)}/>
-            </label>
-            <label>
-                Hasło:
-                <input type={"password"}
-                       name={"password"}
-                       onChange={e => setPassword(e.target.value)}/>
-            </label>
-            <label>
-                Imię:
-                <input type={"text"}
-                       name={"firstName"}
-                       onChange={e => setFirstName(e.target.value)}/>
-            </label>
-            <label>
-                Nazwisko:
-                <input type={"text"}
-                       name={"lastName"}
-                       onChange={e => setLastName(e.target.value)}/>
-            </label>
-            <label>
-                Email:
-                <input type={"email"}
-                       name={"email"}
-                       onChange={e => setEmail(e.target.value)}/>
-            </label>
-            <label>
-                Data urodzenia:
-                <input type={"date"}
-                       name={"dateOfBirth"}
-                       onChange={e => setDateOfBirth(e.target.value)}/>
-            </label>
-            <input type={"button"}
-                   value={"Zarejestruj pracownika"}
-                   onClick={handleSubmit}/>
-            {isRegisterFailed ? errorMessage : null}
+            <div className="auth-page">
+                <div className="container page d-flex justify-content-center align-items-center min-vh-100">
+                    <div className="row">
+                        <div className="login-box">
+                            <h1 className="text-login">REJESTRACJA</h1>
+                            <label>
+                                Login:<br/>
+                                <input type={"text"}
+                                       name={"login"}
+                                       onChange={e => setLogin(e.target.value)}/>
+                            </label> <br/>
+                            <label>
+                                Hasło:<br/>
+                                <input type={"password"}
+                                       name={"password"}
+                                       onChange={e => setPassword(e.target.value)}/>
+                            </label><br/>
+                            <label>
+                                Imię:<br/>
+                                <input type={"text"}
+                                       name={"firstName"}
+                                       onChange={e => setFirstName(e.target.value)}/>
+                            </label><br/>
+                            <label>
+                                Nazwisko:<br/>
+                                <input type={"text"}
+                                       name={"lastName"}
+                                       onChange={e => setLastName(e.target.value)}/>
+                            </label><br/>
+                            <label>
+                                Email:<br/>
+                                <input type={"email"}
+                                       name={"email"}
+                                       onChange={e => setEmail(e.target.value)}/>
+                            </label><br/>
+                            <label>
+                                Data urodzenia:<br/>
+                                <input type={"date"}
+                                       name={"dateOfBirth"}
+                                       onChange={e => setDateOfBirth(e.target.value)}/>
+                            </label><br/>
+
+                            <div className="d-flex justify-content-center align-items-center">
+                                <button type="button" onClick={handleSubmit}>ZAREJESTRUJ PRACOWNIKA</button>
+                            </div>
+                            {isRegisterFailed ? errorMessage : null}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
