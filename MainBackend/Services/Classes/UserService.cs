@@ -225,6 +225,26 @@ public class UserService : IUserService
         return await repositoryWrapper.normalDbWrapper.Save();
     }
 
+    public async Task<bool> ChangePassword(int userId, string newPassword)
+    {
+        User user = await repositoryWrapper.normalDbWrapper.user.Get(userId);
+        if (user == null)
+            return false;
+        user.Password = newPassword;
+        repositoryWrapper.normalDbWrapper.user.Edit(user);
+        return await repositoryWrapper.normalDbWrapper.Save();
+    }
+
+    public async Task<bool> Deactivate(int workerId, bool deactivate)
+    {
+        User user = await repositoryWrapper.normalDbWrapper.user.Get(workerId);
+        if (user == null)
+            return false;
+        user.IsActive = deactivate;
+        repositoryWrapper.normalDbWrapper.user.Edit(user);
+        return await repositoryWrapper.normalDbWrapper.Save();
+    }
+
 #endregion
 
 #region Delete
@@ -236,8 +256,9 @@ public class UserService : IUserService
         User user = await repositoryWrapper.normalDbWrapper.user.Get(id);
         if (user == null)
             return false;
+        repositoryWrapper.normalDbWrapper.person.Delete(user.Person);
         await repositoryWrapper.normalDbWrapper.user.Delete(id);
-        return await repositoryWrapper.normalDbWrapper.Save();
+        return await repositoryWrapper.normalDbWrapper.Save(2);
     }
 
 #endregion

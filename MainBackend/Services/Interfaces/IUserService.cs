@@ -28,6 +28,9 @@ public interface IUserService
 
     Task<bool> ChangeToAdmin(int workerId, bool isAdmin);
 
+    Task<bool> ChangePassword(int userId, string newPassword);
+    Task<bool> Deactivate(int workerId, bool deactivate);
+
 #endregion
 
 #region Delete

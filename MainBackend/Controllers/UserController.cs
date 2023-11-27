@@ -146,11 +146,35 @@ public class UserController : ControllerBase
             return Ok();
         return NotFound();
     }
-
-    [HttpPut("ChangePassword")]
-    public async Task<IActionResult> ChangePassword(string newPassword)
+    
+    [HttpPut("ChangePassword/{userId}/{newPassword}")]
+    public async Task<IActionResult> ChangePassword(int userId, string newPassword)
     {
-        return Ok("Not implemented");
+        if (await serviceWrapper.user.ChangePassword(userId, newPassword))
+            return Ok();
+        return NotFound();
+    }
+
+    [Authorize(Policy = "Admin")]
+    [HttpPut("Deactivate/{workerId}/{deactivate}")]
+    public async Task<IActionResult> Deactivate(int workerId, bool deactivate)
+    {
+        if (await serviceWrapper.user.Deactivate(workerId, deactivate))
+            return Ok();
+        return NotFound();
+    }
+
+#endregion
+
+#region Delete
+
+    [Authorize(Policy = "Admin")]
+    [HttpDelete("DeleteUser/{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        if (await serviceWrapper.user.DeleteUser(id))
+            return Ok();
+        return NotFound();
     }
 
 #endregion

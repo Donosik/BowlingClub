@@ -1,5 +1,6 @@
 import "./UserListTable.css"
 import {useNavigate} from "react-router-dom";
+import {mainBackendApi} from "../../util/Requests";
 export default function UserListTable({users})
 {
     const navigate=useNavigate()
@@ -7,6 +8,12 @@ export default function UserListTable({users})
     {
         const dateObject=new Date(data)
         return dateObject.toLocaleDateString()
+    }
+    async function deleteUser(id)
+    {
+        console.log(id)
+        const response = await mainBackendApi.delete('User/DeleteUser/'+id)
+        console.log(response)
     }
     return(
         <div className="table-container">
@@ -38,7 +45,7 @@ export default function UserListTable({users})
                     <td>{user.person.email}</td>
                     <td>{formatData(user.person.dateOfBirth)}</td>
                     <td><button onClick={()=>navigate('edytuj/'+user.id)}>EDYTUJ</button>
-                        <button>USUŃ</button></td>
+                        <button onClick={()=>deleteUser(user.id)}>USUŃ</button></td>
                 </tr>
             ))}
             </tbody>
