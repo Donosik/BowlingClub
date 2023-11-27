@@ -15,7 +15,9 @@ input[type="password"] {
     width: 100%;
 }
 
-
+input[type="checkbox"] {
+width: 45px;
+}
 
 
 div button {
