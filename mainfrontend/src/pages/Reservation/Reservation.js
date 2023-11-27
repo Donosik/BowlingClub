@@ -30,8 +30,13 @@ export default function Reservation()
 
     return (
         <>
-            Rezerwacje
-            <ReservationTable reservations={reservations}/>
-        </>
+            <div className="table-container">
+
+                <form>
+                <ReservationTable reservations={reservations}/>
+                </form> </div>
+
+
+</>
     )
 }
