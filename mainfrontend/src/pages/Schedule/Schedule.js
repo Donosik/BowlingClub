@@ -35,8 +35,10 @@ export default function Schedule()
 
     return (
         <>
-            Grafik
+            <div className="table-container">
+                <form>
             <WorkerSchedule workersSchedule={workersSchedule}/>
+        </form> </div>
         </>
     )
 }

@@ -4,7 +4,10 @@ export default function WorkerSchedule({workersSchedule})
 {
 
     return (
-        <table>
+        <div className="table-container">
+            <div className="table-name">GRAFIK PRACOWNIKÓW</div>
+            <div className="table-container">
+                <table className="table-bordered">
             <thead>
             <tr>
                 <th>Id pracownika</th>
@@ -20,7 +23,8 @@ export default function WorkerSchedule({workersSchedule})
                     <td>{worker.FirstName}</td>
                     <td>{worker.LastName}</td>
                     <td>
-                        <table>
+                        <div className="table-container">
+                        <table className="table-bordered">
                             <thead>
                             <tr>
                                 <th>Godzina zaczęcia</th>
@@ -35,13 +39,13 @@ export default function WorkerSchedule({workersSchedule})
                                 </tr>
                             ))}
                             </tbody>
-                        </table>
+                        </table></div>
                     </td>
 
                 </tr>
             ))}
             </tbody>
-        </table>
+                </table></div></div>
 
     )
 }

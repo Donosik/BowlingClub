@@ -1,7 +1,14 @@
+import React from "react";
+
 export default function MostWorkedHours({workersWithHours})
 {
     return(
-        <table>
+        <div className="table-container">
+            <div className="table-name">RAPORTY</div><br/><br/>
+            <div className="table-name">
+                Najwiecej przepracowanych godzin</div>
+            <div className="table-container">
+                <table className="table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -20,6 +27,6 @@ export default function MostWorkedHours({workersWithHours})
                 </tr>
             ))}
             </tbody>
-        </table>
+                </table></div></div>
     )
 }
