@@ -26,13 +26,17 @@ export default function Raports()
 
     return (
         <>
-            Raporty
-            Najwiecej przepracowanych godzin
+
+            <div className="table-container">
+                <form>
             <MostWorkedHours workersWithHours={workersWithHours}/>
-            Najlepsi klienci
-            <BestBuyingClient buyingClients={buyingClient}/>
-            Najlepiej sprzedające się produkty
-            <BestSellingProduct sellingProducts={sellingProducts}/>
+                </form></div><br/>
+        
+            <div className="table-container">
+                <form><BestBuyingClient buyingClients={buyingClient}/> </form></div>
+
+            <br/><div className="table-container">
+                <form><BestSellingProduct sellingProducts={sellingProducts}/> </form></div>
         </>
     )
 }

@@ -1,7 +1,13 @@
+import React from "react";
+
 export default function BestBuyingClient({buyingClients})
 {
     return(
-        <table>
+        <div className="table-container">
+            <div className="table-name">
+                Najlepsi klienci</div>
+            <div className="table-container">
+                <table className="table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -20,6 +26,6 @@ export default function BestBuyingClient({buyingClients})
                 </tr>
             ))}
             </tbody>
-        </table>
+            </table></div></div>
     )
 }

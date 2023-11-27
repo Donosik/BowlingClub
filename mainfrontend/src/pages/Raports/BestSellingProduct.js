@@ -1,7 +1,13 @@
+import React from "react";
+
 export default function BestSellingProduct({sellingProducts})
 {
     return(
-        <table>
+        <div className="table-container">
+            <div className="table-name">
+                Najlepiej sprzedające się produkty</div>
+            <div className="table-container">
+                <table className="table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -18,6 +24,6 @@ export default function BestSellingProduct({sellingProducts})
                 </tr>
             ))}
             </tbody>
-        </table>
+                </table></div></div>
     )
 }
