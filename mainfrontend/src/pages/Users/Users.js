@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 export default function Users()
 {
     const [users, setUsers] = useState([])
+    const [onlyWorker, setOnlyWorker] = useState(false)
     const navigate = useNavigate();
 
     useEffect(() =>
@@ -29,16 +30,26 @@ export default function Users()
         }
     }
 
+    function filteredUsers(users)
+    {
+        if(onlyWorker===true)
+        {
+            return users.filter((user)=>user.isClient===false)
+        }
+        return users
+    }
+
     return (
         <>
             <div className="users-container">
                 <div className="table-name">UŻYTKOWNICY</div>
-                <input/><img src={lupa}
-                             alt="lupa"/>
+                <input/>
+                <input type="checkbox" onChange={()=>setOnlyWorker(!onlyWorker)}/>
+                <img src={lupa} alt="lupa"/>
                 <button onClick={() => navigate('dodaj')}>DODAJ PRACOWNIKA
                 </button>
                 <br/>
-                <UserListTable users={users}/></div>
+                <UserListTable users={filteredUsers(users)}/></div>
         </>
     )
 }
