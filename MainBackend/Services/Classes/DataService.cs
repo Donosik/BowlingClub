@@ -77,7 +77,7 @@ public class DataService : IDataService
 
     public async Task<bool> DeleteAllOpenHours()
     {
-        var allOpenHours = await GetOpenHours();
+        var allOpenHours = await repositoryWrapper.normalDbWrapper.openHour.GetAll();
         foreach (var openHour in allOpenHours)
         {
             repositoryWrapper.normalDbWrapper.openHour.Delete(openHour);
