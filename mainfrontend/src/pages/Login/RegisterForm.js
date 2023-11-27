@@ -1,5 +1,6 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import { mainBackendApi} from "../../util/Requests";
+import "./login.css"
 
 export default function RegisterForm(props)
 {
@@ -49,56 +50,71 @@ export default function RegisterForm(props)
 
     return (
         <>
+            <div className="auth-page">
+                <div className="container page d-flex justify-content-center align-items-center min-vh-100">
+                    <div className="row">
+                        <div className="login-box">
+                            <h1 className="text-login">REJESTRACJA</h1>
             <form>
-                Register Page
                 <label>
-                    Login:
+                    Login:<br/>
                     <input type={"text"}
                            name={"login"}
                            onChange={e => setLogin(e.target.value)}/>
-                </label>
+                </label> <br/>
                 <label>
-                    Hasło:
+                    Hasło:<br/>
                     <input type={"password"}
                            name={"password"}
                            onChange={e => setPassword(e.target.value)}/>
-                </label>
+                </label><br/>
                 <label>
-                    Imię:
+                    Imię:<br/>
                     <input type={"text"}
                            name={"firstName"}
                            onChange={e => setFirstName(e.target.value)}/>
-                </label>
+                </label><br/>
                 <label>
-                    Nazwisko:
+                    Nazwisko:<br/>
                     <input type={"text"}
                            name={"lastName"}
                            onChange={e => setLastName(e.target.value)}/>
-                </label>
+                </label><br/>
                 <label>
-                    Email:
+                    Email:<br/>
                     <input type={"email"}
                            name={"email"}
                            onChange={e => setEmail(e.target.value)}/>
-                </label>
+                </label><br/>
                 <label>
-                    Data urodzenia:
+                    Data urodzenia:<br/>
                     <input type={"date"}
                            name={"dateOfBirth"}
                            onChange={e => setDateOfBirth(e.target.value)}/>
-                </label>
-                <input type={"button"}
-                       value={"Zarejestruj się"}
-                       onClick={handleSubmit}/>
+                </label><br/>
+
+                <div className="d-flex justify-content-center align-items-center">
+                    <button type="button" onClick={handleSubmit}>ZAREJESTRUJ SIĘ</button>
+                </div>
+
+                <div className="d-flex justify-content-center align-items-center">
+                    <button type="button" onClick={handleLogin}>REJESTRACJA Z GOOGLE</button>
+                </div>
+
+                <div className="d-flex justify-content-center align-items-center">
+                    <button type="button" onClick={handleLogin}>ZALOGUJ SIĘ</button>
+                </div>
+
+
+
                 {isRegisterFailed ? errorMessage : null}
-                <input type={"button"}
-                       value={"Zaloguj się"}
-                       onClick={handleLogin}/>
-                <input type={"button"}
-                       value={"Zarejestruj się z Google"}/>
-                <input type={"button"}
-                       value={"Zarejestruj się z Fb"}/>
+
             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </>
     )
 }

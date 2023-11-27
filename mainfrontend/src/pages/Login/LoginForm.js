@@ -62,10 +62,10 @@ export default function LoginForm(props)
                                     Hasło:
                                     <input type="password" name="password" onChange={e => setPassword(e.target.value)}/>
                                 </label><br/>
-                                <label>
-                                    <input type="checkbox" name="rememberMe"/>
-                                    Zapamiętaj mnie
-                                </label>
+
+                                    <input type="checkbox" name="rememberMe"/>Zapamiętaj mnie
+
+
                                 <div className="forgot-pass d-flex justify-content-center align-items-center">
                                     <label>Zapomniałeś hasła?</label>
                                 </div>
@@ -75,9 +75,7 @@ export default function LoginForm(props)
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <button type="button" onClick={handleSignUp}>REJESTRACJA</button>
-                                    <div className="forgot-pass d-flex justify-content-center align-items-center">
 
-                                    </div>
 
                                     <br/>
 
