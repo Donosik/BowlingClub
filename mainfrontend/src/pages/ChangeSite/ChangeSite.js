@@ -71,10 +71,11 @@ export default function ChangeSite()
 
     return (
         <>
-            <div>
-                <h2>Change Opening Hours</h2>
+            <div className="table-container">
+
                 <form>
-                    <table>
+                    <div className="table-name">ZMIANA GODZIN OTWARCIA</div>
+                    <table className="table-bordered">
                         <thead>
                         <tr>
                             <th>Dzień</th>
@@ -108,10 +109,11 @@ export default function ChangeSite()
                         ))}
                         </tbody>
                     </table>
+                    <div className="d-flex">
                     <button type="button"
                             onClick={handleSaveChanges}>
-                        Save Changes
-                    </button>
+                        ZAPISZ ZMIANY
+                    </button></div>
                 </form>
             </div>
         </>
