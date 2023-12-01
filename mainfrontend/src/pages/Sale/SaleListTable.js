@@ -35,7 +35,7 @@ export default function SaleListTable({ sales }) {
                 },
                 { text: '\n' }, // Dodaj odstęp
 
-               
+
                 { text: 'Dane klienta:', style: 'subheader' },
                 {
                     text: `Imię i nazwisko: ${sale.Client.FirstName} ${sale.Client.LastName}`,
