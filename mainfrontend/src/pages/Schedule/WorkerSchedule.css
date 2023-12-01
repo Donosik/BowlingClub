@@ -1,0 +1,79 @@
+/* Wstaw poniższe style do swojego pliku CSS lub uzupełnij je, aby dostosować kalendarz */
+
+
+.react-calendar {
+    max-width: 400px;
+    background-color: #E6D1C0; /* Kolor tła kalendarza */
+    color: #591914; /* Kolor tekstu kalendarza */
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Zaokrąglenie rogów */
+}
+
+.react-calendar__tile {
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.react-calendar__tile--now {
+    background-color: #591914; /* Kolor tła dla aktualnego dnia */
+    color: #E6D1C0; /* Kolor tekstu dla aktualnego dnia */
+}
+
+.react-calendar__tile--active {
+    background-color: #591914; /* Kolor tła dla zaznaczonego dnia */
+    color: #E6D1C0; /* Kolor tekstu dla zaznaczonego dnia */
+}
+
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #591914; /* Kolor tła dla nagłówka kalendarza */
+    color: #E6D1C0; /* Kolor tekstu dla nagłówka kalendarza */
+}
+
+.react-calendar__navigation__label {
+    font-size: 1.2em;
+}
+
+.react-calendar__month-view__weekdays {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    width: 2em;
+    padding: 0.5em;
+    text-align: center;
+    font-weight: bold;
+}
+.react-calendar__tile:hover,
+.react-calendar__navigation__prev2-button:hover,
+.react-calendar__navigation__prev-button:hover,
+.react-calendar__navigation__next2-button:hover,
+.react-calendar__navigation__next-button:hover,
+.react-calendar__navigation__year:hover,
+.react-calendar__navigation__label:hover,
+.react-calendar__decade-view__decade:hover,
+.react-calendar__century-view__century:hover
+{
+    background-color: transparent !important; /* Ustawienie przeźroczystego koloru po najechaniu */
+}
+
+.react-calendar__month-view__days {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.react-calendar__month-view__days__day {
+    width: 2em;
+    height: 2em;
+    margin: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
