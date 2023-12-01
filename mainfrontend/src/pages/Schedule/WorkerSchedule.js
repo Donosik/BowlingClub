@@ -6,13 +6,15 @@ import './WorkerSchedule.css';
 export default function WorkerSchedule({ workersSchedule }) {
     const [selectedWorker, setSelectedWorker] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [calendarVisible, setCalendarVisible] = useState(false);
 
     const handleWorkerClick = (worker) => {
         setSelectedWorker(worker);
+        setCalendarVisible(true);
     };
 
     const handleCloseCalendar = () => {
-        setSelectedWorker(null);
+        setCalendarVisible(false);
     };
 
     const handleCalendarChange = (date) => {
@@ -31,58 +33,70 @@ export default function WorkerSchedule({ workersSchedule }) {
         );
     };
 
+    const workersForSelectedDate = getWorkersForSelectedDate();
+
     return (
         <div className="table-container">
             <div className="table-name">GRAFIK PRACOWNIKÓW</div>
 
-
-
+            <br />
             <div className="calendar-container">
-
-                <Calendar
-                    value={selectedDate || new Date()}
-                    onChange={handleCalendarChange}
-
-                />
+                <button type="button" onClick={() => setCalendarVisible(!calendarVisible)}>
+                    {calendarVisible ? 'UKRYJ KALENDARZ' : 'POKAŻ KALENDARZ'}
+                </button>
+                <button type="button">DODAJ ZMIANĘ</button>
+                {calendarVisible && (
+                    <>
+                        <Calendar
+                            value={selectedDate || new Date()}
+                            onChange={handleCalendarChange}
+                        />
+                        <br />
+                    </>
+                )}
                 {selectedDate && (
                     <div>
-                        <div className="table-name">PRACOWNICY W DNIU {selectedDate.toLocaleDateString()}</div>
+                        <div className="table-name">
+                            PRACOWNICY W DNIU {selectedDate.toLocaleDateString()}
+                        </div>
                         <div className="table-container">
-                        <table className="table-bordered">
-                            <thead>
-                            <tr>
-                                <th>Id pracownika</th>
-                                <th>Imię pracownika</th>
-                                <th>Nazwisko pracownika</th>
-                                <th>Godziny pracy</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {getWorkersForSelectedDate().map((worker) => (
-                                <tr key={worker.workerId}>
-                                    <td>{worker.Id}</td>
-                                    <td>{worker.FirstName}</td>
-                                    <td>{worker.LastName}</td>
-                                    <td>
-                                        {worker.Availability
-                                            .filter(
-                                                (slot) =>
-                                                    new Date(slot.start).toLocaleDateString() ===
-                                                    selectedDate.toLocaleDateString()
-                                            )
-                                            .map((slot, index) => (
-                                                <div key={index}>
-                                                    {slot.start} - {slot.end}
-                                                </div>
-                                            ))}
-                                    </td>
+                            <table className="table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Id pracownika</th>
+                                    <th>Imię pracownika</th>
+                                    <th>Nazwisko pracownika</th>
+                                    <th>Godziny pracy</th>
                                 </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div> </div>
+                                </thead>
+                                <tbody>
+                                {workersForSelectedDate.map((worker) => (
+                                    <tr key={worker.workerId}>
+                                        <td>{worker.Id}</td>
+                                        <td>{worker.FirstName}</td>
+                                        <td>{worker.LastName}</td>
+                                        <td>
+                                            {worker.Availability
+                                                .filter(
+                                                    (slot) =>
+                                                        new Date(slot.start).toLocaleDateString() ===
+                                                        selectedDate.toLocaleDateString()
+                                                )
+                                                .map((slot, index) => (
+                                                    <div key={index}>
+                                                        {slot.start} - {slot.end}
+                                                    </div>
+                                                ))}
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 )}
-                <button onClick={handleCloseCalendar}>Zamknij kalendarz</button>
+
+
             </div>
         </div>
     );
