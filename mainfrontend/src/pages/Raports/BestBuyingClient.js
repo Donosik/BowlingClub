@@ -17,7 +17,7 @@ export default function BestBuyingClient({ buyingClients }) {
                     ranges: [
                         {
                             from: 0,
-                            to: 100,
+                            to: 200,
                             color: "#591914", // Zmień kolor słupków na #4CAF50
                         },
                     ],
