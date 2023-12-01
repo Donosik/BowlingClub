@@ -14,18 +14,44 @@ export default function SaleListTable({ sales }) {
         return {
             content: [
                 { text: 'FAKTURA', style: 'header' },
-                { text: 'Dane sprzedawcy:', style: 'subheader' },
-                { text: 'Nazwa firmy', style: 'subheader' },
-                { text: 'Adres firmy', style: 'subheader' },
+                { text: '\n' }, // Dodaj odstęp
+                {
+                    table: {
+                        headerRows: 1,
+                        widths: ['*', '*', '*'],
+                        body: [
+                            ['Dane sprzedawcy', 'Nazwa firmy', 'Adres firmy'],
+                            ['Jan KOWALSKI', 'Kręgielnia Bowling', 'Ul. Kręglicka 7\n43-210 Kręgostan'],
+                        ],
+                    },
+                    layout: {
+                        hLineWidth: function (i, node) {
+                            return i === 0 || i === node.table.body.length ? 2 : 1;
+                        },
+                        vLineWidth: function (i, node) {
+                            return 1;
+                        },
+                    },
+                },
+                { text: '\n' }, // Dodaj odstęp
+
+               
                 { text: 'Dane klienta:', style: 'subheader' },
-                { text: `Imię i nazwisko: ${sale.Client.FirstName} ${sale.Client.LastName}`, style: 'text' },
+                {
+                    text: `Imię i nazwisko: ${sale.Client.FirstName} ${sale.Client.LastName}`,
+                    style: 'text',
+                },
                 { text: `ID Klienta: ${sale.Client.Id}`, style: 'text' },
                 { text: 'Szczegóły sprzedaży:', style: 'subheader' },
                 { text: `ID: ${sale.Id}`, style: 'text' },
                 { text: `Data wystawienia: ${sale.IssueDate}`, style: 'text' },
                 { text: `Data zapłaty: ${sale.DueDate}`, style: 'text' },
                 { text: 'Zawartość:', style: 'subheader' },
-                { text: sale.content, style: 'text' },
+                {
+                    text: sale.content,
+                    style: 'text',
+                    border: [true, true, true, true], // Dodanie ramki wokół tekstu
+                },
             ],
             styles: {
                 header: {
@@ -45,7 +71,6 @@ export default function SaleListTable({ sales }) {
             },
         };
     };
-
     return (
         <div className="table-container">
             <table className="table-bordered">
