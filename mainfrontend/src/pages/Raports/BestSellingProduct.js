@@ -10,14 +10,35 @@ export default function BestSellingProduct({ sellingProducts }) {
         },
         xaxis: {
             categories: sellingProducts.map((product) => product.ProductName),
+            title: {
+                text: 'NAZWA PRODUKTU', // Dodaj nazwę osi X
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'ILOŚĆ SPRZEDANYCH SZTUK', // Dodaj nazwę osi Y
+            },
         },
         plotOptions: {
             bar: {
-                columnWidth: "50%", // Aby uzyskać efekt kolorowania słupków
-                distributed: true,
+                colors: {
+                    ranges: [
+                        {
+                            from: 0,
+                            to: Math.max(...sellingProducts.map((product) => product.Sold)),
+                            color: "#591914", // Zmień kolor słupków na #4CAF50
+                        },
+                    ],
+                },
             },
         },
-        colors: ["#591914"], // Kolor słupków
+        title: {
+            text: 'NAJLEPIEJ SPRZEDAJĄCE SIĘ PRODUKTY', // Dodaj tytuł wykresu
+            align: 'center',
+            style: {
+                fontSize: '18px',
+            },
+        },
     };
 
     const chartSeries = [
@@ -50,7 +71,7 @@ export default function BestSellingProduct({ sellingProducts }) {
                     </tbody>
                 </table>
             </div>
-
+            <br />
             {/* Dodaj wykres pod tabelą */}
             <div className="chart-container">
                 <Chart
@@ -63,4 +84,3 @@ export default function BestSellingProduct({ sellingProducts }) {
         </div>
     );
 }
-

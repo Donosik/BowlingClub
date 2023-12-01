@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 
 export default function BestBuyingClient({ buyingClients }) {
     // Przygotuj dane do wykresu
+// Przygotuj dane do wykresu
     const chartOptions = {
         chart: {
             id: "bar-chart",
@@ -10,6 +11,14 @@ export default function BestBuyingClient({ buyingClients }) {
         },
         xaxis: {
             categories: buyingClients.map((client) => client.FullName),
+            title: {
+                text: 'KLIENCI', // Dodaj nazwę osi X
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'ZYSK ZE SPRZEDAŻY', // Dodaj nazwę osi Y
+            },
         },
         plotOptions: {
             bar: {
@@ -22,6 +31,13 @@ export default function BestBuyingClient({ buyingClients }) {
                         },
                     ],
                 },
+            },
+        },
+        title: {
+            text: 'NAJLEPSI KLIENCI', // Dodaj tytuł wykresu
+            align: 'center',
+            style: {
+                fontSize: '18px',
             },
         },
     };
@@ -58,7 +74,7 @@ export default function BestBuyingClient({ buyingClients }) {
                     </tbody>
                 </table>
             </div>
-
+<br/>
             {/* Dodaj wykres pod tabelą */}
             <div className="chart-container">
                 <Chart
