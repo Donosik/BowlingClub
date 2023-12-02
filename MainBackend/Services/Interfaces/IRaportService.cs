@@ -5,7 +5,7 @@ namespace MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 
 public interface IRaportService
 {
-    Task<IEnumerable<WorkerWithHours>> MostWorkedHours(DateTime startDate, DateTime endDate);
-    Task<IEnumerable<ClientWIthInvoices>> BestBuyingClient(DateTime startDate, DateTime endDate);
-    Task<IEnumerable<InvoicesWithProducts>> BestSellingProducts(DateTime startDate, DateTime endDate);
+    Task<IEnumerable<WorkerWithHours>> MostWorkedHours(int howManyDaysAgo,int howManyTop);
+    Task<IEnumerable<ClientWIthInvoices>> BestBuyingClient(int howManyDaysAgo,int howManyTop);
+    Task<IEnumerable<InvoicesWithProducts>> BestSellingProducts(int howManyDaysAgo,int howManyTop);
 }

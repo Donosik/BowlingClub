@@ -5,7 +5,7 @@ namespace MainBackend.Databases.BowlingDw.Entities;
 public class FactInvoice : IEntity
 {
     public int Id { get; set; }
-    public float Amount { get; set; }
+    public decimal Amount { get; set; }
 
     public virtual DimClient Client { get; set; }
     public virtual int IssueDateId { get; set; }

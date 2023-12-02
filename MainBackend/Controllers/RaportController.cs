@@ -19,32 +19,26 @@ public class RaportController : ControllerBase
 #region Get
 
     [Authorize(Policy = "Worker")]
-    [HttpGet("MostWorkedHours")]
-    public async Task<IActionResult> MostWorkedHours()
+    [HttpGet("MostWorkedHours/{howManyDaysAgo}/{howManyTop}")]
+    public async Task<IActionResult> MostWorkedHours(int howManyDaysAgo, int howManyTop)
     {
-        DateTime start = DateTime.Today;
-        DateTime end = start.AddDays(1);
-        var workerWithHours = await serviceWrapper.raport.MostWorkedHours(start, end);
+        var workerWithHours = await serviceWrapper.raport.MostWorkedHours(howManyDaysAgo, howManyTop);
         return Ok(workerWithHours);
     }
 
     [Authorize(Policy = "Worker")]
-    [HttpGet("BestBuyingClient")]
-    public async Task<IActionResult> BestBuyingClient()
+    [HttpGet("BestBuyingClient/{howManyDaysAgo}/{howManyTop}")]
+    public async Task<IActionResult> BestBuyingClient(int howManyDaysAgo, int howManyTop)
     {
-        DateTime start = DateTime.Today;
-        DateTime end = start.AddDays(30);
-        var clientWithInvoices = await serviceWrapper.raport.BestBuyingClient(start, end);
+        var clientWithInvoices = await serviceWrapper.raport.BestBuyingClient(howManyDaysAgo, howManyTop);
         return Ok(clientWithInvoices);
     }
 
     [Authorize(Policy = "Worker")]
-    [HttpGet("BestSellingProducts")]
-    public async Task<IActionResult> BestSellingProducts()
+    [HttpGet("BestSellingProducts/{howManyDaysAgo}/{howManyTop}")]
+    public async Task<IActionResult> BestSellingProducts(int howManyDaysAgo, int howManyTop)
     {
-        DateTime start = DateTime.Today;
-        DateTime end = start.AddDays(30);
-        var invoicesWithProducts = await serviceWrapper.raport.BestSellingProducts(start, end);
+        var invoicesWithProducts = await serviceWrapper.raport.BestSellingProducts(howManyDaysAgo, howManyTop);
         return Ok(invoicesWithProducts);
     }
 

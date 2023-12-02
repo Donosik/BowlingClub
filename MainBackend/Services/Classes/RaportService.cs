@@ -14,8 +14,10 @@ public class RaportService : IRaportService
         this.repositoryWrapper = repositoryWrapper;
     }
 
-    public async Task<IEnumerable<WorkerWithHours>> MostWorkedHours(DateTime startDate, DateTime endDate)
+    public async Task<IEnumerable<WorkerWithHours>> MostWorkedHours(int howManyDaysAgo,int howManyTop)
     {
+        DateTime endDate = DateTime.Today;
+        DateTime startDate = endDate.AddDays(-howManyDaysAgo);
         IEnumerable<FactWorkSchedule> workSchedules =
             await repositoryWrapper.normalDwWrapper.workSchedule.GetAllWithDims();
 
@@ -35,8 +37,10 @@ public class RaportService : IRaportService
         return workersWithWorkHours;
     }
 
-    public async Task<IEnumerable<ClientWIthInvoices>> BestBuyingClient(DateTime startDate, DateTime endDate)
+    public async Task<IEnumerable<ClientWIthInvoices>> BestBuyingClient(int howManyDaysAgo,int howManyTop)
     {
+        DateTime endDate = DateTime.Today;
+        DateTime startDate = endDate.AddDays(-howManyDaysAgo);
         IEnumerable<FactInvoice> invoices = await repositoryWrapper.normalDwWrapper.invoice.GetAllWithDims();
 
         var bestBuyingClients = invoices
@@ -47,16 +51,18 @@ public class RaportService : IRaportService
                 Id = group.Key.Id,
                 FullName = group.Key.FullName,
                 Email = group.Key.Email,
-                TotalInvoices = group.Count()
+                TotalMoneySpend = group.Sum(invoice=>invoice.Amount)
             })
-            .OrderByDescending(client => client.TotalInvoices)
+            .OrderByDescending(client => client.TotalMoneySpend)
             .ToList();
 
         return bestBuyingClients;
     }
 
-    public async Task<IEnumerable<InvoicesWithProducts>> BestSellingProducts(DateTime startDate, DateTime endDate)
+    public async Task<IEnumerable<InvoicesWithProducts>> BestSellingProducts(int howManyDaysAgo,int howManyTop)
     {
+        DateTime endDate = DateTime.Today;
+        DateTime startDate = endDate.AddDays(-howManyDaysAgo);
         IEnumerable<FactInvoice> invoices = await repositoryWrapper.normalDwWrapper.invoice.GetAllWithProducts();
 
         var bestSellingProducts = invoices
