@@ -42,7 +42,7 @@ export default function AddWorker() {
                 <div className="container page d-flex justify-content-center align-items-center min-vh-100">
                     <div className="row">
                         <div className="login-box">
-                            <h1 className="text-login">REJESTRACJA</h1>
+                            <h1 className="text-login">DODAWANIE PRACOWNIKA</h1>
                             <label>
                                 Login:<br/>
                                 <input type={"text"}

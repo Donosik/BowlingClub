@@ -7,7 +7,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export default function SaleListTable({ sales }) {
     const handleFakturaClick = (sale) => {
         const documentDefinition = generateFakturaDefinition(sale);
-        pdfMake.createPdf(documentDefinition).download(`faktura_${sale.Id}.pdf`);
+        pdfMake.createPdf(documentDefinition).download(`faktura_${sale.Id}_${sale.Client.FirstName}_${sale.Client.LastName}.pdf`);
     };
 
     const generateFakturaDefinition = (sale) => {
@@ -37,6 +37,7 @@ export default function SaleListTable({ sales }) {
 
 
                 { text: 'Dane klienta:', style: 'subheader' },
+
                 {
                     text: `Imię i nazwisko: ${sale.Client.FirstName} ${sale.Client.LastName}`,
                     style: 'text',

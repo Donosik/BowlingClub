@@ -97,23 +97,23 @@ export default function Home()
                         </div>
                     </div>
                     <div className="box-1 flex-grow-1">
-                        <p>GODZINY OTWARCIA</p>
+                        <p>NASZE PROMOCJE</p>
 
                         <div className="date-time-container d-flex flex-column justify-content-between">
-                            <div className="date-time d-flex flex-row justify-content-between"><span>PONIEDZIAŁEK</span><span>16:00 - 22:00</span>
+                            <div className="date-time d-flex flex-row justify-content-between"><span>PONIEDZIAŁEK</span><span> Zniżka 10% na każdą kolejną godzinę</span>
                             </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>WTOREK</span><span>16:00 - 22:00</span>
+                            <div className="date-time d-flex flex-row justify-content-between"><span>WTOREK</span><span>Studencikie wtorki -30% na bar dla studentów</span>
                             </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>ŚRODA</span><span>16:00 - 22:00</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                <span>CZWARTEK</span><span>16:00 - 22:00</span></div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>PIĄTEK</span><span>16:00 - 22:00</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>SOBOTA</span><span>16:00 - 22:00</span>
+                            <div className="date-time d-flex flex-row justify-content-between"><span>ŚRODA</span><span>-----------------------</span>
                             </div>
                             <div className="date-time d-flex flex-row justify-content-between">
-                                <span>NIEDZIELA</span><span>16:00 - 22:00</span></div>
+                                <span>CZWARTEK</span><span>-----------------------</span></div>
+                            <div className="date-time d-flex flex-row justify-content-between"><span>PIĄTEK</span><span>Trzy tory w cenie dwóch przy rezerwacji na min 2h</span>
+                            </div>
+                            <div className="date-time d-flex flex-row justify-content-between"><span>SOBOTA</span><span>-----------------------</span>
+                            </div>
+                            <div className="date-time d-flex flex-row justify-content-between">
+                                <span>NIEDZIELA</span><span>-----------------------</span></div>
                         </div>
                     </div>
                     <div className="box-2 baba-container flex-grow-1 d-flex">
@@ -122,23 +122,12 @@ export default function Home()
                              alt="bowling"/>
                     </div>
                     <div className="box-1 w-100 align-self-stretch">
-                        <p>GODZINY OTWARCIA</p>
+                        <p>REGULAMIN KRĘGIELNI BOWLING</p>
 
                         <div className="date-time-container d-flex flex-column justify-content-between">
-                            <div className="date-time d-flex flex-row justify-content-between"><span>PONIEDZIAŁEK</span><span>16:00 - 22:00</span>
+                            <div className="date-time d-flex flex-row justify-content-between"><span>1. PUNKT PIERWSZY</span>
                             </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>WTOREK</span><span>16:00 - 22:00</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>ŚRODA</span><span>16:00 - 22:00</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                <span>CZWARTEK</span><span>16:00 - 22:00</span></div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>PIĄTEK</span><span>16:00 - 22:00</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>SOBOTA</span><span>16:00 - 22:00</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                <span>NIEDZIELA</span><span>16:00 - 22:00</span></div>
+
                         </div>
                     </div>
                 </div>
