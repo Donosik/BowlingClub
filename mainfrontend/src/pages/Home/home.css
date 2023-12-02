@@ -12,12 +12,12 @@ body{
 .box-1 {
 
     padding: 20px; /* Dla lepszego wyglądu */
-    background-color: rgba(230, 209, 192, 0.3); /* Przejrzyste białe tło */
+    background-color: #591914;
     text-align: left; /* Wyśrodkowanie tekstu */
     border-radius: 10px; /* Zaokrąglenie rogów */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Cień */
     font-size: 16px; /* Rozmiar czcionki */
-    color: #591914; /* Kolor tekstu */
+    color: #E6D1C0; /* Kolor tekstu */
     font-weight: bold;
 }
 .days{

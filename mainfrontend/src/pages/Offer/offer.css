@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.wrapper {
+    border-radius: 15px; /* Dodaj tę linię dla zaokrąglonych rogów */
+    overflow: hidden;   /* Dodaj tę linię, aby ukryć zaokrąglone rogi zawartości */
+    display: flex;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.left-panel,
+.right-panel {
+    flex: 1;
+    padding: 20px;
+    background-color: #591914;
+    color: #E6D1C0;
+}
+
+.left-panel h2,
+.right-panel h2 {
+    border-bottom: 2px solid #E6D1C0;
+    padding-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Dodaj stylizację dla innych elementów */

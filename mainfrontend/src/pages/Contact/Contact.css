@@ -1,0 +1,15 @@
+/* src/Contact.css */
+.contact-wrapper {
+    padding: 20px;
+    background-color: #591914;
+    color: #E6D1C0;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.contact-wrapper h2 {
+    border-bottom: 2px solid #E6D1C0;
+    padding-bottom: 10px;
+}
