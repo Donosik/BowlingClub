@@ -1,4 +1,4 @@
-﻿using MainBackend.DTO;
+﻿using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.Services.Wrapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +8,11 @@ namespace MainBackend.Controllers;
 [Authorize(Policy = "Worker")]
 [ApiController]
 [Route("[controller]")]
-public class DataController : ControllerBase
+public class PromotionController : ControllerBase
 {
     private readonly IServiceWrapper serviceWrapper;
 
-    public DataController(IServiceWrapper serviceWrapper)
+    public PromotionController(IServiceWrapper serviceWrapper)
     {
         this.serviceWrapper = serviceWrapper;
     }
@@ -21,12 +21,12 @@ public class DataController : ControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    public async Task<IActionResult> GetOpenHours()
+    public async Task<IActionResult> GetPromotions()
     {
         try
         {
-            ICollection<OpenHour> openHours = await serviceWrapper.data.GetOpenHours();
-            return Ok(openHours);
+            ICollection<Promotion> promotions = await serviceWrapper.promotion.GetPromotions();
+            return Ok(promotions);
         }
         catch (Exception ex)
         {
@@ -39,9 +39,9 @@ public class DataController : ControllerBase
 #region Post
 
     [HttpPost]
-    public async Task<IActionResult> CreateDefaultOpenHours()
+    public async Task<IActionResult> CreateDefaultPromotions()
     {
-        if (await serviceWrapper.data.CreateDefaultOpenHours())
+        if (await serviceWrapper.promotion.CreateDefaultPromotions())
             return Ok();
         return BadRequest();
     }
@@ -51,9 +51,9 @@ public class DataController : ControllerBase
 #region Put
 
     [HttpPut]
-    public async Task<IActionResult> ChangeOpenHours(ICollection<OpenHour> openHours)
+    public async Task<IActionResult> ChangePromotions(ICollection<Promotion> promotions)
     {
-        if (await serviceWrapper.data.ChangeOpenHours(openHours))
+        if (await serviceWrapper.promotion.ChangePromotions(promotions))
             return Ok();
         return BadRequest();
     }

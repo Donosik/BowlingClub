@@ -10,6 +10,8 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
     public ILaneRepository lane { get; }
     public IOpenHourRepository openHour { get; }
     public IPersonRepository person { get; }
+    public IPromotionRepository promotion { get; }
+    public IRegulationRepository regulation { get; }
     public IReservationRepository reservation { get; }
     public IUserRepository user { get; }
     public IWorkerRepository worker { get; }

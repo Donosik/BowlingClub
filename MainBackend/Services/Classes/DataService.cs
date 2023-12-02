@@ -78,12 +78,13 @@ public class DataService : IDataService
     public async Task<bool> DeleteAllOpenHours()
     {
         var allOpenHours = await repositoryWrapper.normalDbWrapper.openHour.GetAll();
+        int count = allOpenHours.Count;
         foreach (var openHour in allOpenHours)
         {
             repositoryWrapper.normalDbWrapper.openHour.Delete(openHour);
         }
 
-        return await repositoryWrapper.normalDbWrapper.Save(allOpenHours.Count);
+        return await repositoryWrapper.normalDbWrapper.Save(count);
     }
 
     private bool ChechIfOpenHoursPossible(OpenHour openHour)

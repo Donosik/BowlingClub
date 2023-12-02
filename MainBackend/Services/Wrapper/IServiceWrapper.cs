@@ -12,7 +12,9 @@ public interface IServiceWrapper
     IInvoiceService invoice { get; }
     ILanesService lane { get; }
     IPersonService person { get; }
+    IPromotionService promotion { get; }
     IRaportService raport { get; }
+    IRegulationService regulation { get; }
     IReservationService reservation { get; }
     IUserService user { get; }
     IWorkerService worker { get; }

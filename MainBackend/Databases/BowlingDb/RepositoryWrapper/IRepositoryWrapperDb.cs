@@ -10,6 +10,8 @@ public interface IRepositoryWrapperDb : IDisposable
     ILaneRepository lane { get; }
     IOpenHourRepository openHour { get; }
     IPersonRepository person { get; }
+    IPromotionRepository promotion { get; }
+    IRegulationRepository regulation { get; }
     IReservationRepository reservation { get; }
     IUserRepository user { get; }
     IWorkerRepository worker { get; }

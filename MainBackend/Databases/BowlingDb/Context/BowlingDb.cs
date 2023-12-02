@@ -16,8 +16,11 @@ public class BowlingDb : DbContext
     public DbSet<Lane> Lanes { get; set; }
 
     public DbSet<OpenHour> OpenHours { get; set; }
+
     //public DbSet<NormalInventory> NormalInventories { get; set; }
     public DbSet<Person> Persons { get; set; }
+    public DbSet<Promotion> Promotions { get; set; }
+    public DbSet<Regulation> Regulations { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Worker> Workers { get; set; }
@@ -53,7 +56,7 @@ public class BowlingDb : DbContext
             .WithMany(c => c.Invoices)
             .HasForeignKey(i => i.ClientId)
             .OnDelete(DeleteBehavior.NoAction);
-        
+
         // Invoice and Worker relation n:1
         modelBuilder.Entity<Invoice>()
             .HasOne(i => i.Worker)

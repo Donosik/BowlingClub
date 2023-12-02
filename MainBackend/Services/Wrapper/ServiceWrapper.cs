@@ -12,7 +12,9 @@ public class ServiceWrapper : IServiceWrapper
     public IInvoiceService invoice { get; }
     public ILanesService lane { get; }
     public IPersonService person { get; }
+    public IPromotionService promotion { get; }
     public IRaportService raport { get; }
+    public IRegulationService regulation { get; }
     public IReservationService reservation { get; }
     public IUserService user { get; }
     public IWorkerService worker { get; }
@@ -22,7 +24,8 @@ public class ServiceWrapper : IServiceWrapper
 
     public ServiceWrapper(IUserService user, IPersonService person, IGeneratorService generator,
         IWorkScheduleService workSchedule, ILanesService lane, IWorkerService worker, IReservationService reservation,
-        IClientService client, IInvoiceService invoice, IBarInventoryService barInventory, IRaportService raport,IDataService data)
+        IClientService client, IInvoiceService invoice, IBarInventoryService barInventory, IRaportService raport,
+        IDataService data)
     {
         this.user = user;
         this.person = person;
