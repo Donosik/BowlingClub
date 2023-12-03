@@ -1,50 +1,51 @@
-import React, { useEffect, useState } from "react";
-import { mainBackendApi } from "../../util/Requests";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { mainBackendApi } from "../../util/Requests"
+import { useNavigate } from "react-router-dom"
 
 export default function ChangeRegulations() {
-    const [regulations, setRegulations] = useState([]);
-    const navigate = useNavigate();
+    const [regulations, setRegulations] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
-        fetchRegulations();
-    }, []);
+        fetchRegulations()
+    }, [])
 
     async function fetchRegulations() {
         try {
-            const response = await mainBackendApi.get("Regulation");
-            const data = response.data;
-            setRegulations(data);
+            const response = await mainBackendApi.get("Regulation")
+            const data = response.data
+            setRegulations(data)
         } catch (error) {
-            console.error("Error fetching regulations:", error);
+            console.error("Error fetching regulations:", error)
         }
     }
 
     function handleInputChange(index, field, value) {
-        const updatedRegulations = [...regulations];
+        const updatedRegulations = [...regulations]
         updatedRegulations[index] = {
             ...updatedRegulations[index],
             [field]: value,
-        };
-        setRegulations(updatedRegulations);
+        }
+        setRegulations(updatedRegulations)
     }
 
-    async function handleSaveChanges() {
+    async function handleSaveChanges(e) {
+        e.preventDefault()
         try {
-            await mainBackendApi.put("Regulation", regulations);
+            await mainBackendApi.put("Regulation", regulations)
         } catch (error) {
-            console.error("Error updating regulations:", error);
+            console.error("Error updating regulations:", error)
         }
-        await fetchRegulations();
+        await fetchRegulations()
     }
 
     async function deleteRegulation(id) {
         try {
-            await mainBackendApi.delete("Regulation/" + id);
+            await mainBackendApi.delete("Regulation/" + id)
         } catch (error) {
-            console.error("Error deleting regulations:", error);
+            console.error("Error deleting regulations:", error)
         }
-        await fetchRegulations();
+        await fetchRegulations()
     }
 
     return (
@@ -61,6 +62,7 @@ export default function ChangeRegulations() {
                             <tr>
                                 <th>Punkt regulaminu</th>
                                 <th>Opis</th>
+                                <th>Przyciski</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -76,6 +78,9 @@ export default function ChangeRegulations() {
                                             }
                                         />
                                     </td>
+                                    <td>
+                                        <button onClick={()=>deleteRegulation(regulation.id)}>USUŃ</button>
+                                    </td>
                                 </tr>
                             ))}
                             </tbody>
@@ -89,5 +94,5 @@ export default function ChangeRegulations() {
                 </form>
             </div>
         </>
-    );
+    )
 }

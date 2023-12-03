@@ -51,11 +51,49 @@ export default function Home()
         }
     ])
     const [regulations, setRegulations] = useState([])
+    const [promotions, setPromotions] = useState([
+        {
+            "id": 0,
+            "dayOfWeek": 1,
+            "description": "Zniżka 10% na każdą kolejną godzinę",
+        },
+        {
+            "id": 1,
+            "dayOfWeek": 2,
+            "description": "Studencikie wtorki -30% na bar dla studentów",
+        },
+        {
+            "id": 2,
+            "dayOfWeek": 3,
+            "description": "-----------------------",
+        },
+        {
+            "id": 3,
+            "dayOfWeek": 4,
+            "description": "-----------------------",
+        },
+        {
+            "id": 4,
+            "dayOfWeek": 5,
+            "description": "Trzy tory w cenie dwóch przy rezerwacji na min 2h",
+        },
+        {
+            "id": 5,
+            "dayOfWeek": 6,
+            "description": "-----------------------",
+        },
+        {
+            "id": 6,
+            "dayOfWeek": 0,
+            "description": "-----------------------",
+        },
+    ])
 
     useEffect(() =>
     {
         fetchOpeningHours()
         fetchRegulations()
+        fetchPromotions()
     }, [])
 
     async function fetchOpeningHours()
@@ -68,6 +106,20 @@ export default function Home()
         } catch (error)
         {
             console.error('Error fetching opening hours:', error)
+        }
+    }
+
+    async function fetchPromotions()
+    {
+        try
+        {
+            const response = await mainBackendApi.get("Promotion")
+            const data = response.data
+            console.log(data)
+            setPromotions(data)
+        } catch (error)
+        {
+            console.error("Error fetching promotions:", error)
         }
     }
 
@@ -116,22 +168,13 @@ export default function Home()
                         <p>NASZE PROMOCJE</p>
 
                         <div className="date-time-container d-flex flex-column justify-content-between">
-                            <div className="date-time d-flex flex-row justify-content-between"><span>PONIEDZIAŁEK</span><span> Zniżka 10% na każdą kolejną godzinę</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>WTOREK</span><span>Studencikie wtorki -30% na bar dla studentów</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                <span>ŚRODA</span><span>-----------------------</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                <span>CZWARTEK</span><span>-----------------------</span></div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>PIĄTEK</span><span>Trzy tory w cenie dwóch przy rezerwacji na min 2h</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                <span>SOBOTA</span><span>-----------------------</span>
-                            </div>
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                <span>NIEDZIELA</span><span>-----------------------</span></div>
+                            {promotions.map((day, index) => (
+                                <div className="date-time d-flex flex-row justify-content-between"
+                                     key={index}>
+                                    <span>{getDayName(day.dayOfWeek)}</span>
+                                    <span>{day.description}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="box-2 baba-container flex-grow-1 d-flex">
@@ -147,7 +190,7 @@ export default function Home()
                                 {regulations.map((regulation, index) => (
                                     <div className="date-time d-flex flex-row justify-content-between"
                                          key={index}>
-                                        <span>{regulation.number} {regulation.description}</span>
+                                        <span>{regulation.number}. {regulation.description}</span>
                                     </div>
                                 ))}
                                 <div className="date-time d-flex flex-row justify-content-between">
@@ -155,9 +198,10 @@ export default function Home()
                                 </div>
                                 <div className="date-time d-flex flex-row justify-content-between">
                                     <span>1. PUNKT PIERWSZY</span>
-                                </div><div className="date-time d-flex flex-row justify-content-between">
-                                <span>1. PUNKT PIERWSZY</span>
-                            </div>
+                                </div>
+                                <div className="date-time d-flex flex-row justify-content-between">
+                                    <span>1. PUNKT PIERWSZY</span>
+                                </div>
                             </div>
 
                         </div>
