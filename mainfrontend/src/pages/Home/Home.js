@@ -1,7 +1,7 @@
 import './home.css'
 import bowling_photo from './pobrany plik.jpeg'
 import {useEffect, useState} from "react";
-import { mainBackendApi} from "../../util/Requests";
+import {mainBackendApi} from "../../util/Requests";
 
 export default function Home()
 {
@@ -49,11 +49,13 @@ export default function Home()
             "startTime": "10:00:00",
             "endTime": "20:00:00"
         }
-    ]);
+    ])
+    const [regulations, setRegulations] = useState([])
 
     useEffect(() =>
     {
         fetchOpeningHours()
+        fetchRegulations()
     }, [])
 
     async function fetchOpeningHours()
@@ -68,6 +70,20 @@ export default function Home()
             console.error('Error fetching opening hours:', error)
         }
     }
+
+    async function fetchRegulations()
+    {
+        try
+        {
+            const response = await mainBackendApi.get("Regulation");
+            const data = response.data;
+            setRegulations(data);
+        } catch (error)
+        {
+            console.error("Error fetching regulations:", error);
+        }
+    }
+
 
     function getDayName(dayNumber)
     {
@@ -104,13 +120,15 @@ export default function Home()
                             </div>
                             <div className="date-time d-flex flex-row justify-content-between"><span>WTOREK</span><span>Studencikie wtorki -30% na bar dla studentów</span>
                             </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>ŚRODA</span><span>-----------------------</span>
+                            <div className="date-time d-flex flex-row justify-content-between">
+                                <span>ŚRODA</span><span>-----------------------</span>
                             </div>
                             <div className="date-time d-flex flex-row justify-content-between">
                                 <span>CZWARTEK</span><span>-----------------------</span></div>
                             <div className="date-time d-flex flex-row justify-content-between"><span>PIĄTEK</span><span>Trzy tory w cenie dwóch przy rezerwacji na min 2h</span>
                             </div>
-                            <div className="date-time d-flex flex-row justify-content-between"><span>SOBOTA</span><span>-----------------------</span>
+                            <div className="date-time d-flex flex-row justify-content-between">
+                                <span>SOBOTA</span><span>-----------------------</span>
                             </div>
                             <div className="date-time d-flex flex-row justify-content-between">
                                 <span>NIEDZIELA</span><span>-----------------------</span></div>
@@ -125,7 +143,21 @@ export default function Home()
                         <p>REGULAMIN KRĘGIELNI BOWLING</p>
 
                         <div className="date-time-container d-flex flex-column justify-content-between">
-                            <div className="date-time d-flex flex-row justify-content-between"><span>1. PUNKT PIERWSZY</span>
+                            <div className="date-time d-flex flex-row justify-content-between">
+                                {regulations.map((regulation, index) => (
+                                    <div className="date-time d-flex flex-row justify-content-between"
+                                         key={index}>
+                                        <span>{regulation.number} {regulation.description}</span>
+                                    </div>
+                                ))}
+                                <div className="date-time d-flex flex-row justify-content-between">
+                                    <span>1. PUNKT PIERWSZY</span>
+                                </div>
+                                <div className="date-time d-flex flex-row justify-content-between">
+                                    <span>1. PUNKT PIERWSZY</span>
+                                </div><div className="date-time d-flex flex-row justify-content-between">
+                                <span>1. PUNKT PIERWSZY</span>
+                            </div>
                             </div>
 
                         </div>

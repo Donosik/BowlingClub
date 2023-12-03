@@ -73,6 +73,8 @@ void ConfigureRepositoriesDb(IServiceCollection services)
     services.AddScoped<ILaneRepository, LaneRepository>();
     services.AddScoped<IOpenHourRepository, OpenHourRepository>();
     services.AddScoped<IPersonRepository, PersonRepository>();
+    services.AddScoped<IPromotionRepository, PromotionRepository>();
+    services.AddScoped<IRegulationRepository, RegulationRepository>();
     services.AddScoped<IReservationRepository, ReservationRepository>();
     services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IWorkerRepository, WorkerRepository>();
@@ -97,7 +99,9 @@ void ConfigureServices(IServiceCollection services)
     services.AddScoped<IInvoiceService, InvoiceService>();
     services.AddScoped<ILanesService, LaneService>();
     services.AddScoped<IPersonService, PersonService>();
+    services.AddScoped<IPromotionService, PromotionService>();
     services.AddScoped<IRaportService, RaportService>();
+    services.AddScoped<IRegulationService, RegulationService>();
     services.AddScoped<IReservationService, ReservationService>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IWorkerService, WorkerService>();

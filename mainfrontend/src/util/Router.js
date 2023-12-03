@@ -9,7 +9,7 @@ import Offer from "../pages/Offer/Offer";
 import ManagementLayout from "./Layout/ManagementLayout";
 import Users from "../pages/Users/Users";
 import Magazine from "../pages/Magazine/Magazine";
-import ChangeSite from "../pages/ChangeSite/ChangeSite";
+import ChangeOpenHours from "../pages/ChangeSite/ChangeOpenHours";
 import Reservation from "../pages/Reservation/Reservation";
 import Schedule from "../pages/Schedule/Schedule";
 import Raports from "../pages/Raports/Raports";
@@ -17,6 +17,10 @@ import PurchaseSystem from "../pages/PurchaseSystem/PurchaseSystem";
 import Sale from "../pages/Sale/Sale";
 import AddWorker from "../pages/Users/AddWorker";
 import EditUser from "../pages/Users/EditUser";
+import ChangeRegulations from "../pages/ChangeSite/ChangeRegulations";
+import ChangeSiteLayout from "../pages/ChangeSite/ChangeSiteLayout";
+import ChangePromotions from "../pages/ChangeSite/ChangePromotions";
+import AddRegulation from "../pages/ChangeSite/AddRegulation";
 
 export default function Router()
 {
@@ -33,7 +37,15 @@ export default function Router()
                     </Route>
                     <Route path={"magazyn"} element={<Magazine/>}/>
                     <Route path={"sprzedaz"} element={<Sale/>}/>
-                    <Route path={"zmianastrony"} element={<ChangeSite/>}/>
+                    <Route path={"zmianastrony"} element={<ChangeSiteLayout/>}>
+                        <Route index element={<ChangeOpenHours/>}/>
+                        <Route path={"godziny"} element={<ChangeOpenHours/>}/>
+                        <Route path={"promocje"} element={<ChangePromotions/>}/>
+                        <Route path={"regulamin"}>
+                            <Route index element={<ChangeRegulations/>}/>
+                            <Route path={"dodaj"} element={<AddRegulation/>}/>
+                        </Route>
+                    </Route>
                     <Route path={"rezerwacje"} element={<Reservation/>}/>
                     <Route path={"grafik"} element={<Schedule/>}/>
                     <Route path={"raporty"} element={<Raports/>}/>

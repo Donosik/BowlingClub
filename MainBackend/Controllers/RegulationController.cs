@@ -24,7 +24,9 @@ public class RegulationController : ControllerBase
     public async Task<IActionResult> GetRegulations()
     {
         ICollection<Regulation> promotions = await serviceWrapper.regulation.GetRegulations();
-        return Ok(promotions);
+        if (promotions != null)
+            return Ok(promotions);
+        return BadRequest();
     }
 
 #endregion

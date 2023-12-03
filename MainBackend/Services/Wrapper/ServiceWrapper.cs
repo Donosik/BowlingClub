@@ -25,7 +25,7 @@ public class ServiceWrapper : IServiceWrapper
     public ServiceWrapper(IUserService user, IPersonService person, IGeneratorService generator,
         IWorkScheduleService workSchedule, ILanesService lane, IWorkerService worker, IReservationService reservation,
         IClientService client, IInvoiceService invoice, IBarInventoryService barInventory, IRaportService raport,
-        IDataService data)
+        IDataService data,IRegulationService regulation,IPromotionService promotion)
     {
         this.user = user;
         this.person = person;
@@ -39,6 +39,8 @@ public class ServiceWrapper : IServiceWrapper
         this.barInventory = barInventory;
         this.raport = raport;
         this.data = data;
+        this.promotion = promotion;
+        this.regulation = regulation;
     }
 
 #endregion

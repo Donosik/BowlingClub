@@ -22,7 +22,7 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
 
     public RepositoryWrapperDb(Context.BowlingDb dbContext, IUserRepository user, IPersonRepository person,
         IClientRepository client, IWorkerRepository worker, IWorkScheduleRepository workSchedule, ILaneRepository lane,
-        IReservationRepository reservation, IInvoiceRepository invoice, IBarInventoryRepository barInventory, IOpenHourRepository openHour)
+        IReservationRepository reservation, IInvoiceRepository invoice, IBarInventoryRepository barInventory, IOpenHourRepository openHour,IPromotionRepository promotion,IRegulationRepository regulation)
     {
         this.dbContext = dbContext;
         this.user = user;
@@ -35,6 +35,8 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
         this.reservation = reservation;
         this.barInventory = barInventory;
         this.openHour = openHour;
+        this.promotion = promotion;
+        this.regulation = regulation;
     }
 
 #endregion
