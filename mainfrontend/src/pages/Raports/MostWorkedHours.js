@@ -1,8 +1,35 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Chart from "react-apexcharts";
+import {mainBackendApi} from "../../util/Requests";
 
-export default function MostWorkedHours({ workersWithHours }) {
-    // Przygotuj dane do wykresu
+export default function MostWorkedHours() {
+
+    const [workersWithHours, setWorkersWithHours] = useState([])
+
+    const [howManyDaysAgo, setHowManyDaysAgo] = useState(7)
+    const [howManyDaysForward, setHowManyDaysForward] = useState(30)
+    const [howManyTop, setHowManyTop] = useState(5)
+
+    useEffect(() =>
+    {
+        fetchWorkersWithHours()
+    }, [])
+
+
+    async function fetchWorkersWithHours()
+    {
+        try
+        {
+            const response = await mainBackendApi.get('/Raport/MostWorkedHours/' + howManyDaysAgo + '/' + howManyDaysForward + '/' + howManyTop)
+            const data = response.data
+            setWorkersWithHours(data)
+        } catch (error)
+        {
+            console.log(error)
+
+        }
+    }
+
     const chartOptions = {
         chart: {
             id: "bar-chart",
@@ -25,7 +52,7 @@ export default function MostWorkedHours({ workersWithHours }) {
                     ranges: [
                         {
                             from: 0,
-                            to: Math.max(...workersWithHours.map((worker) => worker.Hours)),
+                            to: Math.max(...workersWithHours.map((worker) => worker.totalWorkHours)),
                             color: "#591914", // Zmień kolor słupków na #4CAF50
                         },
                     ],
@@ -44,7 +71,7 @@ export default function MostWorkedHours({ workersWithHours }) {
     const chartSeries = [
         {
             name: "Liczba godzin",
-            data: workersWithHours.map((worker) => worker.Hours),
+            data: workersWithHours.map((worker) => worker.totalWorkHours),
         },
     ];
 
@@ -70,7 +97,7 @@ export default function MostWorkedHours({ workersWithHours }) {
                             <td>{worker.Id}</td>
                             <td>{worker.FullName}</td>
                             <td>{worker.Email}</td>
-                            <td>{worker.Hours}</td>
+                            <td>{worker.totalWorkHours}</td>
                         </tr>
                     ))}
                     </tbody>

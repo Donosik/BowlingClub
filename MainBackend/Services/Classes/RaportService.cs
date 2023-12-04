@@ -14,10 +14,12 @@ public class RaportService : IRaportService
         this.repositoryWrapper = repositoryWrapper;
     }
 
-    public async Task<IEnumerable<WorkerWithHours>> MostWorkedHours(int howManyDaysAgo,int howManyTop)
+    public async Task<IEnumerable<WorkerWithHours>> MostWorkedHours(int howManyDaysAgo, int howManyDaysForward,
+        int howManyTop)
     {
-        DateTime endDate = DateTime.Today;
-        DateTime startDate = endDate.AddDays(-howManyDaysAgo);
+        DateTime today = DateTime.Today;
+        DateTime endDate = today.AddDays(howManyDaysForward);
+        DateTime startDate = today.AddDays(-howManyDaysAgo);
         IEnumerable<FactWorkSchedule> workSchedules =
             await repositoryWrapper.normalDwWrapper.workSchedule.GetAllWithDims();
 
@@ -32,15 +34,18 @@ public class RaportService : IRaportService
                 TotalWorkHours = group.Sum(work =>
                     Math.Max(0, (work.WorkEnd.CalendarDate - work.WorkStart.CalendarDate).TotalHours))
             }).OrderByDescending(worker => worker.TotalWorkHours)
+            .Take(howManyTop)
             .ToList();
 
         return workersWithWorkHours;
     }
 
-    public async Task<IEnumerable<ClientWIthInvoices>> BestBuyingClient(int howManyDaysAgo,int howManyTop)
+    public async Task<IEnumerable<ClientWIthInvoices>> BestBuyingClient(int howManyDaysAgo, int howManyDaysForward,
+        int howManyTop)
     {
-        DateTime endDate = DateTime.Today;
-        DateTime startDate = endDate.AddDays(-howManyDaysAgo);
+        DateTime today = DateTime.Today;
+        DateTime endDate = today.AddDays(howManyDaysForward);
+        DateTime startDate = today.AddDays(-howManyDaysAgo);
         IEnumerable<FactInvoice> invoices = await repositoryWrapper.normalDwWrapper.invoice.GetAllWithDims();
 
         var bestBuyingClients = invoices
@@ -51,31 +56,35 @@ public class RaportService : IRaportService
                 Id = group.Key.Id,
                 FullName = group.Key.FullName,
                 Email = group.Key.Email,
-                TotalMoneySpend = group.Sum(invoice=>invoice.Amount)
+                TotalMoneySpend = group.Sum(invoice => invoice.Amount)
             })
             .OrderByDescending(client => client.TotalMoneySpend)
+            .Take(howManyTop)
             .ToList();
 
         return bestBuyingClients;
     }
 
-    public async Task<IEnumerable<InvoicesWithProducts>> BestSellingProducts(int howManyDaysAgo,int howManyTop)
+    public async Task<IEnumerable<InvoicesWithProducts>> BestSellingProducts(int howManyDaysAgo, int howManyDaysForward,
+        int howManyTop)
     {
-        DateTime endDate = DateTime.Today;
-        DateTime startDate = endDate.AddDays(-howManyDaysAgo);
+        DateTime today = DateTime.Today;
+        DateTime endDate = today.AddDays(howManyDaysForward);
+        DateTime startDate = today.AddDays(-howManyDaysAgo);
         IEnumerable<FactInvoice> invoices = await repositoryWrapper.normalDwWrapper.invoice.GetAllWithProducts();
 
         var bestSellingProducts = invoices
             .Where(invoice => invoice.IssueDate.CalendarDate >= startDate && invoice.IssueDate.CalendarDate <= endDate)
-            .SelectMany(invoice=>invoice.Products)
+            .SelectMany(invoice => invoice.Products)
             .GroupBy(product => product.ProductName)
             .Select(group => new InvoicesWithProducts
             {
                 Id = group.First().Id,
                 ProductName = group.Key,
-                TotalSold=group.Count()
+                TotalSold = group.Count()
             })
             .OrderByDescending(client => client.TotalSold)
+            .Take(howManyTop)
             .ToList();
 
         return bestSellingProducts;

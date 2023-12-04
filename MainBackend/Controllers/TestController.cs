@@ -70,5 +70,12 @@ public class TestController : ControllerBase
         return Ok();
     }
 
+    [HttpGet("GenerateAdmin")]
+    public async Task<IActionResult> GenerateAdmin()
+    {
+        await serviceWrapper.generator.GenerateAdmin();
+        return Ok();
+    }
+
 #endregion
 }

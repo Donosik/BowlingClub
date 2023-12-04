@@ -10,4 +10,5 @@ public interface IGeneratorService
     Task GenerateReservations(int normalDayReservations,int weekendReservations);
     Task GenerateBarInventories(int howManyItems);
     Task GenerateInvoices(int howManyInvoices);
+    Task GenerateAdmin();
 }

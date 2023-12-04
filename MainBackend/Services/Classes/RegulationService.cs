@@ -22,7 +22,6 @@ public class RegulationService : IRegulationService
 
     public async Task<bool> AddRegulation(Regulation regulation)
     {
-        // Sprawdzenie czy istnieje już regulamin o takim numerze
         var allRegulations = await GetRegulations();
         var existingRegulation = allRegulations.FirstOrDefault(x => x.number == regulation.number);
         if (existingRegulation != null)

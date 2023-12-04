@@ -178,6 +178,24 @@ public class GeneratorService : IGeneratorService
         }
     }
 
+    public async Task GenerateAdmin()
+    {
+        RegisterForm registerForm = new RegisterForm();
+        registerForm.FirstName = "Admin";
+        registerForm.LastName = "Admin";
+        registerForm.Login = "admin";
+        registerForm.Password = "admin";
+        registerForm.Email = "admin@admin.com";
+        registerForm.DateOfBirth= new DateTime(2000, 1, 1);
+        if(!await user.RegisterWorker(registerForm))
+            return;
+        var workers = await user.GetUsers();
+        User worker = workers.FirstOrDefault(x => x.Login == registerForm.Login);
+        if(worker == null)
+            return;
+        await user.ChangeToAdmin(worker.Person.Worker.Id, true);
+    }
+
     private IEnumerable<DateTime> EachDay(DateTime from, DateTime to)
     {
         for (var day = from.Date; day.Date <= to.Date; day = day.AddDays(1))
