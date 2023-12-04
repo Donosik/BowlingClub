@@ -74,6 +74,7 @@ export default function ChangeOpenHours()
     {
         const response = await mainBackendApi.post('Data')
         console.log(response)
+        await fetchOpeningHours()
     }
 
     return (

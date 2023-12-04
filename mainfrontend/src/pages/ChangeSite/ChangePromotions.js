@@ -36,6 +36,7 @@ export default function ChangePromotions()
     {
         const response = await mainBackendApi.post('Promotion')
         console.log(response)
+        await fetchPromotions()
     }
     async function handleSaveChanges(e) {
         e.preventDefault()

@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import {mainBackendApi} from "../../util/Requests";
+import {useNavigate} from "react-router-dom";
 
 export default function AddRegulation()
 {
     const [number, setNumber] = useState()
     const [description, setDescription] = useState('')
+    const navigate=useNavigate()
 
     async function handleSubmit()
     {
@@ -16,6 +18,7 @@ export default function AddRegulation()
             }
             const response=await mainBackendApi.post('Regulation',requestData)
             console.log(response)
+            navigate('../')
         } catch (error)
         {
             console.log(error)
