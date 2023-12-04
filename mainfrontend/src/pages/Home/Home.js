@@ -1,10 +1,10 @@
 import './home.css'
-import bowling_photo from './pobrany plik.jpeg'
+import bowling_photo from './haome_photo.jpg'
+import bowls_photo from './photo_bowls.jpg'
 import {useEffect, useState} from "react";
 import {mainBackendApi} from "../../util/Requests";
 
-export default function Home()
-{
+export default function Home() {
     // Default data hours in case there is no backend connection
     const [openingHours, setOpeningHours] = useState([
         {
@@ -89,62 +89,50 @@ export default function Home()
         },
     ])
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         fetchOpeningHours()
         fetchRegulations()
         fetchPromotions()
     }, [])
 
-    async function fetchOpeningHours()
-    {
-        try
-        {
+    async function fetchOpeningHours() {
+        try {
             const response = await mainBackendApi.get('Data')
             const data = response.data
             setOpeningHours(data)
-        } catch (error)
-        {
+        } catch (error) {
             console.error('Error fetching opening hours:', error)
         }
     }
 
-    async function fetchPromotions()
-    {
-        try
-        {
+    async function fetchPromotions() {
+        try {
             const response = await mainBackendApi.get("Promotion")
             const data = response.data
             console.log(data)
             setPromotions(data)
-        } catch (error)
-        {
+        } catch (error) {
             console.error("Error fetching promotions:", error)
         }
     }
 
-    async function fetchRegulations()
-    {
-        try
-        {
+    async function fetchRegulations() {
+        try {
             const response = await mainBackendApi.get("Regulation");
             const data = response.data;
             setRegulations(data);
-        } catch (error)
-        {
+        } catch (error) {
             console.error("Error fetching regulations:", error);
         }
     }
 
 
-    function getDayName(dayNumber)
-    {
+    function getDayName(dayNumber) {
         const daysOfWeek = ['NIEDZIELA', 'PONIEDZIAŁEK', 'WTOREK', 'ŚRODA', 'CZWARTEK', 'PIĄTEK', 'SOBOTA'];
         return daysOfWeek[dayNumber];
     }
 
-    function getSmallHour(hour)
-    {
+    function getSmallHour(hour) {
         return hour.slice(0, -3)
     }
 
@@ -164,6 +152,11 @@ export default function Home()
                             ))}
                         </div>
                     </div>
+                    <div className="box-2 baba-container flex-grow-1 d-flex">
+                        <img className="baba flex-grow-1 w-100"
+                             src={bowling_photo}
+                             alt="bowling"/>
+                    </div>
                     <div className="box-1 flex-grow-1">
                         <p>NASZE PROMOCJE</p>
 
@@ -177,32 +170,19 @@ export default function Home()
                             ))}
                         </div>
                     </div>
-                    <div className="box-2 baba-container flex-grow-1 d-flex">
-                        <img className="baba flex-grow-1 w-100"
-                             src={bowling_photo}
-                             alt="bowling"/>
-                    </div>
+
                     <div className="box-1 w-100 align-self-stretch">
                         <p>REGULAMIN KRĘGIELNI BOWLING</p>
 
-                        <div className="date-time-container d-flex flex-column justify-content-between">
-                            <div className="date-time d-flex flex-row justify-content-between">
-                                {regulations.map((regulation, index) => (
-                                    <div className="date-time d-flex flex-row justify-content-between"
-                                         key={index}>
-                                        <span>{regulation.number}. {regulation.description}</span>
-                                    </div>
-                                ))}
-                                <div className="date-time d-flex flex-row justify-content-between">
-                                    <span>1. PUNKT PIERWSZY</span>
+                        <div className="datee-time-containr d-flex flex-column justify-content-between">
+
+                            {regulations.map((regulation, index) => (
+                                <div
+                                    key={index}>
+                                    <span>{regulation.number}. {regulation.description}</span><br/>
                                 </div>
-                                <div className="date-time d-flex flex-row justify-content-between">
-                                    <span>1. PUNKT PIERWSZY</span>
-                                </div>
-                                <div className="date-time d-flex flex-row justify-content-between">
-                                    <span>1. PUNKT PIERWSZY</span>
-                                </div>
-                            </div>
+                            ))}
+
 
                         </div>
                     </div>
