@@ -12,14 +12,21 @@ public class RegulationService : IRegulationService
     {
         this.repositoryWrapper = repositoryWrapper;
     }
+
     public async Task<ICollection<Regulation>> GetRegulations()
     {
         ICollection<Regulation> regulations = await repositoryWrapper.normalDbWrapper.regulation.GetAll();
+        regulations = regulations.OrderBy(x => x.number).ToList();
         return regulations;
     }
 
     public async Task<bool> AddRegulation(Regulation regulation)
     {
+        // Sprawdzenie czy istnieje już regulamin o takim numerze
+        var allRegulations = await GetRegulations();
+        var existingRegulation = allRegulations.FirstOrDefault(x => x.number == regulation.number);
+        if (existingRegulation != null)
+            return false;
         repositoryWrapper.normalDbWrapper.regulation.Create(regulation);
         return await repositoryWrapper.normalDbWrapper.Save();
     }
@@ -38,6 +45,7 @@ public class RegulationService : IRegulationService
                 updatedEntities++;
             }
         }
+
         return await repositoryWrapper.normalDbWrapper.Save(updatedEntities);
     }
 
@@ -46,5 +54,4 @@ public class RegulationService : IRegulationService
         await repositoryWrapper.normalDbWrapper.regulation.Delete(id);
         return await repositoryWrapper.normalDbWrapper.Save();
     }
-
 }
