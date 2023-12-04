@@ -6,22 +6,26 @@ export default function AddRegulation()
 {
     const [number, setNumber] = useState()
     const [description, setDescription] = useState('')
-    const navigate=useNavigate()
+    const [errorMessage, setErrorMessage] = useState('')
+    const [isAddingFailed, setIsAddingFailed] = useState(false)
+    const navigate = useNavigate()
 
     async function handleSubmit()
     {
+        setIsAddingFailed(false)
         try
         {
-            const requestData={
-                "number":number,
-                "description":description
+            const requestData = {
+                "number": number,
+                "description": description
             }
-            const response=await mainBackendApi.post('Regulation',requestData)
+            const response = await mainBackendApi.post('Regulation', requestData)
             console.log(response)
             navigate('../')
         } catch (error)
         {
-            console.log(error)
+            setIsAddingFailed(true)
+            setErrorMessage('Punkt regulaminu o podanym numerze już istnieje')
         }
     }
 
@@ -46,6 +50,7 @@ export default function AddRegulation()
                                         onClick={handleSubmit}>DODAJ PUNKT REGULAMINU
                                 </button>
                             </div>
+                            {isAddingFailed ? <div className="error-message">{errorMessage}</div> : null}
                         </div>
                     </div>
                 </div>

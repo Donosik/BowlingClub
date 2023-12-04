@@ -79,7 +79,7 @@ export default function ChangeRegulations() {
                                         />
                                     </td>
                                     <td>
-                                        <button onClick={()=>deleteRegulation(regulation.id)}>USUŃ</button>
+                                        <button onClick={(e)=>deleteRegulation(regulation.id)}>USUŃ</button>
                                     </td>
                                 </tr>
                             ))}
