@@ -6,3 +6,12 @@ mainfrontend/node_modules/warning/LICENSE.md
 .idea/.idea.BowlingClub/.idea/workspace.xml
 mainfrontend/.idea/vcs.xml
 mainfrontend/.idea/workspace.xml
+.idea/
+
+MainBackend/bin/Debug/net7.0/appsettings.Development.json
+MainBackend/bin/Debug/net7.0/appsettings.json
+MainBackend/bin/Debug/net7.0/Azure.Core.dll
+MainBackend/appsettings.json
+MainBackend/appsettings.json
+MainBackend/bin/Debug/net7.0/Azure.Identity.dll
+MainBackend/appsettings.json
