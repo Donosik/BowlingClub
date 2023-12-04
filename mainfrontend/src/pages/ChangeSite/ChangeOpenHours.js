@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import {mainBackendApi} from '../../util/Requests'
-import ChangeRegulations from "./ChangeRegulations";
 
 export default function ChangeOpenHours()
 {
     const [openHours, setOpenHours] = useState([])
-    const [editedOpenHours, setEditedOpenHours] = useState([])
 
     useEffect(() =>
     {
@@ -26,7 +23,6 @@ export default function ChangeOpenHours()
             const response = await mainBackendApi.get('Data')
             const data = response.data
             setOpenHours(data)
-            setEditedOpenHours(data)
         } catch (error)
         {
             console.error('Error fetching opening hours:', error)
@@ -48,16 +44,16 @@ export default function ChangeOpenHours()
     function handleInputChange(index, field, value)
     {
         // Update the edited opening hours state based on user input
-        const updatedOpenHours = [...editedOpenHours]
+        const updatedOpenHours = [...openHours]
         updatedOpenHours[index] = {...updatedOpenHours[index], [field]: getBigHour(value)}
-        setEditedOpenHours(updatedOpenHours)
+        setOpenHours(updatedOpenHours)
     }
 
     async function handleSaveChanges()
     {
         try
         {
-            const formattedOpenHours = editedOpenHours.map((day) => ({
+            const formattedOpenHours = openHours.map((day) => ({
                 ...day,
                 startTime: getBigHour(day.startTime),
                 endTime: getBigHour(day.endTime),
@@ -95,7 +91,7 @@ export default function ChangeOpenHours()
                             </tr>
                             </thead>
                             <tbody>
-                            {editedOpenHours.map((day, index) => (
+                            {openHours.map((day, index) => (
                                 <tr key={index}>
                                     <td>{getDayName(day.dayOfWeek)}</td>
                                     <td>
