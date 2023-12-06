@@ -53,9 +53,7 @@ export default function ChangePromotions()
             <div className="table-container">
                 <form>
                     <div className="table-name">ZMIANA PROMOCJI LOKALU</div>
-                    <button type="button"
-                            onClick={(e) => createPromotions()}>Stwórz domyślny harmonogram
-                    </button>
+
                     <div className="table-container">
                         <table className="table-bordered">
                             <thead>
@@ -82,12 +80,15 @@ export default function ChangePromotions()
                             </tbody>
                         </table>
                     </div>
-                    <div className="d-flex">
+                    <button type="button"
+                            onClick={(e) => createPromotions()}>WYCZYŚĆ PROMOCJE
+                    </button>
+
                         <button type="submit"
                                 onClick={handleSaveChanges}>
                             ZAPISZ ZMIANY
                         </button>
-                    </div>
+
                 </form>
             </div>
         </>

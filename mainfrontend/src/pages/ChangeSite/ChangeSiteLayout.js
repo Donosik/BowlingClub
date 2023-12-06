@@ -1,19 +1,19 @@
 import {Outlet, useNavigate} from "react-router-dom";
-
+import './ChangeSite.css'
 export default function ChangeSiteLayout()
 {
     const navigate = useNavigate()
     return (
         <>
-            <div>
+            <div className='margin-buttons'>
             <button type="button"
-                    onClick={() => navigate('godziny')}>Zmiana godzin
+                    onClick={() => navigate('godziny')}>ZMIANA GODZIN
             </button>
             <button type="button"
-                    onClick={() => navigate('promocje')}>Zmiana promocji
+                    onClick={() => navigate('promocje')}>ZMIANA PROMOCJI
             </button>
             <button type="button"
-                    onClick={() => navigate('regulamin')}>Zmiana regulaminu
+                    onClick={() => navigate('regulamin')}>ZMIANA REGULAMINU
             </button>
             </div>
             <Outlet/>

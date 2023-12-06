@@ -53,9 +53,7 @@ export default function ChangeRegulations() {
             <div className="table-container">
                 <form>
                     <div className="table-name">ZMIANA ZASAD REGULAMINU</div>
-                    <button type="button" onClick={() => navigate("dodaj")}>
-                        Dodaj nowy punkt regulaminu
-                    </button>
+
                     <div className="table-container">
                         <table className="table-bordered">
                             <thead>
@@ -87,7 +85,9 @@ export default function ChangeRegulations() {
                         </table>
                     </div>
                     <div className="d-flex">
-                        <button type="button" onClick={handleSaveChanges}>
+                        <button type="button" onClick={() => navigate("dodaj")}>
+                            DODAJ NOWY PUNKT
+                        </button>  <button type="button" onClick={handleSaveChanges}>
                             ZAPISZ ZMIANY
                         </button>
                     </div>

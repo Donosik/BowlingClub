@@ -6,40 +6,47 @@ import React from "react";
 export default function ManagementHeader()
 {
     return(
-        <nav className="container-style sticky-top navbar navbar-expand-lg">
-            <div className="menu-link-text container">
-                <Link className="bowling-text navbar-text" to="/management">
-                    <div className="logo">
+        <div>
+            <nav className="container-style sticky-top navbar navbar-expand-lg">
+                <div className="menu-link-text container">
+                    <Link className="bowling-text navbar-text" to="/management">
+                        <div className="logo">
 
-                        <img src={logo} alt="logo"/></div>
-                </Link>
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/uzytkownicy">UŻYTKOWNICY</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/magazyn">MAGAZYN</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/sprzedaz">SPRZEDAŻ</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/zmianastrony">ZMIANA STRONY</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/rezerwacje">REZERWACJE</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/grafik">GRAFIK</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/raporty">RAPORTY</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/management/systemzakupow">SYSTEM ZAKUPÓW</Link>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                            <img src={logo} alt="logo"/></div>
+                    </Link>
+                    <ul className="navbar-nav collapse navbar-collapse flex-grow-0" id={"navbarToggleExternalContent"}>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/uzytkownicy">UŻYTKOWNICY</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/magazyn">MAGAZYN</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/sprzedaz">SPRZEDAŻ</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/zmianastrony">ZMIANA STRONY</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/rezerwacje">REZERWACJE</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/grafik">GRAFIK</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/raporty">RAPORTY</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/management/systemzakupow">SYSTEM ZAKUPÓW</Link>
+                        </li>
+                    </ul>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
     )
 }

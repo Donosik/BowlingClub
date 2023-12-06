@@ -39,7 +39,7 @@ export default function AddWorker() {
     return (
         <>
             <div className="auth-page">
-                <div className="container page d-flex justify-content-center align-items-center min-vh-100">
+                <div className="container page d-flex justify-content-center align-items-center">
                     <div className="row">
                         <div className="login-box">
                             <h1 className="text-login">DODAWANIE PRACOWNIKA</h1>
@@ -48,7 +48,7 @@ export default function AddWorker() {
                                 <input type={"text"}
                                        name={"login"}
                                        onChange={e => setLogin(e.target.value)}/>
-                            </label> <br/>
+                            </label>
                             <label>
                                 Hasło:<br/>
                                 <input type={"password"}
@@ -60,7 +60,7 @@ export default function AddWorker() {
                                 <input type={"text"}
                                        name={"firstName"}
                                        onChange={e => setFirstName(e.target.value)}/>
-                            </label><br/>
+                            </label>
                             <label>
                                 Nazwisko:<br/>
                                 <input type={"text"}
@@ -72,7 +72,7 @@ export default function AddWorker() {
                                 <input type={"email"}
                                        name={"email"}
                                        onChange={e => setEmail(e.target.value)}/>
-                            </label><br/>
+                            </label>
                             <label>
                                 Data urodzenia:<br/>
                                 <input type={"date"}

@@ -79,7 +79,7 @@ export default function ChangeOpenHours()
                 <form>
                     <div className="table-name">ZMIANA GODZIN OTWARCIA LOKALU</div>
                     <button type="button"
-                            onClick={(e) => createOpenHours()}>Stwórz domyślny harmonogram
+                            onClick={(e) => createOpenHours()}>ZAŁADUJ DOMYŚLNY
                     </button>
                     <div className="table-container">
                         <table className="table-bordered">

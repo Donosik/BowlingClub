@@ -1,9 +1,14 @@
 table{
-    width: 100%;
+    /*width: 100%;*/
     border-collapse: collapse;
+    overflow-x: scroll;
     font-family: "Inter-Regular", Helvetica;
     border: 1px solid;
     border-color: #818181;
+}
+
+.user-list {
+    overflow-x: auto !important;
 }
 
 tr{

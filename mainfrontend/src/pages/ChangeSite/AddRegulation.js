@@ -32,7 +32,7 @@ export default function AddRegulation()
     return (
         <>
             <div className="auth-page">
-                <div className="container page d-flex justify-content-center align-items-center min-vh-100">
+                <div className="container page d-flex justify-content-center align-items-center">
                     <div className="row">
                         <div className="login-box">
                             <h1 className="text-login">DODAWANIE PUNKTU REGULAMINU</h1>
