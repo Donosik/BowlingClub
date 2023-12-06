@@ -1,7 +1,52 @@
 import React from "react";
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, registerables } from 'chart.js';
+import * as htmlToImage from "html-to-image";
+import { saveAs } from 'file-saver';
 
-export default function BestBuyingClient({buyingClients})
-{
+ChartJS.register(...registerables);
+
+export default function BestBuyingClient({ buyingClients }) {
+    const chartData = {
+        labels: buyingClients.map((client) => client.FullName),
+        datasets: [
+            {
+                label: 'Liczba faktur',
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
+                hoverBorderColor: 'rgba(75,192,192,1)',
+                data: buyingClients.map((client) => client.Invoices),
+            },
+        ],
+    };
+
+    const chartOptions = {
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Imię i nazwisko',
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Liczba faktur',
+                },
+            },
+        },
+    };
+
+    const chartId = 'best-buying-client-chart';
+
+    const downloadChartAsPNG = () => {
+        htmlToImage.toPng(document.getElementById(chartId))
+            .then(function (dataUrl) {
+                saveAs(dataUrl, 'best-buying-client-chart.png');
+            });
+    };
 
     return (
         <div className="table-container">
@@ -28,9 +73,12 @@ export default function BestBuyingClient({buyingClients})
                     </tbody>
                 </table>
             </div>
-            <br/>
+            <br />
             <div className="chart-container">
-
+                <Bar id={chartId} data={chartData} options={chartOptions} />
+                <button type="button" onClick={downloadChartAsPNG}>
+                    Pobierz wykres jako PNG
+                </button>
             </div>
         </div>
     );

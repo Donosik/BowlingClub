@@ -59,12 +59,14 @@ export default function Raports()
         Id: 1, ProductName: 'Drink', Sold: 1500,
     },])
 
-    const [howManyDaysAgo, setHowManyDaysAgo] = useState(7)
+    const [howManyDaysAgo, setHowManyDaysAgo] = useState(50)
     const [howManyDaysForward, setHowManyDaysForward] = useState(30)
     const [howManyTop, setHowManyTop] = useState(5)
 
     useEffect(() =>{
         fetchWorkersWithHours()
+        fetchSellingProducts()
+        fetchBuyingClients()
     }, [])
 
     async function fetchWorkersWithHours()
@@ -76,6 +78,27 @@ export default function Raports()
             setWorkersWithHours(data)
         } catch (error)
         {
+            console.log(error)
+        }
+    }
+    async function fetchBuyingClients() {
+        try {
+            const response = await mainBackendApi.get('/Raport/BestBuyingClient/'  + howManyDaysAgo + '/' + howManyDaysForward + '/' + howManyTop)
+            const data = response.data
+            setBuyingClient(data)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function fetchSellingProducts() {
+        try {
+            const response = await mainBackendApi.get('/Raport/BestSellingProducts/'  + howManyDaysAgo + '/' + howManyDaysForward + '/' + howManyTop)
+            const data = response.data
+            setSellingProducts(data)
+            console.log(data)
+        } catch (error) {
             console.log(error)
         }
     }
