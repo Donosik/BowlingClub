@@ -59,7 +59,7 @@ export default function Raports()
         Id: 1, ProductName: 'Drink', Sold: 1500,
     },])
 
-    const [howManyDaysAgo, setHowManyDaysAgo] = useState(50)
+    const [howManyDaysAgo, setHowManyDaysAgo] = useState(7)
     const [howManyDaysForward, setHowManyDaysForward] = useState(30)
     const [howManyTop, setHowManyTop] = useState(5)
 
