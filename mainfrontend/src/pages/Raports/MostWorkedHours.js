@@ -1,85 +1,56 @@
-import React, {useEffect, useState} from "react";
-import Chart from "react-apexcharts";
-import {mainBackendApi} from "../../util/Requests";
+import {Bar} from "react-chartjs-2";
+import { Chart as ChartJS, registerables } from 'chart.js';
+import * as htmlToImage from "html-to-image";
+import { saveAs } from 'file-saver';
 
-export default function MostWorkedHours() {
-
-    const [workersWithHours, setWorkersWithHours] = useState([])
-
-    const [howManyDaysAgo, setHowManyDaysAgo] = useState(7)
-    const [howManyDaysForward, setHowManyDaysForward] = useState(30)
-    const [howManyTop, setHowManyTop] = useState(5)
-
-    useEffect(() =>
-    {
-        fetchWorkersWithHours()
-    }, [])
-
-
-    async function fetchWorkersWithHours()
-    {
-        try
-        {
-            const response = await mainBackendApi.get('/Raport/MostWorkedHours/' + howManyDaysAgo + '/' + howManyDaysForward + '/' + howManyTop)
-            const data = response.data
-            setWorkersWithHours(data)
-        } catch (error)
-        {
-            console.log(error)
-
-        }
-    }
+export default function MostWorkedHours({workersWithHours})
+{
+    ChartJS.register(...registerables);
+    const chartData = {
+        labels: workersWithHours.map(worker => worker.fullName),
+        datasets: [
+            {
+                label: 'Total Work Hours',
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
+                hoverBorderColor: 'rgba(75,192,192,1)',
+                data: workersWithHours.map(worker => worker.totalWorkHours),
+            },
+        ],
+    };
 
     const chartOptions = {
-        chart: {
-            id: "bar-chart",
-            background: "#E6D1C0",
-        },
-        xaxis: {
-            categories: workersWithHours.map((worker) => worker.FullName),
-            title: {
-                text: 'IMIĘ I NAZWISKO', // Dodaj nazwę osi X
-            },
-        },
-        yaxis: {
-            title: {
-                text: 'LICZBA GODZIN', // Dodaj nazwę osi Y
-            },
-        },
-        plotOptions: {
-            bar: {
-                colors: {
-                    ranges: [
-                        {
-                            from: 0,
-                            to: Math.max(...workersWithHours.map((worker) => worker.totalWorkHours)),
-                            color: "#591914", // Zmień kolor słupków na #4CAF50
-                        },
-                    ],
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Full Name',
                 },
             },
-        },
-        title: {
-            text: 'NAJWIĘCEJ PRZEPRACOWANYCH GODZIN', // Dodaj tytuł wykresu
-            align: 'center',
-            style: {
-                fontSize: '18px',
+            y: {
+                title: {
+                    display: true,
+                    text: 'Total Work Hours',
+                },
             },
         },
     };
 
-    const chartSeries = [
-        {
-            name: "Liczba godzin",
-            data: workersWithHours.map((worker) => worker.totalWorkHours),
-        },
-    ];
+    const chartId = 'work-hours-chart'
 
+    const downloadChartAsPNG = () =>{
+        htmlToImage.toPng(document.getElementById(chartId))
+            .then(function (dataUrl) {
+                saveAs(dataUrl, 'my-node.png')
+            });
+    }
     return (
         <div className="table-container">
             <div className="table-name">RAPORTY</div>
-            <br />
-            <br />
+            <br/>
+            <br/>
             <div className="table-name">Najwięcej przepracowanych godzin</div>
             <div className="table-container">
                 <table className="table-bordered">
@@ -92,26 +63,23 @@ export default function MostWorkedHours() {
                     </tr>
                     </thead>
                     <tbody>
-                    {workersWithHours.map((worker) => (
-                        <tr key={worker.Id}>
-                            <td>{worker.Id}</td>
-                            <td>{worker.FullName}</td>
-                            <td>{worker.Email}</td>
-                            <td>{worker.totalWorkHours}</td>
-                        </tr>
-                    ))}
+                    {
+                        workersWithHours.map((worker) => (
+                            <tr key={worker.id}>
+                                <td>{worker.id}</td>
+                                <td>{worker.fullName}</td>
+                                <td>{worker.email}</td>
+                                <td>{worker.totalWorkHours}</td>
+                            </tr>
+                        ))
+                    }
                     </tbody>
                 </table>
             </div>
-            <br />
-            {/* Dodaj wykres pod tabelą */}
+            <br/>
             <div className="chart-container">
-                <Chart
-                    options={chartOptions}
-                    series={chartSeries}
-                    type="bar"
-                    height={350}
-                />
+                <Bar id={chartId} data={chartData} options={chartOptions} />
+                <button type="button" onClick={downloadChartAsPNG}>Pobierz wykres jako PDF</button>
             </div>
         </div>
     );

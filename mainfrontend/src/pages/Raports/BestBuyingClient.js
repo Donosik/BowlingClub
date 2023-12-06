@@ -1,53 +1,7 @@
 import React from "react";
-import Chart from "react-apexcharts";
 
-export default function BestBuyingClient({ buyingClients }) {
-    // Przygotuj dane do wykresu
-// Przygotuj dane do wykresu
-    const chartOptions = {
-        chart: {
-            id: "bar-chart",
-            background: "#E6D1C0",
-        },
-        xaxis: {
-            categories: buyingClients.map((client) => client.FullName),
-            title: {
-                text: 'KLIENCI', // Dodaj nazwę osi X
-            },
-        },
-        yaxis: {
-            title: {
-                text: 'ZYSK ZE SPRZEDAŻY', // Dodaj nazwę osi Y
-            },
-        },
-        plotOptions: {
-            bar: {
-                colors: {
-                    ranges: [
-                        {
-                            from: 0,
-                            to: 200,
-                            color: "#591914", // Zmień kolor słupków na #4CAF50
-                        },
-                    ],
-                },
-            },
-        },
-        title: {
-            text: 'NAJLEPSI KLIENCI', // Dodaj tytuł wykresu
-            align: 'center',
-            style: {
-                fontSize: '18px',
-            },
-        },
-    };
-
-    const chartSeries = [
-        {
-            name: "Liczba faktur",
-            data: buyingClients.map((client) => client.Invoices),
-        },
-    ];
+export default function BestBuyingClient({buyingClients})
+{
 
     return (
         <div className="table-container">
@@ -74,15 +28,9 @@ export default function BestBuyingClient({ buyingClients }) {
                     </tbody>
                 </table>
             </div>
-<br/>
-            {/* Dodaj wykres pod tabelą */}
+            <br/>
             <div className="chart-container">
-                <Chart
-                    options={chartOptions}
-                    series={chartSeries}
-                    type="bar"
-                    height={350}
-                />
+
             </div>
         </div>
     );
