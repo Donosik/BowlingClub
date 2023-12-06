@@ -8,7 +8,7 @@ public class BarInventory : IEntity
     
     public string Name { get; set; }
     public int Quantity { get; set; }
-    public float Price { get; set; }
+    public decimal Price { get; set; }
     
     public virtual ICollection<Invoice> Invoices { get; set; }
 

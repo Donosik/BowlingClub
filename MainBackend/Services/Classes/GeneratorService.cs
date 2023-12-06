@@ -153,7 +153,7 @@ public class GeneratorService : IGeneratorService
         {
             String name = barItemsNames[random.Next(barItemsNames.Count)];
             int quantity = random.Next(1, 101);
-            float price = (float)random.Next(100, 10000) / 100;
+            decimal price = (decimal)random.Next(100, 10000) / 100;
             await barInventory.AddBarItem(name, quantity, price);
         }
     }
@@ -161,10 +161,12 @@ public class GeneratorService : IGeneratorService
     public async Task GenerateInvoices(int howManyInvoices)
     {
         ICollection<Client> clients = await client.GetClients();
+        ICollection<Worker> workers = await worker.GetWorkers();
         ICollection<BarInventory> barInventories = await barInventory.GetBarItems();
         for (int i = 0; i < howManyInvoices; i++)
         {
             Client client = clients.ElementAt(random.Next(clients.Count));
+            Worker worker = workers.ElementAt(random.Next(workers.Count));
             ICollection<BarInventory> barItems = new List<BarInventory>();
             for (int j = 0; j < random.Next(5); i++)
             {
@@ -174,7 +176,7 @@ public class GeneratorService : IGeneratorService
             DateTime issueDate = DateTime.Today;
             issueDate = issueDate.AddDays(random.Next(15));
             DateTime dueDate = issueDate.AddDays(30);
-            invoice.AddInvoice(barItems, client, issueDate, dueDate);
+            await invoice.AddInvoice(barItems, client,worker, issueDate, dueDate);
         }
     }
 

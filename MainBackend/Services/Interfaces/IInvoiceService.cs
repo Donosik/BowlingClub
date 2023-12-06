@@ -4,5 +4,7 @@ namespace MainBackend.Services.Interfaces;
 
 public interface IInvoiceService
 {
-    Task<bool> AddInvoice(ICollection<BarInventory> products,Client client,DateTime issueDate,DateTime dueDate);
+    Task<ICollection<Invoice>> GetInvoices();
+    Task<bool> AddInvoice(ICollection<BarInventory> products,Client client,Worker worker,DateTime issueDate,DateTime dueDate);
+    Task<bool> DeleteInvoice(int id);
 }

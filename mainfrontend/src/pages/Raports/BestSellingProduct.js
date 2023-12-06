@@ -8,7 +8,7 @@ ChartJS.register(...registerables);
 
 export default function BestSellingProduct({ sellingProducts }) {
     const chartData = {
-        labels: sellingProducts.map((product) => product.ProductName),
+        labels: sellingProducts.map((product) => product.productName),
         datasets: [
             {
                 label: 'Ilość sprzedanych sztuk',
@@ -17,7 +17,7 @@ export default function BestSellingProduct({ sellingProducts }) {
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(75,192,192,0.6)',
                 hoverBorderColor: 'rgba(75,192,192,1)',
-                data: sellingProducts.map((product) => product.Sold),
+                data: sellingProducts.map((product) => product.totalSold),
             },
         ],
     };
@@ -61,11 +61,11 @@ export default function BestSellingProduct({ sellingProducts }) {
                     </tr>
                     </thead>
                     <tbody>
-                    {sellingProducts.map((product) => (
-                        <tr key={product.Id}>
-                            <td>{product.Id}</td>
-                            <td>{product.ProductName}</td>
-                            <td>{product.Sold}</td>
+                    {sellingProducts.map((product,index) => (
+                        <tr key={index}>
+                            <td>{product.id}</td>
+                            <td>{product.productName}</td>
+                            <td>{product.totalSold}</td>
                         </tr>
                     ))}
                     </tbody>

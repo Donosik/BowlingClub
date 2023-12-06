@@ -14,22 +14,47 @@ public class InvoiceService : IInvoiceService
         this.repositoryWrapper = repositoryWrapper;
     }
 
-    public async Task<bool> AddInvoice(ICollection<BarInventory> products, Client client, DateTime issueDate,
+    public async Task<ICollection<Invoice>> GetInvoices()
+    {
+        return await repositoryWrapper.normalDbWrapper.invoice.GetAll();
+    }
+
+    public async Task<bool> AddInvoice(ICollection<BarInventory> products, Client client, Worker worker,
+        DateTime issueDate,
         DateTime dueDate)
     {
         Invoice invoice = new Invoice();
         invoice.Client = client;
+        invoice.Worker = worker;
         invoice.IssueDate = issueDate;
         invoice.DueDate = dueDate;
         invoice.BarInventories = products;
+        decimal value = 0;
+        foreach (var product in products)
+        {
+            value += product.Price;
+        }
+
+        invoice.Amount = value;
         repositoryWrapper.normalDbWrapper.invoice.Create(invoice);
         repositoryWrapper.normalDbWrapper.client.Edit(client);
-        int entities = 2;
+        repositoryWrapper.normalDbWrapper.worker.Edit(worker);
+        int entities = 3;
         foreach (var product in products)
         {
             repositoryWrapper.normalDbWrapper.barInventory.Edit(product);
             entities++;
         }
+
         return await repositoryWrapper.normalDbWrapper.Save(entities);
+    }
+
+    public async Task<bool> DeleteInvoice(int id)
+    {
+        Invoice invoice = await repositoryWrapper.normalDbWrapper.invoice.Get(id);
+        if (invoice == null)
+            return false;
+        repositoryWrapper.normalDbWrapper.invoice.Delete(invoice);
+        return await repositoryWrapper.normalDbWrapper.Save();
     }
 }

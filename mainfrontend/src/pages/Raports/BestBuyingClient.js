@@ -1,14 +1,15 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, registerables } from 'chart.js';
+import {Bar} from "react-chartjs-2";
+import {Chart as ChartJS, registerables} from 'chart.js';
 import * as htmlToImage from "html-to-image";
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 
 ChartJS.register(...registerables);
 
-export default function BestBuyingClient({ buyingClients }) {
+export default function BestBuyingClient({buyingClients})
+{
     const chartData = {
-        labels: buyingClients.map((client) => client.FullName),
+        labels: buyingClients.map((client) => client.fullName),
         datasets: [
             {
                 label: 'Liczba faktur',
@@ -17,7 +18,7 @@ export default function BestBuyingClient({ buyingClients }) {
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(75,192,192,0.6)',
                 hoverBorderColor: 'rgba(75,192,192,1)',
-                data: buyingClients.map((client) => client.Invoices),
+                data: buyingClients.map((client) => client.totalMoneySpend),
             },
         ],
     };
@@ -41,9 +42,11 @@ export default function BestBuyingClient({ buyingClients }) {
 
     const chartId = 'best-buying-client-chart';
 
-    const downloadChartAsPNG = () => {
+    const downloadChartAsPNG = () =>
+    {
         htmlToImage.toPng(document.getElementById(chartId))
-            .then(function (dataUrl) {
+            .then(function (dataUrl)
+            {
                 saveAs(dataUrl, 'best-buying-client-chart.png');
             });
     };
@@ -62,21 +65,24 @@ export default function BestBuyingClient({ buyingClients }) {
                     </tr>
                     </thead>
                     <tbody>
-                    {buyingClients.map((client) => (
-                        <tr key={client.Id}>
-                            <td>{client.Id}</td>
-                            <td>{client.FullName}</td>
-                            <td>{client.Email}</td>
-                            <td>{client.Invoices}</td>
+                    {buyingClients.map((client,index) => (
+                        <tr key={index}>
+                            <td>{client.id}</td>
+                            <td>{client.fullName}</td>
+                            <td>{client.email}</td>
+                            <td>{client.totalMoneySpend}</td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
             </div>
-            <br />
+            <br/>
             <div className="chart-container">
-                <Bar id={chartId} data={chartData} options={chartOptions} />
-                <button type="button" onClick={downloadChartAsPNG}>
+                <Bar id={chartId}
+                     data={chartData}
+                     options={chartOptions}/>
+                <button type="button"
+                        onClick={downloadChartAsPNG}>
                     Pobierz wykres jako PNG
                 </button>
             </div>

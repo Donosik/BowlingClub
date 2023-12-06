@@ -19,6 +19,7 @@ public class BowlingDw : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<FactInvoice>().Property(e => e.Amount).HasPrecision(38, 18);
         modelBuilder.Entity<FactInvoice>().HasOne<DimDate>(f => f.IssueDate).WithMany()
             .HasForeignKey(f => f.IssueDateId)
             .OnDelete(DeleteBehavior.NoAction);

@@ -20,7 +20,7 @@ public class BarInventoryService : IBarInventoryService
         return (ICollection<BarInventory>)barInventories;
     }
 
-    public async Task<bool> AddBarItem(string name, int quantity, float price)
+    public async Task<bool> AddBarItem(string name, int quantity, decimal price)
     {
         var barItems = await repositoryWrapper.normalDbWrapper.barInventory.GetAll();
         foreach (var item in barItems)

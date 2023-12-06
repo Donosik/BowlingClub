@@ -21,6 +21,15 @@ public class TestController : ControllerBase
     [HttpGet("Delete")]
     public async Task<IActionResult> DeleteDb()
     {
+        var invoices = await serviceWrapper.invoice.GetInvoices();
+        foreach (var invoice in invoices)
+        {
+            bool result = await serviceWrapper.invoice.DeleteInvoice(invoice.Id);
+            if (result == false)
+            {
+                return BadRequest("Something went wrong");
+            }
+        }
         var persons = await serviceWrapper.person.GetPersons();
         foreach (var person in persons)
         {
@@ -66,7 +75,7 @@ public class TestController : ControllerBase
         await serviceWrapper.generator.GenerateLanes(10);
         await serviceWrapper.generator.GenerateReservations(30, 50);
         await serviceWrapper.generator.GenerateBarInventories(1000);
-        //await serviceWrapper.generator.GenerateInvoices(1000);
+        await serviceWrapper.generator.GenerateInvoices(500);
         return Ok();
     }
 

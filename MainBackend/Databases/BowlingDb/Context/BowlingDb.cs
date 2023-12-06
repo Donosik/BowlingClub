@@ -36,6 +36,8 @@ public class BowlingDb : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Invoice>().Property(e => e.Amount).HasPrecision(38, 18);
+        modelBuilder.Entity<BarInventory>().Property(e => e.Price).HasPrecision(38, 18);
         // Client and User relation 1:1
         modelBuilder.Entity<Client>()
             .HasOne<User>(c => c.User)

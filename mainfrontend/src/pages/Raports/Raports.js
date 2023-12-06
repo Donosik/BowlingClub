@@ -86,7 +86,6 @@ export default function Raports()
             const response = await mainBackendApi.get('/Raport/BestBuyingClient/'  + howManyDaysAgo + '/' + howManyDaysForward + '/' + howManyTop)
             const data = response.data
             setBuyingClient(data)
-            console.log(data)
         } catch (error) {
             console.log(error)
         }
@@ -97,7 +96,6 @@ export default function Raports()
             const response = await mainBackendApi.get('/Raport/BestSellingProducts/'  + howManyDaysAgo + '/' + howManyDaysForward + '/' + howManyTop)
             const data = response.data
             setSellingProducts(data)
-            console.log(data)
         } catch (error) {
             console.log(error)
         }
