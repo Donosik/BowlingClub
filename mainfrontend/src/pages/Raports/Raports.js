@@ -1,8 +1,8 @@
-import MostWorkedHours from "./MostWorkedHours";
-import BestBuyingClient from "./BestBuyingClient";
-import BestSellingProduct from "./BestSellingProduct";
-import {useEffect, useState} from "react";
-import {mainBackendApi} from "../../util/Requests";
+import MostWorkedHours from "./MostWorkedHours"
+import BestBuyingClient from "./BestBuyingClient"
+import BestSellingProduct from "./BestSellingProduct"
+import {useEffect, useState} from "react"
+import {mainBackendApi} from "../../util/Requests"
 
 export default function Raports()
 {
@@ -64,10 +64,25 @@ export default function Raports()
     const [howManyTop, setHowManyTop] = useState(5)
 
     useEffect(() =>{
+        calculateDays()
         fetchWorkersWithHours()
         fetchSellingProducts()
         fetchBuyingClients()
     }, [])
+
+    function calculateDays(){
+        const currentDate = new Date()
+        const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
+        const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+
+        const daysInMonth = lastDayOfMonth.getDate()
+        const daysAgo = daysInMonth - currentDate.getDate()
+        const daysForward = daysInMonth - daysAgo
+
+        setHowManyDaysAgo(daysAgo)
+        setHowManyDaysForward(daysForward)
+        setHowManyTop(5)
+    }
 
     async function fetchWorkersWithHours()
     {

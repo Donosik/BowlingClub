@@ -1,10 +1,11 @@
-import React from "react";
-import {Bar} from "react-chartjs-2";
-import {Chart as ChartJS, registerables} from 'chart.js';
-import * as htmlToImage from "html-to-image";
-import {saveAs} from 'file-saver';
+import React from "react"
+import {Bar} from "react-chartjs-2"
+import {Chart as ChartJS, registerables} from 'chart.js'
+import * as htmlToImage from "html-to-image"
+import {saveAs} from 'file-saver'
+import './Raports.css'
 
-ChartJS.register(...registerables);
+ChartJS.register(...registerables)
 
 export default function BestBuyingClient({buyingClients})
 {
@@ -13,15 +14,15 @@ export default function BestBuyingClient({buyingClients})
         datasets: [
             {
                 label: 'Liczba faktur',
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                backgroundColor: 'rgba(89,25,20,0.4)',
+                borderColor: 'rgba(89,25,20,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-                hoverBorderColor: 'rgba(75,192,192,1)',
+                hoverBackgroundColor: 'rgba(89,25,20,0.6)',
+                hoverBorderColor: 'rgba(89,25,20,1)',
                 data: buyingClients.map((client) => client.totalMoneySpend),
             },
         ],
-    };
+    }
 
     const chartOptions = {
         scales: {
@@ -38,18 +39,18 @@ export default function BestBuyingClient({buyingClients})
                 },
             },
         },
-    };
+    }
 
-    const chartId = 'best-buying-client-chart';
+    const chartId = 'best-buying-client-chart'
 
     const downloadChartAsPNG = () =>
     {
         htmlToImage.toPng(document.getElementById(chartId))
             .then(function (dataUrl)
             {
-                saveAs(dataUrl, 'best-buying-client-chart.png');
-            });
-    };
+                saveAs(dataUrl, 'best-buying-client-chart.png')
+            })
+    }
 
     return (
         <div className="table-container">
@@ -65,7 +66,7 @@ export default function BestBuyingClient({buyingClients})
                     </tr>
                     </thead>
                     <tbody>
-                    {buyingClients.map((client,index) => (
+                    {buyingClients.map((client, index) => (
                         <tr key={index}>
                             <td>{client.id}</td>
                             <td>{client.fullName}</td>
@@ -77,15 +78,18 @@ export default function BestBuyingClient({buyingClients})
                 </table>
             </div>
             <br/>
-            <div className="chart-container">
-                <Bar id={chartId}
-                     data={chartData}
-                     options={chartOptions}/>
+            <div>
+                <div id={chartId}
+                     className="chart-container">
+                    <Bar
+                        data={chartData}
+                        options={chartOptions}/>
+                </div>
                 <button type="button"
                         onClick={downloadChartAsPNG}>
                     Pobierz wykres jako PNG
                 </button>
             </div>
         </div>
-    );
+    )
 }

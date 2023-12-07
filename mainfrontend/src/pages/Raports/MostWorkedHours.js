@@ -1,50 +1,53 @@
-import {Bar} from "react-chartjs-2";
-import { Chart as ChartJS, registerables } from 'chart.js';
-import * as htmlToImage from "html-to-image";
-import { saveAs } from 'file-saver';
+import {Bar} from "react-chartjs-2"
+import {Chart as ChartJS, registerables} from 'chart.js'
+import * as htmlToImage from "html-to-image"
+import {saveAs} from 'file-saver'
+import './Raports.css'
 
 export default function MostWorkedHours({workersWithHours})
 {
-    ChartJS.register(...registerables);
+    ChartJS.register(...registerables)
     const chartData = {
         labels: workersWithHours.map(worker => worker.fullName),
         datasets: [
             {
-                label: 'Total Work Hours',
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                label: 'Łączna ilość godzin',
+                backgroundColor: 'rgba(89,25,20,0.4)',
+                borderColor: 'rgba(89,25,20,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-                hoverBorderColor: 'rgba(75,192,192,1)',
+                hoverBackgroundColor: 'rgba(89,25,20,0.6)',
+                hoverBorderColor: 'rgba(89,25,20,1)',
                 data: workersWithHours.map(worker => worker.totalWorkHours),
             },
         ],
-    };
+    }
 
     const chartOptions = {
         scales: {
             x: {
                 title: {
                     display: true,
-                    text: 'Full Name',
+                    text: 'Imię i nazwisko',
                 },
             },
             y: {
                 title: {
                     display: true,
-                    text: 'Total Work Hours',
+                    text: 'Łączna ilość godzin',
                 },
             },
         },
-    };
+    }
 
     const chartId = 'work-hours-chart'
 
-    const downloadChartAsPNG = () =>{
+    const downloadChartAsPNG = () =>
+    {
         htmlToImage.toPng(document.getElementById(chartId))
-            .then(function (dataUrl) {
+            .then(function (dataUrl)
+            {
                 saveAs(dataUrl, 'my-node.png')
-            });
+            })
     }
     return (
         <div className="table-container">
@@ -77,10 +80,16 @@ export default function MostWorkedHours({workersWithHours})
                 </table>
             </div>
             <br/>
-            <div className="chart-container">
-                <Bar id={chartId} data={chartData} options={chartOptions} />
-                <button type="button" onClick={downloadChartAsPNG}>Pobierz wykres jako PDF</button>
+            <div>
+                <div id={chartId}
+                     className="chart-container">
+                    <Bar data={chartData}
+                         options={chartOptions}/>
+                </div>
+                <button type="button"
+                        onClick={downloadChartAsPNG}>Pobierz wykres jako PDF
+                </button>
             </div>
         </div>
-    );
+    )
 }
