@@ -109,7 +109,6 @@ export default function Home() {
         try {
             const response = await mainBackendApi.get("Promotion")
             const data = response.data
-            console.log(data)
             setPromotions(data)
         } catch (error) {
             console.error("Error fetching promotions:", error)
