@@ -94,7 +94,7 @@ export default function RegisterForm(props)
                 </label><br/>
 
                 <div className="d-flex justify-content-center align-items-center">
-                    <button type="button" onClick={handleSubmit}>ZAREJESTRUJ SIĘ</button>
+                    <button type="submit" onClick={handleSubmit}>ZAREJESTRUJ SIĘ</button>
                 </div>
 
                 <div className="d-flex justify-content-center align-items-center">
