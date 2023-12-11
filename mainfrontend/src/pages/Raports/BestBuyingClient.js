@@ -13,12 +13,12 @@ export default function BestBuyingClient({buyingClients})
         labels: buyingClients.map((client) => client.fullName),
         datasets: [
             {
-                label: 'Liczba faktur',
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                label: 'LICZBA FAKTUR',
+                backgroundColor: 'rgba(89,25,20,0.4)',
+                borderColor: 'rgba(89,25,20,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-                hoverBorderColor: 'rgba(75,192,192,1)',
+                hoverBackgroundColor: 'rgba(89,25,20,0.6)',
+                hoverBorderColor: 'rgba(89,25,20,1)',
                 data: buyingClients.map((client) => client.totalMoneySpend),
             },
         ],
@@ -48,7 +48,7 @@ export default function BestBuyingClient({buyingClients})
         htmlToImage.toPng(document.getElementById(chartId))
             .then(function (dataUrl)
             {
-                saveAs(dataUrl, 'best-buying-client-chart.png')
+                saveAs(dataUrl, 'LICZBA FAKTUR.png')
             })
     }
 
@@ -78,10 +78,13 @@ export default function BestBuyingClient({buyingClients})
                 </table>
             </div>
             <br/>
-            <div className="chart-container">
-                <Bar id={chartId}
-                     data={chartData}
-                     options={chartOptions}/>
+            <div>
+                <div id={chartId}
+                     className="chart-container">
+                    <Bar
+                        data={chartData}
+                        options={chartOptions}/>
+                </div>
                 <button type="button"
                         onClick={downloadChartAsPNG}>
                     Pobierz wykres jako PNG

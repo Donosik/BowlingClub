@@ -13,12 +13,12 @@ export default function BestSellingProduct({sellingProducts})
         labels: sellingProducts.map((product) => product.productName),
         datasets: [
             {
-                label: 'Ilość sprzedanych sztuk',
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                label: 'ILOŚĆ SPRZEDANYCH SZTUK',
+                backgroundColor: 'rgba(89,25,20,0.4)',
+                borderColor: 'rgba(89,25,20,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-                hoverBorderColor: 'rgba(75,192,192,1)',
+                hoverBackgroundColor: 'rgba(89,25,20,0.6)',
+                hoverBorderColor: 'rgba(89,25,20,1)',
                 data: sellingProducts.map((product) => product.totalSold),
             },
         ],
@@ -48,7 +48,7 @@ export default function BestSellingProduct({sellingProducts})
         htmlToImage.toPng(document.getElementById(chartId))
             .then(function (dataUrl)
             {
-                saveAs(dataUrl, 'best-selling-product-chart.png')
+                saveAs(dataUrl, 'ILOŚĆ SPRZEDANYCH SZTUK.png')
             })
     }
 
@@ -75,10 +75,15 @@ export default function BestSellingProduct({sellingProducts})
                     </tbody>
                 </table>
             </div>
-            <br />
-            <div className="chart-container">
-                <Bar id={chartId} data={chartData} options={chartOptions} />
-                <button type="button" onClick={downloadChartAsPNG}>
+            <br/>
+            <div>
+                <div id={chartId}
+                     className="chart-container">
+                    <Bar data={chartData}
+                         options={chartOptions}/>
+                </div>
+                <button type="button"
+                        onClick={downloadChartAsPNG}>
                     Pobierz wykres jako PNG
                 </button>
             </div>
