@@ -1,4 +1,5 @@
-﻿using SuppliesBackend.Database.SuppliesDb.Entities;
+﻿using System.Threading.Tasks;
+using SuppliesBackend.Database.SuppliesDb.Entities;
 
 namespace SuppliesBackend.Services.Interfaces;
 
