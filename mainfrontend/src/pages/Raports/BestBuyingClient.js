@@ -12,12 +12,12 @@ export default function BestBuyingClient({buyingClients})
         labels: buyingClients.map((client) => client.fullName),
         datasets: [
             {
-                label: 'Liczba faktur',
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                label: 'NAJLEPSI KLIENCI',
+                backgroundColor: 'rgba(89,25,20,1)',
+                borderColor: 'rgba(230,209,192,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-                hoverBorderColor: 'rgba(75,192,192,1)',
+                hoverBackgroundColor: 'rgba(89,25,20,0.8)',
+                hoverBorderColor: 'rgba(89,25,20,0.5)',
                 data: buyingClients.map((client) => client.totalMoneySpend),
             },
         ],
@@ -28,13 +28,13 @@ export default function BestBuyingClient({buyingClients})
             x: {
                 title: {
                     display: true,
-                    text: 'Imię i nazwisko',
+                    text: 'IMIĘ I NAZWISKO',
                 },
             },
             y: {
                 title: {
                     display: true,
-                    text: 'Liczba faktur',
+                    text: 'LICZBA FAKTUR',
                 },
             },
         },
@@ -77,7 +77,7 @@ export default function BestBuyingClient({buyingClients})
                 </table>
             </div>
             <br/>
-            <div className="chart-container">
+            <div className="login-box">
                 <Bar id={chartId}
                      data={chartData}
                      options={chartOptions}/>

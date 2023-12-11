@@ -10,30 +10,40 @@ export default function MostWorkedHours({workersWithHours})
         labels: workersWithHours.map(worker => worker.fullName),
         datasets: [
             {
-                label: 'Total Work Hours',
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+
+                label: 'NAJWIĘCEJ PRZEPRACOWANYCH GODZIN',
+                backgroundColor: 'rgba(89,25,20,1)',
+                borderColor: 'rgba(230,209,192,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-                hoverBorderColor: 'rgba(75,192,192,1)',
+                hoverBackgroundColor: 'rgba(89,25,20,0.8)',
+                hoverBorderColor: 'rgba(89,25,20,0.5)',
                 data: workersWithHours.map(worker => worker.totalWorkHours),
             },
         ],
     };
-
     const chartOptions = {
         scales: {
             x: {
                 title: {
                     display: true,
-                    text: 'Full Name',
+                    text: 'IMIĘ I NAZWISKO',
                 },
             },
             y: {
                 title: {
                     display: true,
-                    text: 'Total Work Hours',
+                    text: 'LICZBA PRZEPRACOWANYCH GODZIN',
                 },
+            },
+        },
+        plugins: {
+            filler: {
+                propagate: false,
+            },
+        },
+        elements: {
+            bar: {
+                backgroundColor: '#E6D1C0', // Kolor tła wykresu
             },
         },
     };
@@ -43,7 +53,7 @@ export default function MostWorkedHours({workersWithHours})
     const downloadChartAsPNG = () =>{
         htmlToImage.toPng(document.getElementById(chartId))
             .then(function (dataUrl) {
-                saveAs(dataUrl, 'my-node.png')
+                saveAs(dataUrl, 'RAPORT-GODZINY.png')
             });
     }
     return (
@@ -77,9 +87,9 @@ export default function MostWorkedHours({workersWithHours})
                 </table>
             </div>
             <br/>
-            <div className="chart-container">
-                <Bar id={chartId} data={chartData} options={chartOptions} />
-                <button type="button" onClick={downloadChartAsPNG}>Pobierz wykres jako PDF</button>
+            <div className="login-box">
+                <Bar id={chartId} data={chartData} options={chartOptions}  />
+                <button type="button" onClick={downloadChartAsPNG}>Pobierz wykres jako PNG</button>
             </div>
         </div>
     );

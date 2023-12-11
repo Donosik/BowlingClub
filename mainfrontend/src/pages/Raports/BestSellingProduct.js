@@ -11,12 +11,12 @@ export default function BestSellingProduct({ sellingProducts }) {
         labels: sellingProducts.map((product) => product.productName),
         datasets: [
             {
-                label: 'Ilość sprzedanych sztuk',
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                label: 'NAJLEPIEJ SPRZEDAJĄCE SIĘ PRODUKTY',
+                backgroundColor: 'rgba(89,25,20,1)',
+                borderColor: 'rgba(230,209,192,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-                hoverBorderColor: 'rgba(75,192,192,1)',
+                hoverBackgroundColor: 'rgba(89,25,20,0.8)',
+                hoverBorderColor: 'rgba(89,25,20,0.5)',
                 data: sellingProducts.map((product) => product.totalSold),
             },
         ],
@@ -27,13 +27,13 @@ export default function BestSellingProduct({ sellingProducts }) {
             x: {
                 title: {
                     display: true,
-                    text: 'Nazwa produktu',
+                    text: 'NAZWA PRODUKTU',
                 },
             },
             y: {
                 title: {
                     display: true,
-                    text: 'Ilość sprzedanych sztuk',
+                    text: 'ILOŚĆ SZTUK SPRZEDANYCH',
                 },
             },
         },
@@ -72,7 +72,7 @@ export default function BestSellingProduct({ sellingProducts }) {
                 </table>
             </div>
             <br />
-            <div className="chart-container">
+            <div className="login-box">
                 <Bar id={chartId} data={chartData} options={chartOptions} />
                 <button type="button" onClick={downloadChartAsPNG}>
                     Pobierz wykres jako PNG

@@ -18,7 +18,7 @@ export default function Raports()
             id: 2,
             fullName: 'John Doe',
             email: '',
-            totalWorkHours: 10,
+            totalWorkHours: 100,
         },
         {
             id: 3,
