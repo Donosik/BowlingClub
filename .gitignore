@@ -39,3 +39,4 @@ SuppliesBackend/obj/Debug/net7.0/SuppliesBackend.GeneratedMSBuildEditorConfig.ed
 SuppliesBackend/obj/Debug/net7.0/SuppliesBackend.assets.cache
 SuppliesBackend/obj/Debug/net7.0/SuppliesBackend.AssemblyInfoInputs.cache
 SuppliesBackend/obj/SuppliesBackend.csproj.nuget.g.targets
+MainBackend/appsettings.json
