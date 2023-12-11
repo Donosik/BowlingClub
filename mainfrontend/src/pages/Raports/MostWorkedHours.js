@@ -1,59 +1,51 @@
-import {Bar} from "react-chartjs-2";
-import { Chart as ChartJS, registerables } from 'chart.js';
-import * as htmlToImage from "html-to-image";
-import { saveAs } from 'file-saver';
+import {Bar} from "react-chartjs-2"
+import {Chart as ChartJS, registerables} from 'chart.js'
+import * as htmlToImage from "html-to-image"
+import {saveAs} from 'file-saver'
+import './Raports.css'
 
 export default function MostWorkedHours({workersWithHours})
 {
-    ChartJS.register(...registerables);
+    ChartJS.register(...registerables)
     const chartData = {
         labels: workersWithHours.map(worker => worker.fullName),
         datasets: [
             {
-
-                label: 'NAJWIĘCEJ PRZEPRACOWANYCH GODZIN',
-                backgroundColor: 'rgba(89,25,20,1)',
-                borderColor: 'rgba(230,209,192,1)',
+                label: 'Total Work Hours',
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(89,25,20,0.8)',
-                hoverBorderColor: 'rgba(89,25,20,0.5)',
+                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
+                hoverBorderColor: 'rgba(75,192,192,1)',
                 data: workersWithHours.map(worker => worker.totalWorkHours),
             },
         ],
     };
+
     const chartOptions = {
         scales: {
             x: {
                 title: {
                     display: true,
-                    text: 'IMIĘ I NAZWISKO',
+                    text: 'Full Name',
                 },
             },
             y: {
                 title: {
                     display: true,
-                    text: 'LICZBA PRZEPRACOWANYCH GODZIN',
+                    text: 'Total Work Hours',
                 },
-            },
-        },
-        plugins: {
-            filler: {
-                propagate: false,
-            },
-        },
-        elements: {
-            bar: {
-                backgroundColor: '#E6D1C0', // Kolor tła wykresu
             },
         },
     };
 
     const chartId = 'work-hours-chart'
 
-    const downloadChartAsPNG = () =>{
+    const downloadChartAsPNG = () =>
+    {
         htmlToImage.toPng(document.getElementById(chartId))
             .then(function (dataUrl) {
-                saveAs(dataUrl, 'RAPORT-GODZINY.png')
+                saveAs(dataUrl, 'my-node.png')
             });
     }
     return (
@@ -87,10 +79,10 @@ export default function MostWorkedHours({workersWithHours})
                 </table>
             </div>
             <br/>
-            <div className="login-box">
-                <Bar id={chartId} data={chartData} options={chartOptions}  />
-                <button type="button" onClick={downloadChartAsPNG}>Pobierz wykres jako PNG</button>
+            <div className="chart-container">
+                <Bar id={chartId} data={chartData} options={chartOptions} />
+                <button type="button" onClick={downloadChartAsPNG}>Pobierz wykres jako PDF</button>
             </div>
         </div>
-    );
+    )
 }

@@ -71,7 +71,7 @@ export default function LoginForm(props)
                                 </div>
                                 {isLoginFailed ? <div className="error-message">{errorMessage}</div> : null}
                                 <div className="d-flex justify-content-center align-items-center">
-                                    <button type="button" onClick={handleSubmit}>ZALOGUJ SIĘ</button>
+                                    <button type="submit" onClick={handleSubmit}>ZALOGUJ SIĘ</button>
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <button type="button" onClick={handleSignUp}>REJESTRACJA</button>

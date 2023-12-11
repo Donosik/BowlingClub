@@ -1,26 +1,28 @@
-import React from "react";
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, registerables } from 'chart.js';
-import * as htmlToImage from "html-to-image";
-import { saveAs } from 'file-saver';
+import React from "react"
+import {Bar} from "react-chartjs-2"
+import {Chart as ChartJS, registerables} from 'chart.js'
+import * as htmlToImage from "html-to-image"
+import {saveAs} from 'file-saver'
+import './Raports.css'
 
-ChartJS.register(...registerables);
+ChartJS.register(...registerables)
 
-export default function BestSellingProduct({ sellingProducts }) {
+export default function BestSellingProduct({sellingProducts})
+{
     const chartData = {
         labels: sellingProducts.map((product) => product.productName),
         datasets: [
             {
-                label: 'NAJLEPIEJ SPRZEDAJĄCE SIĘ PRODUKTY',
-                backgroundColor: 'rgba(89,25,20,1)',
-                borderColor: 'rgba(230,209,192,1)',
+                label: 'Ilość sprzedanych sztuk',
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(89,25,20,0.8)',
-                hoverBorderColor: 'rgba(89,25,20,0.5)',
+                hoverBackgroundColor: 'rgba(75,192,192,0.6)',
+                hoverBorderColor: 'rgba(75,192,192,1)',
                 data: sellingProducts.map((product) => product.totalSold),
             },
         ],
-    };
+    }
 
     const chartOptions = {
         scales: {
@@ -37,16 +39,18 @@ export default function BestSellingProduct({ sellingProducts }) {
                 },
             },
         },
-    };
+    }
 
-    const chartId = 'best-selling-product-chart';
+    const chartId = 'best-selling-product-chart'
 
-    const downloadChartAsPNG = () => {
+    const downloadChartAsPNG = () =>
+    {
         htmlToImage.toPng(document.getElementById(chartId))
-            .then(function (dataUrl) {
-                saveAs(dataUrl, 'best-selling-product-chart.png');
-            });
-    };
+            .then(function (dataUrl)
+            {
+                saveAs(dataUrl, 'best-selling-product-chart.png')
+            })
+    }
 
     return (
         <div className="table-container">
@@ -61,7 +65,7 @@ export default function BestSellingProduct({ sellingProducts }) {
                     </tr>
                     </thead>
                     <tbody>
-                    {sellingProducts.map((product,index) => (
+                    {sellingProducts.map((product, index) => (
                         <tr key={index}>
                             <td>{product.id}</td>
                             <td>{product.productName}</td>
@@ -72,12 +76,12 @@ export default function BestSellingProduct({ sellingProducts }) {
                 </table>
             </div>
             <br />
-            <div className="login-box">
+            <div className="chart-container">
                 <Bar id={chartId} data={chartData} options={chartOptions} />
                 <button type="button" onClick={downloadChartAsPNG}>
                     Pobierz wykres jako PNG
                 </button>
             </div>
         </div>
-    );
+    )
 }

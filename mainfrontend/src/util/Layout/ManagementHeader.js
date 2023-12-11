@@ -5,6 +5,23 @@ import React from "react";
 
 export default function ManagementHeader()
 {
+
+    function logout()
+    {
+        if (localStorage.getItem('token') !== null)
+        {
+            localStorage.removeItem('token')
+        }
+    }
+    function isUserLoggedIn()
+    {
+       if(localStorage.getItem('token') !== null)
+       {
+           return true
+       }
+       return false
+    }
+
     return(
         <div>
             <nav className="container-style sticky-top navbar navbar-expand-lg">
@@ -39,6 +56,11 @@ export default function ManagementHeader()
                         <li className="nav-item">
                             <Link className="nav-link" to="/management/systemzakupow">SYSTEM ZAKUPÓW</Link>
                         </li>
+                        {isUserLoggedIn() === true ? (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/home" onClick={logout}>WYLOGUJ</Link>
+                            </li>
+                        ):null}
                     </ul>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
