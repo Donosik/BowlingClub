@@ -47,6 +47,9 @@ div button {
 .error-message {
     color: red;
     margin-top: 10px;
+    text-align: center;
+    font-weight: bolder;
+    text-transform: uppercase;
 }
 .login-box{
     padding: 15px;
