@@ -2,6 +2,11 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SuppliesBackend.Database.Generic.Repositories;
+using SuppliesBackend.Database.SuppliesDb.Repositories;
+using SuppliesBackend.Database.SuppliesDb.RepositoryWrapper;
+using SuppliesBackend.Services.Classes;
+using SuppliesBackend.Services.Interfaces;
 using SuppliesBackend.Services.Wrapper;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,13 +21,16 @@ builder.Services.AddSwaggerGen();
 // Services
 void ConfigureServices(IServiceCollection services)
 {
+services.AddScoped<IOrderService, OrderService>();
 
+services.AddScoped<IProductRepository, ProductRepository>();
 }
 
 // Wrappers
 void ConfigureWrappers(IServiceCollection services)
 {
     services.AddScoped<IServiceWrapper, ServiceWrapper>();
+    services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 }
 ConfigureServices(builder.Services);
 ConfigureWrappers(builder.Services);

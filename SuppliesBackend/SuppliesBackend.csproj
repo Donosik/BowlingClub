@@ -19,9 +19,4 @@
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Database\SuppliesDb\Context\" />
-      <Folder Include="Database\SuppliesDb\Repositories\" />
-    </ItemGroup>
-
 </Project>
