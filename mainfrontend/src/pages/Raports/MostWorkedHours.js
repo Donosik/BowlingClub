@@ -86,7 +86,7 @@ export default function MostWorkedHours({workersWithHours})
                          options={chartOptions}/>
                 </div>
                 <button type="button"
-                        onClick={downloadChartAsPNG}>Pobierz wykres jako PDF
+                        onClick={downloadChartAsPNG}>Pobierz wykres jako PNG
                 </button>
             </div>
         </div>
