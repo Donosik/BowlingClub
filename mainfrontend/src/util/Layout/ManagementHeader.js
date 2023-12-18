@@ -1,5 +1,5 @@
 import './Header.css'
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import logo from "./logo-bowl.png";
 import React from "react";
 
@@ -31,40 +31,63 @@ export default function ManagementHeader()
 
                             <img src={logo} alt="logo"/></div>
                     </Link>
-                    <ul className="navbar-nav collapse navbar-collapse flex-grow-0" id={"navbarToggleExternalContent"}>
+                    <ul className="navbar-nav collapse navbar-collapse flex-grow-0"
+                        id={"navbarToggleExternalContent"}>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/uzytkownicy">UŻYTKOWNICY</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/uzytkownicy"
+                                     activeClassName="active">UŻYTKOWNICY</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/magazyn">MAGAZYN</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/magazyn"
+                                     activeClassName="active">MAGAZYN</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/sprzedaz">SPRZEDAŻ</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/sprzedaz"
+                                     activeClassName="active">SPRZEDAŻ</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/zmianastrony">ZMIANA STRONY</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/zmianastrony"
+                                     activeClassName="active">ZMIANA STRONY</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/rezerwacje">REZERWACJE</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/rezerwacje"
+                                     activeClassName="active">REZERWACJE</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/grafik">GRAFIK</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/grafik"
+                                     activeClassName="active">GRAFIK</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/raporty">RAPORTY</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/raporty"
+                                     activeClassName="active">RAPORTY</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/management/systemzakupow">SYSTEM ZAKUPÓW</Link>
+                            <NavLink className="nav-link"
+                                     to="/management/systemzakupow"
+                                     activeClassName="active">SYSTEM ZAKUPÓW</NavLink>
                         </li>
                         {isUserLoggedIn() === true ? (
                             <li className="nav-item">
-                                <Link className="nav-link" to="/home" onClick={logout}>WYLOGUJ</Link>
+                                <Link className="nav-link"
+                                      to="/home"
+                                      onClick={logout}>WYLOGUJ</Link>
                             </li>
-                        ):null}
+                        ) : null}
                     </ul>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarToggleExternalContent"
+                            aria-controls="navbarToggleExternalContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                 </div>

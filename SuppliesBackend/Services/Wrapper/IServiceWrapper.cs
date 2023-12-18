@@ -1,4 +1,5 @@
-﻿using SuppliesBackend.Services.Interfaces;
+﻿using SuppliesBackend.Database.SuppliesDb.Repositories;
+using SuppliesBackend.Services.Interfaces;
 
 namespace SuppliesBackend.Services.Wrapper;
 
