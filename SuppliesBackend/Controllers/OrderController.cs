@@ -15,24 +15,36 @@ public class OrderController : ControllerBase
         this.service = service;
     }
     
-    [HttpGet("OrderStatus/{orderId}")]
-    public async Task<IActionResult> GetOrderStatus(int orderId)
+    [HttpGet("GetOrder/{orderId}")]
+    public async Task<IActionResult> GetOrder(int orderId)
     {
-        if(await service.order.GetOrderStatus(orderId))
-            return Ok();
-        else
-            return NotFound();
-    }
-    
-    [HttpGet("GetCompletedOrder/{orderId}")]
-    public async Task<IActionResult> GetCompletedOrder(int orderId)
-    {
-        var order = await service.order.GetCompletedOrder(orderId);
+        var order = await service.order.GetOrder(orderId);
         if (order != null)
             return Ok(order);
         else
             return NotFound();
     }
+    
+    [HttpGet("GetUnfullfilledOrders")]
+    public async Task<IActionResult> GetUnfullfilledOrders()
+    {
+        var orders = await service.order.GetUnfullfilledOrders();
+        if (orders != null)
+            return Ok(orders);
+        else
+            return NotFound();
+    }
+    
+    [HttpGet("GetFullfilledOrders")]
+    public async Task<IActionResult> GetFullfilledOrders()
+    {
+        var orders = await service.order.GetFullfilledOrders();
+        if (orders != null)
+            return Ok(orders);
+        else
+            return NotFound();
+    }
+    
     
     [HttpPost("CreateOrder")]
     public async Task<IActionResult> CreateOrder(ICollection<Product> products)
@@ -43,10 +55,10 @@ public class OrderController : ControllerBase
             return BadRequest();
     }
     
-    [HttpPost("FulfillOrder/{orderId}")]
-    public async Task<IActionResult> FulfillOrder(int orderId)
+    [HttpPost("FullfillOrder/{orderId}")]
+    public async Task<IActionResult> FullfillOrder(int orderId)
     {
-        if (await service.order.FulfillOrder(orderId))
+        if (await service.order.FullfillOrder(orderId))
             return Ok();
         else
             return BadRequest();

@@ -16,6 +16,7 @@ public interface IServiceWrapper
     IRaportService raport { get; }
     IRegulationService regulation { get; }
     IReservationService reservation { get; }
+    ISupplyService supply { get; }
     IUserService user { get; }
     IWorkerService worker { get; }
     IWorkScheduleService workSchedule { get; }

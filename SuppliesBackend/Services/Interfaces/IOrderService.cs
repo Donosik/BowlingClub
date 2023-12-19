@@ -5,8 +5,9 @@ namespace SuppliesBackend.Services.Interfaces;
 
 public interface IOrderService
 {
-    Task<bool> GetOrderStatus(int orderId);
-    Task<Order> GetCompletedOrder(int orderId);
+    Task<Order> GetOrder(int id);
+    Task<ICollection<Order>> GetUnfullfilledOrders();
+    Task<ICollection<Order>> GetFullfilledOrders();
     Task<bool> CreateOrder(ICollection<Product> products);
-    Task<bool> FulfillOrder(int orderId);
+    Task<bool> FullfillOrder(int orderId);
 }

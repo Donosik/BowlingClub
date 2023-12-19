@@ -103,6 +103,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddScoped<IRaportService, RaportService>();
     services.AddScoped<IRegulationService, RegulationService>();
     services.AddScoped<IReservationService, ReservationService>();
+    services.AddScoped<ISupplyService, SupplyService>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IWorkerService, WorkerService>();
     services.AddScoped<IWorkScheduleService, WorkScheduleService>();

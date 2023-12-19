@@ -15,13 +15,21 @@ public class OrderService : IOrderService
     {
         this.repositoryWrapper = repositoryWrapper;
     }
-    public Task<bool> GetOrderStatus(int orderId)
+    public async Task<Order> GetOrder(int id)
     {
-        throw new NotImplementedException();
+        return await repositoryWrapper.order.Get(id);
     }
-    public Task<Order> GetCompletedOrder(int orderId)
+    public async Task<ICollection<Order>> GetUnfullfilledOrders()
     {
-        throw new NotImplementedException();
+        var orders = await repositoryWrapper.order.GetAll();
+        orders=orders.Where(o => o.IsFullfilled == false).ToList();
+        return orders;
+    }
+    public async Task<ICollection<Order>> GetFullfilledOrders()
+    {
+        var orders = await repositoryWrapper.order.GetAll();
+        orders=orders.Where(o => o.IsFullfilled == true).ToList();
+        return orders;
     }
     public async Task<bool> CreateOrder(ICollection<Product> products)
     {
@@ -70,12 +78,12 @@ public class OrderService : IOrderService
             return true;
         return false;
     }
-    public async Task<bool> FulfillOrder(int orderId)
+    public async Task<bool> FullfillOrder(int orderId)
     {
         Order order= await repositoryWrapper.order.Get(orderId);
         if (order != null)
         {
-            order.IsFulfilled = true;
+            order.IsFullfilled = true;
             repositoryWrapper.order.Edit(order);
             if (await repositoryWrapper.Save())
                 return true;
