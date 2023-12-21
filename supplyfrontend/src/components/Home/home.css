@@ -1,0 +1,79 @@
+
+body{
+    margin-top: auto;
+    background-size: cover;
+    background-image: url('tło-test.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+div .table-container {
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Inter-Regular", Helvetica;
+    border: 1px solid;
+    border-color: #818181;
+}
+
+tr{
+    color: #e4e4e4;
+    text-align: center;
+    text-transform: uppercase;
+    background-color:#591914 ;
+    border: 1px solid;
+    border-color: #000000;
+}
+
+td{
+    color: #591914;
+    background-color:  #E6D1C0;
+    border: 1px solid;
+    border-color: #818181;
+}
+
+.table-name{
+    font-weight: bold;
+    background-color: #E6D1C0;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    border-color: #591914;
+    border: 1px solid;
+    width: 40%;
+    text-align: center;
+
+}
+
+div .magazine-container{
+    margin: 50px;
+
+}
+
+div button{
+    margin: 5px;
+}
+
+div input{
+    width: 40%;
+    margin: 5px;
+}
+div button {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #591914;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+

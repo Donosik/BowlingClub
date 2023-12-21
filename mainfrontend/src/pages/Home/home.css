@@ -28,20 +28,9 @@ body{
     text-align: right;
     margin-left: 90px;
 }
-/* Opcjonalne dodatkowe stylizacje */
-/*.box-1 p {*/
-/*    margin: 5px;}*/
-
-/*.full-height .row div {*/
-/*    height: 100%;*/
-/*}*/
 
 
 .city-card {
-    /* width: 300px;
-    height: 230px;
-    staraj się unikać definiowania na sztywno takich wartości, jeżeli chcesz aby strona była responsywna czyli skalowalna w zależności od szerokości ekranu
-    */
 
     padding: 10px 0;
 }
