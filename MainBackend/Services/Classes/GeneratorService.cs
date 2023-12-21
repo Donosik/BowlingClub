@@ -14,7 +14,7 @@ public class GeneratorService : IGeneratorService
     private IWorkerService worker { get; }
     private ILanesService lane { get; }
     private IReservationService reservation { get; }
-    private IBarInventoryService barInventory { get; }
+    private IInventoryService inventory { get; }
     private IInvoiceService invoice { get; }
 
     private readonly Random random = new Random();
@@ -33,7 +33,7 @@ public class GeneratorService : IGeneratorService
         "Gajewski"
     };
 
-    private readonly List<string> barItemsNames = new List<string>
+    private readonly List<string> InventoryItemNames = new List<string>
     {
         "Napoje alkoholowe", "Piwo", "Wódka", "Whisky", "Koktajle", "Soki", "Napoje bezalkoholowe", "Woda gazowana",
         "Soki owocowe", "Limonada", "Przekąski", "Orzeszki", "Chipsy", "Nuggetsy", "Nachosy", "Owoce", "Cytryny",
@@ -42,10 +42,10 @@ public class GeneratorService : IGeneratorService
     };
 
     public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
-        ILanesService lane, IReservationService reservation, IClientService client, IBarInventoryService barInventory,
+        ILanesService lane, IReservationService reservation, IClientService client, IInventoryService inventory,
         IInvoiceService invoice)
     {
-        this.barInventory = barInventory;
+        this.inventory = inventory;
         this.user = user;
         this.workSchedule = workSchedule;
         this.worker = worker;
@@ -147,14 +147,13 @@ public class GeneratorService : IGeneratorService
         }
     }
 
-    public async Task GenerateBarInventories(int howManyItems)
+    public async Task GenerateInventoryItems(int howManyItems)
     {
         for (int i = 0; i < howManyItems; i++)
         {
-            String name = barItemsNames[random.Next(barItemsNames.Count)];
-            int quantity = random.Next(1, 101);
+            String name = InventoryItemNames[random.Next(InventoryItemNames.Count)];
             decimal price = (decimal)random.Next(100, 10000) / 100;
-            await barInventory.AddBarItem(name, quantity, price);
+            await inventory.AddInventoryItem(name, price);
         }
     }
 
@@ -162,13 +161,13 @@ public class GeneratorService : IGeneratorService
     {
         ICollection<Client> clients = await client.GetClients();
         ICollection<Worker> workers = await worker.GetWorkers();
-        ICollection<BarInventory> barInventories = await barInventory.GetBarItems();
+        ICollection<Inventory> barInventories = await inventory.GetInventoryItems();
         for (int i = 0; i < howManyInvoices; i++)
         {
             Client client = clients.ElementAt(random.Next(clients.Count));
             Worker worker = workers.ElementAt(random.Next(workers.Count));
-            ICollection<BarInventory> barItems = new List<BarInventory>();
-            for (int j = 0; j < random.Next(5); i++)
+            ICollection<Inventory> barItems = new List<Inventory>();
+            for (int j = 0; j < random.Next(15); i++)
             {
                 barItems.Add(barInventories.ElementAt(random.Next(barInventories.Count)));
             }

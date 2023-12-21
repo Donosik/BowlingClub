@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MainBackend.Databases.BowlingDb.Repositories.Classes;
 
-public class BarInventoryRepository : GenericRepository<Entities.BarInventory>,IBarInventoryRepository
+public class BarInventoryRepository : GenericRepository<Entities.Inventory>,IBarInventoryRepository
 {
     public BarInventoryRepository(Context.BowlingDb dbContext) : base(dbContext)
     {

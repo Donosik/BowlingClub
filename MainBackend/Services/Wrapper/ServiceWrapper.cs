@@ -5,7 +5,7 @@ namespace MainBackend.Services.Wrapper;
 
 public class ServiceWrapper : IServiceWrapper
 {
-    public IBarInventoryService barInventory { get; }
+    public IInventoryService inventory { get; }
     public IClientService client { get; }
     public IDataService data { get; }
     public IGeneratorService generator { get; }
@@ -17,6 +17,7 @@ public class ServiceWrapper : IServiceWrapper
     public IRegulationService regulation { get; }
     public IReservationService reservation { get; }
     public ISupplyService supply { get; }
+    public ITargetInventoryService targetInventory { get; }
     public IUserService user { get; }
     public IWorkerService worker { get; }
     public IWorkScheduleService workSchedule { get; }
@@ -25,8 +26,8 @@ public class ServiceWrapper : IServiceWrapper
 
     public ServiceWrapper(IUserService user, IPersonService person, IGeneratorService generator,
         IWorkScheduleService workSchedule, ILanesService lane, IWorkerService worker, IReservationService reservation,
-        IClientService client, IInvoiceService invoice, IBarInventoryService barInventory, IRaportService raport,
-        IDataService data,IRegulationService regulation,IPromotionService promotion,ISupplyService supply)
+        IClientService client, IInvoiceService invoice, IInventoryService inventory, IRaportService raport,
+        IDataService data,IRegulationService regulation,IPromotionService promotion,ISupplyService supply,ITargetInventoryService targetInventory)
     {
         this.user = user;
         this.person = person;
@@ -37,12 +38,13 @@ public class ServiceWrapper : IServiceWrapper
         this.reservation = reservation;
         this.client = client;
         this.invoice = invoice;
-        this.barInventory = barInventory;
+        this.inventory = inventory;
         this.raport = raport;
         this.data = data;
         this.promotion = promotion;
         this.regulation = regulation;
         this.supply = supply;
+        this.targetInventory= targetInventory;
     }
 
 #endregion

@@ -21,6 +21,7 @@ import ChangeRegulations from "../pages/ChangeSite/ChangeRegulations";
 import ChangeSiteLayout from "../pages/ChangeSite/ChangeSiteLayout";
 import ChangePromotions from "../pages/ChangeSite/ChangePromotions";
 import AddRegulation from "../pages/ChangeSite/AddRegulation";
+import AddNewItem from "../pages/Magazine/AddNewItem";
 
 export default function Router()
 {
@@ -35,7 +36,10 @@ export default function Router()
                         <Route path={"dodaj"} element={<AddWorker/>}/>
                         <Route path={"edytuj/:id"} element={<EditUser/>}/>
                     </Route>
-                    <Route path={"magazyn"} element={<Magazine/>}/>
+                    <Route path={"magazyn"}>
+                        <Route index element={<Magazine/>}/>
+                        <Route path={"dodaj"} element={<AddNewItem/>}/>
+                    </Route>
                     <Route path={"sprzedaz"} element={<Sale/>}/>
                     <Route path={"zmianastrony"} element={<ChangeSiteLayout/>}>
                         <Route index element={<ChangeOpenHours/>}/>

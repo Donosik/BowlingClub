@@ -6,18 +6,15 @@ namespace MainBackend.Databases.BowlingDb.Context;
 
 public class BowlingDb : DbContext
 {
-    public DbSet<BarInventory> BarInventories { get; set; }
+    public DbSet<Inventory> BarInventories { get; set; }
 
     public DbSet<Client> Clients { get; set; }
-
-    //public DbSet<InternalInventory> InternalInventories { get; set; }
     public DbSet<Invoice> Invoices { get; set; }
 
     public DbSet<Lane> Lanes { get; set; }
 
     public DbSet<OpenHour> OpenHours { get; set; }
-
-    //public DbSet<NormalInventory> NormalInventories { get; set; }
+    
     public DbSet<Person> Persons { get; set; }
     public DbSet<Promotion> Promotions { get; set; }
     public DbSet<Regulation> Regulations { get; set; }
@@ -25,6 +22,7 @@ public class BowlingDb : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Worker> Workers { get; set; }
     public DbSet<WorkSchedule> WorkSchedules { get; set; }
+    public DbSet<TargetInventory> TargetInventories { get; set; }
 
 #region Constructors
 
@@ -37,7 +35,8 @@ public class BowlingDb : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Invoice>().Property(e => e.Amount).HasPrecision(38, 18);
-        modelBuilder.Entity<BarInventory>().Property(e => e.Price).HasPrecision(38, 18);
+        modelBuilder.Entity<Inventory>().Property(e => e.Price).HasPrecision(38, 18);
+        modelBuilder.Entity<TargetInventory>().Property(e => e.Price).HasPrecision(38, 18);
         // Client and User relation 1:1
         modelBuilder.Entity<Client>()
             .HasOne<User>(c => c.User)

@@ -5,7 +5,7 @@ namespace MainBackend.Services.Wrapper;
 
 public interface IServiceWrapper
 {
-    IBarInventoryService barInventory { get; }
+    IInventoryService inventory { get; }
     IClientService client { get; }
     IDataService data { get; }
     IGeneratorService generator { get; }
@@ -17,6 +17,7 @@ public interface IServiceWrapper
     IRegulationService regulation { get; }
     IReservationService reservation { get; }
     ISupplyService supply { get; }
+    ITargetInventoryService targetInventory { get; }
     IUserService user { get; }
     IWorkerService worker { get; }
     IWorkScheduleService workSchedule { get; }

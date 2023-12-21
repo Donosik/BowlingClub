@@ -3,7 +3,7 @@ using MainBackend.Databases.Generic.Repositories;
 
 namespace MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 
-public interface IBarInventoryRepository : IGenericRepository<Inventory>
+public interface ITargetInventoryRepository : IGenericRepository<TargetInventory>
 {
     
 }

@@ -10,11 +10,12 @@ namespace SuppliesBackend.Controllers;
 public class OrderController : ControllerBase
 {
     private readonly IServiceWrapper service;
+
     public OrderController(IServiceWrapper service)
     {
         this.service = service;
     }
-    
+
     [HttpGet("GetOrder/{orderId}")]
     public async Task<IActionResult> GetOrder(int orderId)
     {
@@ -24,7 +25,7 @@ public class OrderController : ControllerBase
         else
             return NotFound();
     }
-    
+
     [HttpGet("GetUnfullfilledOrders")]
     public async Task<IActionResult> GetUnfullfilledOrders()
     {
@@ -34,7 +35,7 @@ public class OrderController : ControllerBase
         else
             return NotFound();
     }
-    
+
     [HttpGet("GetFullfilledOrders")]
     public async Task<IActionResult> GetFullfilledOrders()
     {
@@ -44,8 +45,8 @@ public class OrderController : ControllerBase
         else
             return NotFound();
     }
-    
-    
+
+
     [HttpPost("CreateOrder")]
     public async Task<IActionResult> CreateOrder(ICollection<Product> products)
     {
@@ -54,7 +55,7 @@ public class OrderController : ControllerBase
         else
             return BadRequest();
     }
-    
+
     [HttpPost("FullfillOrder/{orderId}")]
     public async Task<IActionResult> FullfillOrder(int orderId)
     {

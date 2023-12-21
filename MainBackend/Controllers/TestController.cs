@@ -74,8 +74,12 @@ public class TestController : ControllerBase
         await serviceWrapper.generator.GenerateShifts(5, 10);
         await serviceWrapper.generator.GenerateLanes(10);
         await serviceWrapper.generator.GenerateReservations(30, 50);
-        await serviceWrapper.generator.GenerateBarInventories(1000);
+        await serviceWrapper.generator.GenerateInventoryItems(1000);
         await serviceWrapper.generator.GenerateInvoices(500);
+        //Rzeczy na stałe
+        await serviceWrapper.generator.GenerateAdmin();
+        await serviceWrapper.data.CreateDefaultOpenHours();
+        await serviceWrapper.promotion.CreateDefaultPromotions();
         return Ok();
     }
 
@@ -83,6 +87,13 @@ public class TestController : ControllerBase
     public async Task<IActionResult> GenerateAdmin()
     {
         await serviceWrapper.generator.GenerateAdmin();
+        return Ok();
+    }
+
+    [HttpGet("TestCreateOrder")]
+    public async Task<IActionResult> TestCreateOrder()
+    {
+        await serviceWrapper.supply.CreateNecessaryOrders();
         return Ok();
     }
 

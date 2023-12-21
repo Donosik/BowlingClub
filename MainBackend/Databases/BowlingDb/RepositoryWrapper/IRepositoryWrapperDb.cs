@@ -13,6 +13,7 @@ public interface IRepositoryWrapperDb : IDisposable
     IPromotionRepository promotion { get; }
     IRegulationRepository regulation { get; }
     IReservationRepository reservation { get; }
+    ITargetInventoryRepository targetInventory { get; }
     IUserRepository user { get; }
     IWorkerRepository worker { get; }
     IWorkScheduleRepository workSchedule { get; }

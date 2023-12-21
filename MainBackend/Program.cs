@@ -76,6 +76,7 @@ void ConfigureRepositoriesDb(IServiceCollection services)
     services.AddScoped<IPromotionRepository, PromotionRepository>();
     services.AddScoped<IRegulationRepository, RegulationRepository>();
     services.AddScoped<IReservationRepository, ReservationRepository>();
+    services.AddScoped<ITargetInventoryRepository, TargetInventoryRepository>();
     services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IWorkerRepository, WorkerRepository>();
     services.AddScoped<IWorkScheduleRepository, WorkScheduleRepository>();
@@ -92,7 +93,7 @@ void ConfigureRepositoriesDw(IServiceCollection services)
 // Services
 void ConfigureServices(IServiceCollection services)
 {
-    services.AddScoped<IBarInventoryService, BarInventoryService>();
+    services.AddScoped<IInventoryService, InventoryService>();
     services.AddScoped<IClientService, ClientService>();
     services.AddScoped<IDataService, DataService>();
     services.AddScoped<IGeneratorService, GeneratorService>();
@@ -104,6 +105,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddScoped<IRegulationService, RegulationService>();
     services.AddScoped<IReservationService, ReservationService>();
     services.AddScoped<ISupplyService, SupplyService>();
+    services.AddScoped<ITargetInventoryService, TargetInventoryService>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IWorkerService, WorkerService>();
     services.AddScoped<IWorkScheduleService, WorkScheduleService>();

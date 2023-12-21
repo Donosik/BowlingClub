@@ -19,7 +19,7 @@ public class InvoiceService : IInvoiceService
         return await repositoryWrapper.normalDbWrapper.invoice.GetAll();
     }
 
-    public async Task<bool> AddInvoice(ICollection<BarInventory> products, Client client, Worker worker,
+    public async Task<bool> AddInvoice(ICollection<Inventory> products, Client client, Worker worker,
         DateTime issueDate,
         DateTime dueDate)
     {
@@ -28,7 +28,7 @@ public class InvoiceService : IInvoiceService
         invoice.Worker = worker;
         invoice.IssueDate = issueDate;
         invoice.DueDate = dueDate;
-        invoice.BarInventories = products;
+        invoice.Inventories = products;
         decimal value = 0;
         foreach (var product in products)
         {

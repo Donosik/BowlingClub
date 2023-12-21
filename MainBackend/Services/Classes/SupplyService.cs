@@ -37,6 +37,26 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
         }
     }
 
+    public async Task<ICollection<Order>> GetUnfullfilledOrders()
+    {
+        try
+        {
+            var request = CreateRequest(Method.Get, $"GetUnfullfilledOrders");
+            var response = await SendRequest(request);
+            var apiResponse = CheckResponse<ICollection<Order>>(response);
+            if (apiResponse.IsSuccess)
+                return apiResponse.Content;
+            return null;
+        }
+        catch (Exception ex)
+        {
+            var apiResponse = ResponseUnserialized<ICollection<Order>>();
+            if (apiResponse.IsSuccess)
+                return apiResponse.Content;
+            return null;
+        }
+    }
+
     public async Task<ICollection<Order>> GetFullfilledOrders()
     {
         try
@@ -69,5 +89,11 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
         {
             return ResponseUnserialized<bool>().IsSuccess;
         }
+    }
+
+    public async Task<bool> CreateNecessaryOrders()
+    {
+        var fullfilledOrders = await GetFullfilledOrders();
+        
     }
 }

@@ -13,10 +13,10 @@ public class Invoice : IEntity
     public virtual Client Client { get; set; }
     public virtual int WorkerId { get; set; }
     public virtual Worker Worker { get; set; }
-    public virtual ICollection<BarInventory> BarInventories { get; set; }
+    public virtual ICollection<Inventory> Inventories { get; set; }
 
     public Invoice()
     {
-        BarInventories = new List<BarInventory>();
+        Inventories = new List<Inventory>();
     }
 }

@@ -2,26 +2,42 @@ import MagazineTable from "./MagazineTable";
 import "./Magazine.css";
 import lupa from "./Vector.png"
 import logo from "../../util/Layout/logo-bowl.png";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {mainBackendApi} from "../../util/Requests";
 
 export default function Magazine()
 {
-    const products=[
+    const navigate = useNavigate();
+    const[products,setProducts]=useState([])
+
+    useEffect(() =>
+    {
+        fetchProducts()
+    }, []);
+
+    async function fetchProducts()
+    {
+        try
         {
-            Id:1,
-            Name:"Kula do kręgli",
-        },
-    ]
-    return(
+            const response = await mainBackendApi.get('TargetInventory/MagazineStatus')
+            setProducts(response.data)
+        } catch (error)
+        {
+            console.log(error)
+        }
+    }
+    return (
         <>
             <div className="magazine-container">
                 <div className="table-name">MAGAZYN PRZEDMIOTÓW</div>
-           <button>MAGAZYN SPRZĘTU</button>
-            <button>MAGAZYN BARU</button> <br/>
 
-            <input/><img src={lupa} alt="lupa"/><button>DODAJ NOWY ARTUKUŁ
-            </button><br/>
-            <MagazineTable products={products}/> </div>
+                <input/><img src={lupa}
+                             alt="lupa"/>
+                <button onClick={e => navigate("dodaj")}>DODAJ NOWY PRZEDMIOT
+                </button>
+                <br/>
+                <MagazineTable products={products}/></div>
         </>
     )
 }
