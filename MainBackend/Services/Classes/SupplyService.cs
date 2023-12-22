@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections;
+using System.Net;
 using MainBackend.Databases.Generic.Repositories;
 using MainBackend.DTO;
 using MainBackend.Helpers;
@@ -93,7 +94,45 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
 
     public async Task<bool> CreateNecessaryOrders()
     {
+        var realOrders = await repositoryWrapper.normalDbWrapper.barInventory.GetAll();
         var fullfilledOrders = await GetFullfilledOrders();
-        
+        var targetInventory = await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
+        var productCountDictionary = new Dictionary<string, int>();
+        foreach (var fullfilledOrder in fullfilledOrders)
+        {
+            foreach (var product in fullfilledOrder.Products)
+            {
+                if (productCountDictionary.ContainsKey(product.Name))
+                    productCountDictionary[product.Name]++;
+                else
+                    productCountDictionary.Add(product.Name, 1);
+            }
+        }
+
+        foreach (var order in realOrders)
+        {
+            if (productCountDictionary.ContainsKey(order.Name))
+                productCountDictionary[order.Name]++;
+            else
+                productCountDictionary.Add(order.Name, 1);
+        }
+        foreach (var target in targetInventory)
+        {
+            if (productCountDictionary.ContainsKey(target.Name))
+            {
+                var totalProductsCount = productCountDictionary[target.Name];
+                var targetProductsCount = target.Quantity;
+
+                if (totalProductsCount > targetProductsCount)
+                {
+                    // Tutaj dodaj kod do obsługi tworzenia nowych zamówień lub zaktualizowania stanu faktycznego
+                    // w zależności od logiki biznesowej
+                    // ...
+
+                    // Zwróć true, jeśli utworzono nowe zamówienia lub zaktualizowano stan faktyczny
+                    return true;
+                }
+            }
+        }
     }
 }
