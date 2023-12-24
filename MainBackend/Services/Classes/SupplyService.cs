@@ -11,18 +11,21 @@ namespace MainBackend.Services.Classes;
 public class SupplyService : GeneralRequestHelper, ISupplyService
 {
     private IRepositoryWrapper repositoryWrapper;
+    private IInventoryService inventoryService;
 
     //TODO: Dodać żeby adres był z appsettings
-    public SupplyService(IRepositoryWrapper repositoryWrapper) : base("https://localhost:44373/Supply")
+    public SupplyService(IRepositoryWrapper repositoryWrapper, IInventoryService inventoryService) : base(
+        "https://localhost:44373")
     {
         this.repositoryWrapper = repositoryWrapper;
+        this.inventoryService = inventoryService;
     }
 
     public async Task<Order> GetOrder(int id)
     {
         try
         {
-            var request = CreateRequest(Method.Get, $"GetOrder/{id}");
+            var request = CreateRequest(Method.Get, $"Order/GetOrder/{id}");
             var response = await SendRequest(request);
             var apiResponse = CheckResponse<Order>(response);
             if (apiResponse.IsSuccess)
@@ -42,7 +45,7 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
     {
         try
         {
-            var request = CreateRequest(Method.Get, $"GetUnfullfilledOrders");
+            var request = CreateRequest(Method.Get, $"Order/GetUnfullfilledOrders");
             var response = await SendRequest(request);
             var apiResponse = CheckResponse<ICollection<Order>>(response);
             if (apiResponse.IsSuccess)
@@ -62,7 +65,7 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
     {
         try
         {
-            var request = CreateRequest(Method.Get, $"GetFullfilledOrders");
+            var request = CreateRequest(Method.Get, $"Order/GetFullfilledOrders");
             var response = await SendRequest(request);
             var apiResponse = CheckResponse<ICollection<Order>>(response);
             if (apiResponse.IsSuccess)
@@ -82,33 +85,37 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
     {
         try
         {
-            var request = CreateRequest(Method.Get, $"CreateOrder", products);
+            var request = CreateRequest(Method.Post, $"Order/CreateOrder", products);
             var response = await SendRequest(request);
-            return CheckResponse<bool>(response).IsSuccess;
+            if(response.StatusCode== HttpStatusCode.OK)
+                return true;
+            return false;
         }
         catch (Exception ex)
         {
-            return ResponseUnserialized<bool>().IsSuccess;
+            return false;
         }
     }
 
     public async Task<bool> CreateNecessaryOrders()
     {
-        var realOrders = await repositoryWrapper.normalDbWrapper.barInventory.GetAll();
         var fullfilledOrders = await GetFullfilledOrders();
         var targetInventory = await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
-        var productCountDictionary = new Dictionary<string, int>();
-        foreach (var fullfilledOrder in fullfilledOrders)
-        {
-            foreach (var product in fullfilledOrder.Products)
+        // Dodawanie produktów z zamówień do stanu faktycznego
+        if (fullfilledOrders != null)
+            foreach (var fullfilledOrder in fullfilledOrders)
             {
-                if (productCountDictionary.ContainsKey(product.Name))
-                    productCountDictionary[product.Name]++;
-                else
-                    productCountDictionary.Add(product.Name, 1);
+                foreach (var product in fullfilledOrder.Products)
+                {
+                    decimal price = targetInventory.Where(x => x.Name == product.Name).Select(x => x.Price)
+                        .FirstOrDefault();
+                    await inventoryService.AddInventoryItem(product.Name, price);
+                    await repositoryWrapper.normalDbWrapper.Save();
+                }
             }
-        }
 
+        var realOrders = await repositoryWrapper.normalDbWrapper.barInventory.GetAll();
+        var productCountDictionary = new Dictionary<string, int>();
         foreach (var order in realOrders)
         {
             if (productCountDictionary.ContainsKey(order.Name))
@@ -116,6 +123,20 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
             else
                 productCountDictionary.Add(order.Name, 1);
         }
+
+        var unfullfilledOrders = await GetUnfullfilledOrders();
+        if (unfullfilledOrders != null)
+            foreach (var unfullfilledOrder in unfullfilledOrders)
+            {
+                foreach (var product in unfullfilledOrder.Products)
+                {
+                    if (productCountDictionary.ContainsKey(product.Name))
+                        productCountDictionary[product.Name]++;
+                    else
+                        productCountDictionary.Add(product.Name, 1);
+                }
+            }
+
         foreach (var target in targetInventory)
         {
             if (productCountDictionary.ContainsKey(target.Name))
@@ -124,15 +145,45 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
                 var targetProductsCount = target.Quantity;
 
                 if (totalProductsCount > targetProductsCount)
+                    continue;
+                else
                 {
-                    // Tutaj dodaj kod do obsługi tworzenia nowych zamówień lub zaktualizowania stanu faktycznego
-                    // w zależności od logiki biznesowej
-                    // ...
+                    var productsToAdd = targetProductsCount - totalProductsCount;
+                    var productsToOrder = new List<Product>();
+                    for (int i = 0; i < productsToAdd; i++)
+                    {
+                        var product = new Product
+                        {
+                            Name = target.Name,
+                        };
+                        productsToOrder.Add(product);
+                    }
 
-                    // Zwróć true, jeśli utworzono nowe zamówienia lub zaktualizowano stan faktyczny
-                    return true;
+                    if (!await CreateOrder(productsToOrder))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                var productsToOrder = new List<Product>();
+                for (int i = 0; i < target.Quantity; i++)
+                {
+                    var product = new Product
+                    {
+                        Name = target.Name,
+                    };
+                    productsToOrder.Add(product);
+                }
+
+                if (!await CreateOrder(productsToOrder))
+                {
+                    return false;
                 }
             }
         }
+
+        return true;
     }
 }

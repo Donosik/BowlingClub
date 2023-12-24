@@ -93,8 +93,8 @@ public class TestController : ControllerBase
     [HttpGet("TestCreateOrder")]
     public async Task<IActionResult> TestCreateOrder()
     {
-        await serviceWrapper.supply.CreateNecessaryOrders();
-        return Ok();
+        var result=await serviceWrapper.supply.CreateNecessaryOrders();
+        return Ok(result);
     }
 
 #endregion

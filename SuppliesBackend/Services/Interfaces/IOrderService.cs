@@ -10,4 +10,5 @@ public interface IOrderService
     Task<ICollection<Order>> GetFullfilledOrders();
     Task<bool> CreateOrder(ICollection<Product> products);
     Task<bool> FullfillOrder(int orderId);
+    Task<bool> TakeOrders(ICollection<Order> orders);
 }
