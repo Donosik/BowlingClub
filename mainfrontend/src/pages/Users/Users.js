@@ -9,6 +9,7 @@ export default function Users()
 {
     const [users, setUsers] = useState([])
     const [onlyWorker, setOnlyWorker] = useState(false)
+    const [filter, setFilter] = useState("")
     const navigate = useNavigate();
 
     useEffect(() =>
@@ -23,7 +24,6 @@ export default function Users()
             const response = await mainBackendApi.get('User/AllUsers')
             const data = response.data
             setUsers(data)
-            console.log(data)
         } catch (error)
         {
             console.log('Error fetching users:', error)
@@ -31,27 +31,35 @@ export default function Users()
     }
 
     function filteredUsers(users)
-    {
-        if(onlyWorker===true)
+    {   const filtered=users
+        if (onlyWorker === true)
         {
-            return users.filter((user)=>user.isClient===false)
+            return filtered.filter((user) => user.isClient === false)
         }
-        return users
+        if (filter !== "")
+        {
+            return filtered.filter((user) => user.person.lastName.toLowerCase().includes(filter.toLowerCase()))
+        }
+        return filtered
     }
 
     return (
         <>
             <div className="users-container">
                 <div className="table-name">UŻYTKOWNICY</div>
-                <input/>
-                <img src={lupa} alt="lupa"/> <button onClick={() => navigate('dodaj')}>DODAJ PRACOWNIKA
-            </button>
-<br/>
-                <input type="checkbox" onChange={()=>setOnlyWorker(!onlyWorker)}/>
+                <input type={"text"} onChange={e=>setFilter(e.target.value)}/>
+                <img src={lupa}
+                     alt="lupa"/>
+                <button onClick={() => navigate('dodaj')}>DODAJ PRACOWNIKA
+                </button>
+                <br/>
+                <input type="checkbox"
+                       onChange={() => setOnlyWorker(!onlyWorker)}/>
                 POKAŻ TYLKO PRACOWNIKÓW<br/>
 
                 <br/>
-                <UserListTable users={filteredUsers(users)} deletedUserCallback={fetchUsers}/></div>
+                <UserListTable users={filteredUsers(users)}
+                               deletedUserCallback={fetchUsers}/></div>
         </>
     )
 }

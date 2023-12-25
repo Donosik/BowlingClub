@@ -8,36 +8,19 @@ import {mainBackendApi} from "../../util/Requests";
 
 export default function Magazine()
 {
+    const[filter, setFilter] = useState("")
     const navigate = useNavigate();
-    const[products,setProducts]=useState([])
-
-    useEffect(() =>
-    {
-        fetchProducts()
-    }, []);
-
-    async function fetchProducts()
-    {
-        try
-        {
-            const response = await mainBackendApi.get('TargetInventory/MagazineStatus')
-            setProducts(response.data)
-        } catch (error)
-        {
-            console.log(error)
-        }
-    }
     return (
         <>
             <div className="magazine-container">
-                <div className="table-name">MAGAZYN PRZEDMIOTÓW</div>
+                <div className="table-name">MAGAZYN</div>
 
-                <input/><img src={lupa}
+                <input type={"text"} onChange={e=>setFilter(e.target.value)}/><img src={lupa}
                              alt="lupa"/>
                 <button onClick={e => navigate("dodaj")}>DODAJ NOWY PRZEDMIOT
                 </button>
                 <br/>
-                <MagazineTable products={products}/></div>
+                <MagazineTable filter={filter}/></div>
         </>
     )
 }

@@ -41,8 +41,10 @@ public class OrderController : ControllerBase
     {
         var orders = await service.order.GetFullfilledOrders();
         if (orders != null)
-            
+        {
+            await service.order.TakeOrders(orders);
             return Ok(orders);
+        }
         else
             return NotFound();
     }
