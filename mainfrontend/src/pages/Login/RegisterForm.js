@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { mainBackendApi } from "../../util/Requests";
 import "./login.css";
+import google from "./google_icon.png";
+import {GoogleLogin} from "@react-oauth/google";
+import {jwtDecode} from "jwt-decode";
 
 export default function RegisterForm(props) {
     const { loginCallback } = props;
@@ -87,6 +90,25 @@ export default function RegisterForm(props) {
         if (loginCallback) loginCallback();
     }
 
+    async function successResponse(response)
+    {
+        const userObject = jwtDecode(response.credential)
+        console.log(userObject)
+        try{
+            const response=await mainBackendApi.post('User/RegisterClientGoogle',userObject)
+            console.log(response)
+        }
+        catch (e)
+        {
+            console.log(e)
+        }
+    }
+
+    function errorResponse(response)
+    {
+        console.log(response)
+    }
+
     return (
         <>
             <div className="auth-page">
@@ -108,7 +130,7 @@ export default function RegisterForm(props) {
                                 </li>
                                 <div className="error-message">
                                     {isRegisterFailed ? errorMessage : null}</div>
-                                <br />
+                                <br/>
                                 <label>
                                     Login:
                                     <input
@@ -125,7 +147,7 @@ export default function RegisterForm(props) {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </label>{" "}
-                                <br />
+                                <br/>
                                 <label>
                                     Imię:
                                     <input
@@ -142,7 +164,7 @@ export default function RegisterForm(props) {
                                         onChange={(e) => setLastName(e.target.value)}
                                     />
                                 </label>
-                                <br />
+                                <br/>
                                 <label>
                                     Email:
                                     <input
@@ -159,26 +181,24 @@ export default function RegisterForm(props) {
                                         onChange={(e) => setDateOfBirth(e.target.value)}
                                     />
                                 </label>
-                                <br />
+                                <br/>
 
                                 <div className="d-flex justify-content-center align-items-center">
-                                    <button type="submit" onClick={handleSubmit}>
+                                    <button type="submit"
+                                            onClick={handleSubmit}>
                                         ZAREJESTRUJ SIĘ
                                     </button>
                                 </div>
-
                                 <div className="d-flex justify-content-center align-items-center">
-                                    <button type="button" onClick={handleLogin}>
-                                        REJESTRACJA Z GOOGLE
-                                    </button>
-                                </div>
-
-                                <div className="d-flex justify-content-center align-items-center">
-                                    <button type="button" onClick={handleLogin}>
+                                    <button type="button"
+                                            onClick={handleLogin}>
                                         ZALOGUJ SIĘ
                                     </button>
                                 </div>
-
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <GoogleLogin onSuccess={successResponse}
+                                                 onError={errorResponse}/>
+                                </div>
                             </form>
                         </div>
                     </div>

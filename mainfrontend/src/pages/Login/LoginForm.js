@@ -3,6 +3,8 @@ import './login.css';
 import google from './google_icon.png'
 import {mainBackendApi, setAuth} from "../../util/Requests";
 import {Link, useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
+import {GoogleLogin, useGoogleLogin} from "@react-oauth/google";
 
 export default function LoginForm(props)
 {
@@ -13,7 +15,29 @@ export default function LoginForm(props)
     const [isLoginFailed, setIsLoginFailed] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
+
+    async function successResponse(response)
+    {
+        const userObject = jwtDecode(response.credential)
+        try{
+            const response=await mainBackendApi.post('User/LoginGoogle',userObject.email)
+        }
+        catch (e)
+        {
+            console.log(e)
+            if(e.response.status===404)
+            {
+                //const responseRegister=await mainBackendApi.post('User/RegisterClientGoogle',userObject)
+                //console.log(responseRegister)
+            }
+        }
+    }
+
+    function errorResponse(response)
+    {
+        console.log(response)
+    }
 
     async function handleSubmit(e)
     {
@@ -28,7 +52,7 @@ export default function LoginForm(props)
                 "login": login,
                 "password": password
             }
-            const response = await mainBackendApi.post('User/Login',requestData)
+            const response = await mainBackendApi.post('User/Login', requestData)
             setAuth(response.data)
             navigate('/management')
         } catch (error)
@@ -56,30 +80,31 @@ export default function LoginForm(props)
                             <form>
                                 <label>
                                     Login:
-                                    <input type="text" name="login" onChange={e => setLogin(e.target.value)}/>
+                                    <input type="text"
+                                           name="login"
+                                           onChange={e => setLogin(e.target.value)}/>
                                 </label><br/>
                                 <label>
                                     Hasło:
-                                    <input type="password" name="password" onChange={e => setPassword(e.target.value)}/>
+                                    <input type="password"
+                                           name="password"
+                                           onChange={e => setPassword(e.target.value)}/>
                                 </label><br/>
-
-                                    <input type="checkbox" name="rememberMe"/>Zapamiętaj mnie
-
-
-                                <div className="forgot-pass d-flex justify-content-center align-items-center">
-                                    <label>Zapomniałeś hasła?</label>
-                                </div>
                                 {isLoginFailed ? <div className="error-message">{errorMessage}</div> : null}
                                 <div className="d-flex justify-content-center align-items-center">
-                                    <button type="submit" onClick={handleSubmit}>ZALOGUJ SIĘ</button>
+                                    <button type="submit"
+                                            onClick={handleSubmit}>ZALOGUJ SIĘ
+                                    </button>
+
                                 </div>
                                 <div className="d-flex justify-content-center align-items-center">
-                                    <button type="button" onClick={handleSignUp}>REJESTRACJA</button>
-
-
-                                    <br/>
-
-                                    <div className="logo-google"> <img className="google-img" src={google} alt="Google"/></div>
+                                    <button type="button"
+                                            onClick={handleSignUp}>REJESTRACJA
+                                    </button>
+                                </div>
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <GoogleLogin onSuccess={successResponse}
+                                                 onError={errorResponse}/>
                                 </div>
                             </form>
                         </div>

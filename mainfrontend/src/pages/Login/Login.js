@@ -13,22 +13,9 @@ export default function Login()
         setIsLogin(!isLogin)
     }
 
-    function successResponse(response)
-    {
-        const userObject = jwtDecode(response.credential)
-        console.log(userObject)
-    }
-
-    function errorResponse(response)
-    {
-        console.log(response)
-    }
-
     return (
         <>
             {isLogin ? <LoginForm signUpCallback={changeForm}/> : <RegisterForm loginCallback={changeForm}/>}
-            <GoogleLogin onSuccess={successResponse}
-                         onFailure={errorResponse}/>
         </>
     )
 }
