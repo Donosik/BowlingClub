@@ -1,6 +1,8 @@
 import LoginForm from "./LoginForm";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import RegisterForm from "./RegisterForm";
+import {GoogleLogin} from "@react-oauth/google";
+import {jwtDecode} from "jwt-decode";
 
 export default function Login()
 {
@@ -11,9 +13,22 @@ export default function Login()
         setIsLogin(!isLogin)
     }
 
+    function successResponse(response)
+    {
+        const userObject = jwtDecode(response.credential)
+        console.log(userObject)
+    }
+
+    function errorResponse(response)
+    {
+        console.log(response)
+    }
+
     return (
         <>
             {isLogin ? <LoginForm signUpCallback={changeForm}/> : <RegisterForm loginCallback={changeForm}/>}
+            <GoogleLogin onSuccess={successResponse}
+                         onFailure={errorResponse}/>
         </>
     )
 }
