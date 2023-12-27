@@ -9,15 +9,16 @@ input[type="text"],
 input[type="date"],
 input[type="email"],
 input[type="password"]{
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 90%;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 90px;
+    border: 1px solid #ccc; /* grubość, jednolite obramowanie i kolor */
+    border-radius: 5px; /* zaokrąglenie rogów */
+    width: 90%; /* szerokość */
+    padding-bottom: 5px; /* odstęp pomiędzy zawartością a granicami z dołu */
+    padding-top: 5px; /* odstęp pomiędzy zawartością a granicami z góry */
+    padding-left: 10px; /* odstęp pomiędzy zawartością a granicami z lewej strony */
+    padding-right: 90px; /* odstęp pomiędzy zawartością a granicami z prawej strony */
 
 }
+
 input[type="time"],
 input[type="number"]
 {
@@ -31,32 +32,33 @@ width: 45px;
 
 
 div button {
-    margin: 10px 0;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 10px;
-    background-color: #591914;
-    color: #fff;
-    cursor: pointer;
-    text-align: center;
+    margin: 10px 0; /* marginesy - 10px góra i dół, 0 prawa i lewa */
+    padding: 10px 15px; /* odstęp pomiędzy zawartością a granicami */
+    border: none; /* brak obramowania */
+    border-radius: 10px; /* zaokrąrąglenie rogów */
+    background-color: #591914; /* kolor tła */
+    color: #fff; /* kolor czcionki */
+    cursor: pointer; /* typ kursora po najechaniu */
+    text-align: center; /* wyśrodkownanie tekstu */
 }
+
 .google-img{
     height: 40px;
     width: 40px;
 }
 .error-message {
-    color: red;
-    margin-top: 10px;
-    text-align: center;
-    font-weight: bolder;
-    text-transform: uppercase;
+    color: red; /* kolor czcionki */
+    margin-top: 10px; /* margines górny */
+    text-align: center; /* wyśrodkownanie tekstu */
+    font-weight: bolder; /* pogrubienie tekstu */
+    text-transform: uppercase; /* ustawienie wielkich liter */
 }
-.form-box{
-    padding: 15px;
-    background-color: #E6D1C0;
-    border-radius:20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
+.form-box{
+    padding: 15px; /* odstęp pomiędzy zawartością a granicami*/
+    background-color: #E6D1C0; /* kolor tła */
+    border-radius:20px; /* zaokrąrąglenie rogów */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; /* cień rzucany przez element */
 }
 
 
