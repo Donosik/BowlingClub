@@ -37,6 +37,8 @@ public class OrderService : IOrderService
 
     public async Task<bool> CreateOrder(ICollection<Product> products)
     {
+        if (products.Count == 0)
+            return false;
         Order order = new Order();
         order.Products = products;
         repositoryWrapper.order.Create(order);
@@ -67,7 +69,7 @@ public class OrderService : IOrderService
             var orderInDb = await repositoryWrapper.order.Get(order.Id);
             if (orderInDb != null)
             {
-                orderInDb.IsFullfilled = true;
+                orderInDb.IsTaken = true;
                 repositoryWrapper.order.Edit(orderInDb);
                 edited++;
             }

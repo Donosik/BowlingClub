@@ -125,13 +125,6 @@ ConfigureRepositoriesDw(builder.Services);
 ConfigureServices(builder.Services);
 ConfigureWrappers(builder.Services);
 
-//Json Serialization
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.JsonSerializerOptions.WriteIndented = true;
-});
-
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
