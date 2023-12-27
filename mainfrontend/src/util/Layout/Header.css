@@ -31,7 +31,7 @@ a{ color: #591914;
     text-decoration: none;
 font-size: 40px;}
 
-.nav-link.active {
+div .nav-link.active {
     border-radius: 10px;
-    background-color: rgba(89, 25, 20, 0.2);
+    background-color:rgba(153, 86, 62, 0.5);
 }

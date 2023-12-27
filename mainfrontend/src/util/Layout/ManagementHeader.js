@@ -48,11 +48,7 @@ export default function ManagementHeader()
                                      to="/management/sprzedaz"
                                      activeClassName="active">SPRZEDAŻ</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link"
-                                     to="/management/zmianastrony"
-                                     activeClassName="active">ZMIANA STRONY</NavLink>
-                        </li>
+
                         <li className="nav-item">
                             <NavLink className="nav-link"
                                      to="/management/rezerwacje"
@@ -68,18 +64,21 @@ export default function ManagementHeader()
                                      to="/management/raporty"
                                      activeClassName="active">RAPORTY</NavLink>
                         </li>
+
+
                         <li className="nav-item">
                             <NavLink className="nav-link"
-                                     to="/management/systemzakupow"
-                                     activeClassName="active">SYSTEM ZAKUPÓW</NavLink>
+                                     to="/management/zmianastrony"
+                                     activeClassName="active">ZMIANA STRONY</NavLink>
                         </li>
-                        {isUserLoggedIn() === true ? (
+                       {isUserLoggedIn() === true ? (
                             <li className="nav-item">
                                 <Link className="nav-link"
                                       to="/home"
                                       onClick={logout}>WYLOGUJ</Link>
                             </li>
                         ) : null}
+
                     </ul>
                     <button className="navbar-toggler"
                             type="button"
