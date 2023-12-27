@@ -75,7 +75,7 @@ export default function LoginForm(props)
             <div className="auth-page">
                 <div className="container page d-flex justify-content-center align-items-center ">
                     <div className="row">
-                        <div className="login-box">
+                        <div className="form-box">
                             <h1 className="text-login">LOGOWANIE</h1>
                             <form>
                                 <label>

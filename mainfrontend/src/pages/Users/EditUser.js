@@ -45,7 +45,7 @@ export default function EditUser()
             <div className="auth-page">
                 <div className="container page d-flex justify-content-center align-items-center">
                     <div className="row">
-                        <div className="login-box">
+                        <div className="form-box">
                             <h1 className="text-login">EDYTOWANIE UŻYTKOWNIKA</h1>
                             <label>
                                 Login:<br/>
