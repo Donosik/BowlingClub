@@ -74,7 +74,7 @@ export default function AddNewItem() {
         <div className="magazine-container">
             <div className="container page d-flex justify-content-center align-items-center">
                 <div className="row">
-                    <div className="login-box">
+                    <div className="form-box">
                         <h1 className="text-login">DODAWANIE PRODUKTÓW</h1>
                         <br />
                         <label>

@@ -34,7 +34,7 @@ export default function AddRegulation()
             <div className="auth-page">
                 <div className="container page d-flex justify-content-center align-items-center">
                     <div className="row">
-                        <div className="login-box">
+                        <div className="form-box">
                             <h1 className="text-login">DODAWANIE PUNKTU REGULAMINU</h1>
                             Punkt:
                             <input type={"number"}
