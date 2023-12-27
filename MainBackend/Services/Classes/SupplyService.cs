@@ -87,7 +87,7 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
         {
             var request = CreateRequest(Method.Post, $"Order/CreateOrder", products);
             var response = await SendRequest(request);
-            if(response.StatusCode== HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.OK)
                 return true;
             return false;
         }
@@ -99,21 +99,8 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
 
     public async Task<bool> CreateNecessaryOrders()
     {
-        var fullfilledOrders = await GetFullfilledOrders();
-        var targetInventory = await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
-        // Dodawanie produktów z zamówień do stanu faktycznego
-        if (fullfilledOrders != null)
-            foreach (var fullfilledOrder in fullfilledOrders)
-            {
-                foreach (var product in fullfilledOrder.Products)
-                {
-                    decimal price = targetInventory.Where(x => x.Name == product.Name).Select(x => x.Price)
-                        .FirstOrDefault();
-                    await inventoryService.AddInventoryItem(product.Name, price);
-                    await repositoryWrapper.normalDbWrapper.Save();
-                }
-            }
-
+        if (!await AddFullfilledOrdersToDb())
+            return false;
         var realOrders = await repositoryWrapper.normalDbWrapper.barInventory.GetAll();
         var productCountDictionary = new Dictionary<string, int>();
         foreach (var order in realOrders)
@@ -137,6 +124,7 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
                 }
             }
 
+        var targetInventory = await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
         foreach (var target in targetInventory)
         {
             if (productCountDictionary.ContainsKey(target.Name))
@@ -183,6 +171,25 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
                 }
             }
         }
+
+        return true;
+    }
+
+    public async Task<bool> AddFullfilledOrdersToDb()
+    {
+        var fullfilledOrders = await GetFullfilledOrders();
+        var targetInventory = await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
+        if (fullfilledOrders != null)
+            foreach (var fullfilledOrder in fullfilledOrders)
+            {
+                foreach (var product in fullfilledOrder.Products)
+                {
+                    decimal price = targetInventory.Where(x => x.Name == product.Name).Select(x => x.Price)
+                        .FirstOrDefault();
+                    if (!await inventoryService.AddInventoryItem(product.Name, price))
+                        return false;
+                }
+            }
 
         return true;
     }

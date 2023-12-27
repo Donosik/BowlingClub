@@ -9,11 +9,13 @@ public class TargetInventoryService : ITargetInventoryService
 {
     private IRepositoryWrapper repositoryWrapper;
     private IInventoryService inventoryService;
+    private ISupplyService supplyService;
 
-    public TargetInventoryService(IRepositoryWrapper repositoryWrapper, IInventoryService inventoryService)
+    public TargetInventoryService(IRepositoryWrapper repositoryWrapper, IInventoryService inventoryService, ISupplyService supplyService)
     {
         this.repositoryWrapper = repositoryWrapper;
         this.inventoryService = inventoryService;
+        this.supplyService = supplyService;
     }
     public async Task<TargetInventory> GetTargetInventoryItem(string name)
     {
@@ -28,6 +30,7 @@ public class TargetInventoryService : ITargetInventoryService
 
     public async Task<ICollection<InventoryStatus>> GetMagazineStatus()
     {
+        await supplyService.AddFullfilledOrdersToDb();
         ICollection<TargetInventory> targetInventories =
             await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
         var itemQuantities = await inventoryService.CheckAllInventoryItemQuantities();

@@ -10,4 +10,5 @@ public interface ISupplyService
     Task<ICollection<Order>> GetFullfilledOrders();
     Task<bool> CreateOrder(ICollection<Product> products);
     Task<bool> CreateNecessaryOrders();
+    Task<bool> AddFullfilledOrdersToDb();
 }
