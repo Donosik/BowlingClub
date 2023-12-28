@@ -137,7 +137,7 @@ export default function RegisterForm(props) {
                                     {isRegisterFailed ? errorMessage : null}</div>
                                 <br/>
                                 <label>
-                                    Login:
+                                    Login:<br/>
                                     <input
                                         type={"text"}
                                         name={"login"}
@@ -145,7 +145,7 @@ export default function RegisterForm(props) {
                                     />
                                 </label>
                                 <label>
-                                    Hasło:
+                                    Hasło:<br/>
                                     <input
                                         type={"password"}
                                         name={"password"}
@@ -154,15 +154,14 @@ export default function RegisterForm(props) {
                                 </label>{" "}
                                 <br/>
                                 <label>
-                                    Imię:
+                                    Imię:<br/>
                                     <input
                                         type={"text"}
                                         name={"firstName"}
                                         onChange={(e) => setFirstName(e.target.value)}
                                     />
                                 </label>
-                                <label>
-                                    Nazwisko:
+                                <label>Nazwisko: <br/>
                                     <input
                                         type={"text"}
                                         name={"lastName"}
@@ -171,7 +170,7 @@ export default function RegisterForm(props) {
                                 </label>
                                 <br/>
                                 <label>
-                                    Email:
+                                    Email:<br/>
                                     <input
                                         type={"email"}
                                         name={"email"}
@@ -179,7 +178,7 @@ export default function RegisterForm(props) {
                                     />
                                 </label>
                                 <label>
-                                    Data urodzenia:
+                                    Data urodzenia:<br/>
                                     <input
                                         type={"date"}
                                         name={"dateOfBirth"}

@@ -1,103 +1,115 @@
+/* Stylizacja kalendarza głównego */
 .react-calendar {
-    width: 400px;
-    max-width: 100%;
+    width: 400px; /* Szerokość kalendarza */
+    max-width: 100%; /* Maksymalna szerokość - dostosowuje się do dostępnego miejsca */
     background-color: #E6D1C0; /* Kolor tła kalendarza */
     color: #591914; /* Kolor tekstu kalendarza */
-    border-radius: 8px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.125em;
-    border: 1px solid #591914;
+    border-radius: 8px; /* Zakrąglenie narożników */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Cień kalendarza */
+    font-family: Arial, Helvetica, sans-serif; /* Rodzina czcionek */
+    line-height: 1.125em; /* Wysokość linii */
+    border: 1px solid #591914; /* Grubość i kolor obramowania */
 }
 
-
-
-
+/* Stylizacja nawigacji kalendarza */
 .react-calendar__navigation button {
-    color: #591914;
-    min-width: 44px;
-    background: none;
-    font-size: 16px;
-    margin-top: 8px;
+    color: #591914; /* Kolor tekstu przycisków nawigacyjnych */
+    min-width: 44px; /* Minimalna szerokość przycisków nawigacyjnych */
+    background: none; /* Brak tła przycisków nawigacyjnych */
+    font-size: 16px; /* Rozmiar czcionki przycisków nawigacyjnych */
+    margin-top: 8px; /* Odstęp od góry dla przycisków nawigacyjnych */
 }
 
+/* Stylizacja stanu hover/focus przycisków nawigacyjnych */
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-    background-color: #f8f8fa;
+    background-color: #f8f8fa; /* Tło przycisków nawigacyjnych podczas hover/focus */
 }
 
+/* Stylizacja przycisków nawigacyjnych w stanie wyłączonym */
 .react-calendar__navigation button[disabled] {
-    background-color: white;
+    background-color: white; /* Tło przycisków nawigacyjnych w stanie wyłączonym */
 }
 
+/* Usunięcie podkreślenia dla elementów abbr z atrybutem title */
 abbr[title] {
     text-decoration: none;
 }
 
+/* Stylizacja stanu hover/focus dla poszczególnych pól kalendarza */
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-    background: #f8f8fa;
-    color: #591914;
-    border-radius: 6px;
+    background: #f8f8fa; /* Tło podczas hover/focus dla pól kalendarza */
+    color: #591914; /* Kolor tekstu podczas hover/focus dla pól kalendarza */
+    border-radius: 6px; /* Zakrąglenie narożników */
 }
 
+/* Stylizacja pola aktualnej daty */
 .react-calendar__tile--now {
-
-    border-radius: 6px;
-    font-weight: bold;
-    color: #591914;
+    border-radius: 6px; /* Zakrąglenie narożników */
+    font-weight: bold; /* Pogrubienie tekstu */
+    color: #591914; /* Kolor tekstu */
 }
 
+/* Stylizacja stanu hover/focus dla pola aktualnej daty */
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-    background: #6f48eb33;
-    border-radius: 6px;
-    font-weight: bold;
-    color: #591914;
+    background: #6f48eb33; /* Tło podczas hover/focus dla pola aktualnej daty */
+    border-radius: 6px; /* Zakrąglenie narożników */
+    font-weight: bold; /* Pogrubienie tekstu */
+    color: #591914; /* Kolor tekstu */
 }
 
+/* Stylizacja stanu hover/focus dla pól zawierających aktywne wydarzenia */
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
-    background: #f8f8fa;
+    background: #f8f8fa; /* Tło podczas hover/focus dla pól z aktywnymi wydarzeniami */
 }
 
+/* Stylizacja pola aktywnego wydarzenia */
 .react-calendar__tile--active {
-    background: #591914;
-    border-radius: 6px;
-    font-weight: bold;
-    color: white;
+    background: #591914; /* Tło pola aktywnego wydarzenia */
+    border-radius: 6px; /* Zakrąglenie narożników */
+    font-weight: bold; /* Pogrubienie tekstu */
+    color: white; /* Kolor tekstu */
 }
 
+/* Stylizacja stanu hover/focus dla pola aktywnego wydarzenia */
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-    background: #591914;
-    color: white;
+    background: #591914; /* Tło podczas hover/focus dla pola aktywnego wydarzenia */
+    color: white; /* Kolor tekstu podczas hover/focus dla pola aktywnego wydarzenia */
 }
 
+/* Stylizacja pola hover w trybie wybierania zakresu dat */
 .react-calendar--selectRange .react-calendar__tile--hover {
-    background-color: #f8f8fa;
+    background-color: #f8f8fa; /* Tło pola hover w trybie wybierania zakresu dat */
 }
 
+/* Stylizacja pola zakresu dat */
 .react-calendar__tile--range {
-    background: #f8f8fa;
-    color: #591914;
-    border-radius: 0;
+    background: #f8f8fa; /* Tło pola zakresu dat */
+    color: #591914; /* Kolor tekstu pola zakresu dat */
+    border-radius: 0; /* Brak zakrąglenia narożników */
 }
 
+/* Stylizacja początkowego pola zakresu dat */
 .react-calendar__tile--rangeStart {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
-    background: #591914;
-    color: white;
+    background: #591914; /* Tło początkowego pola zakresu dat */
+    color: white; /* Kolor tekstu początkowego pola zakresu dat */
 }
 
+/* Stylizacja końcowego pola zakresu dat */
 .react-calendar__tile--rangeEnd {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-    background: #591914;
-    color: white;
+    background: #591914; /* Tło końcowego pola zakresu dat */
+    color: white; /* Kolor tekstu końcowego pola zakresu dat */
 }
+

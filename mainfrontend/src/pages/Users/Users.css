@@ -10,14 +10,14 @@ div button{
 
 
 .table-name{
-    font-weight: bold;
-    background-color: #E6D1C0;
-    margin: 5px;
-    border-radius: 5px;
-    padding: 5px;
-    border-color: #591914;
-    border: 1px solid;
-    width: 40%;
-    text-align: center;
+    font-weight: bold; /* pogrubienie tekstu */
+    background-color: #E6D1C0; /* kolor tła */
+    margin: 5px; /* marginesy - 5px */
+    border-radius: 5px; /* zaokrąglenie rogów */
+    padding: 5px; /* odstęp pomiędzy zawartością a granicami */
+    border-color: #591914; /* kolor obramowania */
+    border: 1px solid; /* grubość i rodzaj obramowania */
+    width: 40%; /* szerokość względem strony */
+    text-align: center; /* wyśrodkowanie tekstu */
 }
 
