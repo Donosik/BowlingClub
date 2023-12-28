@@ -138,7 +138,7 @@ export default function Home() {
     return (
         <>
             <div className="container d-flex w-100 justify-content-center align-content-center content-container">
-                <div className="d-flex align-items-center flex-row flex-wrap time-baba justify-content-between">
+                <div className="d-flex align-items-center flex-row flex-wrap photo-fit justify-content-between">
                     <div className="box-1 flex-grow-1">
                         <p>GODZINY OTWARCIA</p>
                         <div className="date-time-container d-flex flex-column justify-content-between">
@@ -151,8 +151,8 @@ export default function Home() {
                             ))}
                         </div>
                     </div>
-                    <div className="box-2 baba-container flex-grow-1 d-flex">
-                        <img className="baba flex-grow-1 w-100"
+                    <div className="box-2 photo-home-box flex-grow-1 d-flex">
+                        <img className="girl_photo flex-grow-1 w-100"
                              src={bowling_photo}
                              alt="bowling"/>
                     </div>

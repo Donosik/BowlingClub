@@ -1,31 +1,29 @@
 div .table-container {
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 10px; /* zaokrąglenie rogów tabeli */
+    overflow: hidden; /* generuje pasek jak się nie mieści na stronie */
 
 }
 
 table{
-    width: 100%;
-    border-collapse: collapse;
-    font-family: "Inter-Regular", Helvetica;
-    border: 1px solid;
-    border-color: #818181;
+    width: 100%; /* szerokość wględem strony */
+    border-collapse: collapse; /* brak odstępu między komórkami tabeli */
+    font-family: "Inter-Regular", Helvetica, serif; /* typ i rodzaj czcionki */
+    border: 1px solid; /* grubuość i rodzaj obramowania */
+    border-color: #818181; /* kolor obramowania */
 }
 
-tr{
-    color: #e4e4e4;
-    text-align: center;
-    text-transform: uppercase;
-    background-color:#591914 ;
-    border: 1px solid;
-    border-color: #000000;
+tr{ /* NAZWY KOLUMN */
+    color: #e4e4e4; /* kolor czcionki */
+    text-align: center; /* wyrodkowanie tekstu */
+    text-transform: uppercase; /* ustawienie liter na wielkie */
+    background-color:#591914 ; /* kolor tła */
+    border-color: #000000; /* kolor obramowania */
 }
 
-td{
-    color: #591914;
-    background-color:  #E6D1C0;
-    border: 1px solid;
-    border-color: #818181;
+td{ /* ZAWARTOŚĆ KOLUMN */
+    color: #591914; /* kolor czcionki */
+    background-color:  #E6D1C0; /* kolor tła */
+    border-color: #818181; /* kolor obramowania */
 }
 
 .table-name{
