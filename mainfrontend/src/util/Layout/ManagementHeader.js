@@ -5,9 +5,8 @@ import React, {useEffect} from "react";
 
 export default function ManagementHeader()
 {
-
-    const [isAdmin, setIsAdmin] = React.useState(true)
-    const [isWorker, setIsWorker] = React.useState(true)
+    const [isAdmin, setIsAdmin] = React.useState(false)
+    const [isWorker, setIsWorker] = React.useState(false)
 
     useEffect(() =>
     {
@@ -15,7 +14,6 @@ export default function ManagementHeader()
         {
             const token = localStorage.getItem('token')
             const claims=parseJwt(token)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
-            return
             if(claims[2]&&claims[2]==="Admin")
             {
                 setIsAdmin(true)
