@@ -54,11 +54,18 @@ export default function Header()
                                  activeClassName="active">KONTAKT</NavLink>
                     </li>
                     {isUserLoggedIn ? (
-                        <li className="nav-item">
-                            <NavLink className="nav-link"
-                                     to="/home"
-                                     onClick={logout}>WYLOGUJ</NavLink>
-                        </li>
+                        <>
+                            <li className="nav-item">
+                                <NavLink className="nav-link"
+                                         to="/management"
+                                         activeClassName="active">ZARZĄDZANIE</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link"
+                                         to="/home"
+                                         onClick={logout}>WYLOGUJ</NavLink>
+                            </li>
+                        </>
                     ) : (
                         <li className="nav-item">
                             <NavLink className="nav-link"
