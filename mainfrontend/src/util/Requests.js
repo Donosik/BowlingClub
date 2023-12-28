@@ -13,7 +13,6 @@ export const mainBackendApi = axios.create({
 mainBackendApi.interceptors.request.use(config =>
 {
     const token = localStorage.getItem('token');
-    //console.log(token)
     if (token)
     {
         config.headers.Authorization = `Bearer ${token}`
@@ -26,7 +25,5 @@ export function setAuth(token)
     if (token)
     {
         localStorage.setItem('token', token)
-        console.log("token is set")
-        console.log(token)
     }
 }

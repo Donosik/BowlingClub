@@ -70,11 +70,11 @@ public class UserController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("RegisterClientGoogle")]
-    public async Task<IActionResult> RegisterClientGoogle()
+    public async Task<IActionResult> RegisterClientGoogle(RegisterFormGoogle registerForm)
     {
         try
         {
-            if (await serviceWrapper.user.RegisterClientGoogle())
+            if (await serviceWrapper.user.RegisterClientGoogle(registerForm))
                 return Ok();
         }
         catch (Exception ex)
@@ -126,9 +126,9 @@ public class UserController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("LoginGoogle")]
-    public async Task<IActionResult> LoginGoogle()
+    public async Task<IActionResult> LoginGoogle([FromBody]string email)
     {
-        User user = await serviceWrapper.user.LoginGoogle();
+        User user = await serviceWrapper.user.LoginGoogle(email);
         if (user != null)
             return Ok(await serviceWrapper.user.GenerateToken(user));
         return NotFound("User with that google account doesn't exist");

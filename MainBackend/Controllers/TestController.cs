@@ -74,7 +74,7 @@ public class TestController : ControllerBase
         await serviceWrapper.generator.GenerateShifts(5, 10);
         await serviceWrapper.generator.GenerateLanes(10);
         await serviceWrapper.generator.GenerateReservations(30, 50);
-        await serviceWrapper.generator.GenerateInventoryItems(1000);
+        //await serviceWrapper.generator.GenerateInventoryItems(1000);
         await serviceWrapper.generator.GenerateInvoices(500);
         //Rzeczy na stałe
         await serviceWrapper.generator.GenerateAdmin();

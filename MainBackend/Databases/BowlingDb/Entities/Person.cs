@@ -28,4 +28,14 @@ public class Person : IEntity
         Client = null;
         Worker = null;
     }
+    
+    public Person(RegisterFormGoogle registerForm)
+    {
+        FirstName = registerForm.FirstName;
+        LastName = registerForm.LastName;
+        Email = registerForm.Email;
+        DateOfBirth = DateTime.MinValue;
+        Client = null;
+        Worker = null;
+    }
 }

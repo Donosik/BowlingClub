@@ -20,16 +20,28 @@ export default function LoginForm(props)
     async function successResponse(response)
     {
         const userObject = jwtDecode(response.credential)
+        const googleForm=
+            {
+                "email":userObject.email,
+                "firstName":userObject.given_name,
+                "lastName":userObject.family_name
+            }
         try{
             const response=await mainBackendApi.post('User/LoginGoogle',userObject.email)
+            setAuth(response.data)
+            navigate('/management')
         }
         catch (e)
         {
-            console.log(e)
-            if(e.response.status===404)
+            try{
+                const response=await mainBackendApi.post('User/RegisterClientGoogle',googleForm)
+                const response2=await mainBackendApi.post('User/LoginGoogle',userObject.email)
+                setAuth(response2.data)
+                navigate('/management')
+            }
+            catch (e2)
             {
-                //const responseRegister=await mainBackendApi.post('User/RegisterClientGoogle',userObject)
-                //console.log(responseRegister)
+                console.log(e2)
             }
         }
     }

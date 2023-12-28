@@ -78,7 +78,7 @@ export default function RegisterForm(props) {
             };
 
             const response = await mainBackendApi.post("User/RegisterClient", reguestData);
-            console.log(response);
+            loginCallback()
         } catch (error) {
             setIsRegisterFailed(true);
             setErrorMessage("ISTNIEJE JUŻ KONTO Z TYM ADRESEM E-MAIL");
@@ -93,9 +93,14 @@ export default function RegisterForm(props) {
     async function successResponse(response)
     {
         const userObject = jwtDecode(response.credential)
-        console.log(userObject)
+        const googleForm=
+            {
+                "email":userObject.email,
+                "firstName":userObject.given_name,
+                "lastName":userObject.family_name
+            }
         try{
-            const response=await mainBackendApi.post('User/RegisterClientGoogle',userObject)
+            const response=await mainBackendApi.post('User/RegisterClientGoogle',googleForm)
             console.log(response)
         }
         catch (e)

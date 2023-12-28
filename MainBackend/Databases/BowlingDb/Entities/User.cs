@@ -11,6 +11,7 @@ public class User : IEntity
     public string Password { get; set; }
     public bool IsClient { get; set; }
     public bool IsActive { get; set; }
+    public bool IsGoogle { get; set; }
 
     public virtual Person Person { get; set; }
 
@@ -24,5 +25,15 @@ public class User : IEntity
         Password = registerForm.Password;
         IsClient = isClient;
         IsActive = true;
+        IsGoogle = false;
+    }
+    
+    public User(RegisterFormGoogle registerForm)
+    {
+        Login = registerForm.Email;
+        Password = "";
+        IsClient = true;
+        IsActive = true;
+        IsGoogle = true;
     }
 }

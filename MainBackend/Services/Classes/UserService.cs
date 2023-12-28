@@ -92,9 +92,38 @@ public class UserService : IUserService
         return true;
     }
 
-    public async Task<bool> RegisterClientGoogle()
+    public async Task<bool> RegisterClientGoogle(RegisterFormGoogle registerForm)
     {
-        //TODO
+        User user = await repositoryWrapper.normalDbWrapper.user.GetUser(registerForm.Email);
+        if (user != null)
+            return false;
+        Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
+        if(person== null)
+        {
+            Person newPerson = new Person(registerForm);
+            User newUser = new User(registerForm);
+            newUser.Person = newPerson;
+            Client client = new Client();
+            client.Person = newPerson;
+            client.User = newUser;
+            repositoryWrapper.normalDbWrapper.person.Create(newPerson);
+            repositoryWrapper.normalDbWrapper.user.Create(newUser);
+            repositoryWrapper.normalDbWrapper.client.Create(client);
+            return await repositoryWrapper.normalDbWrapper.Save(3);
+        }
+        else
+        {
+            if (person.Client != null)
+                return false;
+            User newUser = new User(registerForm);
+            newUser.Person = person;
+            Client client = new Client();
+            client.Person = person;
+            client.User = newUser;
+            repositoryWrapper.normalDbWrapper.user.Create(newUser);
+            repositoryWrapper.normalDbWrapper.client.Create(client);
+            return await repositoryWrapper.normalDbWrapper.Save(2);
+        }
         return false;
     }
 
@@ -160,7 +189,8 @@ public class UserService : IUserService
     {
         foreach (var user in await GetUsers())
         {
-            if ((user.Login == loginForm.Login) && (user.Password == loginForm.Password))
+            if ((user.Login == loginForm.Login) && (user.Password == loginForm.Password) && user.IsActive &&
+                !user.IsGoogle)
             {
                 return user;
             }
@@ -169,9 +199,12 @@ public class UserService : IUserService
         return null;
     }
 
-    public async Task<User> LoginGoogle()
+    public async Task<User> LoginGoogle(string email)
     {
-        return null;
+        var users = await GetUsers();
+        users = users.Where(x => x.IsGoogle == true).ToList();
+        var user = users.FirstOrDefault(x => x.Login == email);
+        return user;
     }
 
     public async Task<string> GenerateToken(User user)
@@ -281,6 +314,7 @@ public class UserService : IUserService
             repositoryWrapper.normalDbWrapper.person.Delete(user.Person);
             return await repositoryWrapper.normalDbWrapper.Save(3);
         }
+
         return await repositoryWrapper.normalDbWrapper.Save(2);
     }
 
