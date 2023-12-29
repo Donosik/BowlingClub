@@ -123,8 +123,8 @@ export default function MagazineTable({filter})
                     ))}
                     </tbody>
                 </table>
-                <button onClick={fetchProducts}>ZAŁADUJ DALEJ UŻYTKOWNIKÓW</button>
-                {(noMoreProducts === true) && <div className="no-more-users">Brak więcej użytkowników</div>}
+                <button onClick={fetchProducts}>ZAŁADUJ DALEJ PRODUKTY</button>
+                {(noMoreProducts === true) && <div className="no-more-users">Brak więcej produktów</div>}
             </div>
         </>
     )

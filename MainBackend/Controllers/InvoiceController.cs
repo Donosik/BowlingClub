@@ -20,16 +20,17 @@ public class InvoiceController : ControllerBase
 #region Get
 
     [Authorize(Policy = "Worker")]
-    [HttpGet("WorkerIvoices/{workerId}")]
-    public async Task<IActionResult> WorkerInvoices(int workerId)
+    [HttpGet("AllInvoices")]
+    public async Task<IActionResult> AllInvoices()
     {
         return BadRequest("Not Implemented");
     }
 
     [Authorize(Policy = "Client")]
-    [HttpGet("ClientInvoices/{clientId}")]
-    public async Task<IActionResult> ClientInvoices(int clientId)
+    [HttpGet("ClientInvoices")]
+    public async Task<IActionResult> ClientInvoices()
     {
+        //Get client id from token
         return BadRequest("Not implemented");
     }
 

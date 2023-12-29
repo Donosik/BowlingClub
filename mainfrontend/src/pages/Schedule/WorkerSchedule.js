@@ -30,8 +30,8 @@ export default function WorkerSchedule({ workersSchedule }) {
                     new Date(slot.start) && new Date(slot.start).toLocaleDateString() ===
                     selectedDate.toLocaleDateString()
             )
-        );
-    };
+        )
+    }
 
     const workersForSelectedDate = getWorkersForSelectedDate();
 

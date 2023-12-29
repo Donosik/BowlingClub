@@ -22,6 +22,7 @@ import ChangeSiteLayout from "../pages/ChangeSite/ChangeSiteLayout";
 import ChangePromotions from "../pages/ChangeSite/ChangePromotions";
 import AddRegulation from "../pages/ChangeSite/AddRegulation";
 import AddNewItem from "../pages/Magazine/AddNewItem";
+import AddSale from "../pages/Sale/AddSale";
 
 export default function Router()
 {
@@ -40,7 +41,10 @@ export default function Router()
                         <Route index element={<Magazine/>}/>
                         <Route path={"dodaj"} element={<AddNewItem/>}/>
                     </Route>
-                    <Route path={"sprzedaz"} element={<Sale/>}/>
+                    <Route path={"sprzedaz"}>
+                        <Route index element={<Sale/>}/>
+                        <Route path={"dodaj"} element={<AddSale/>}/>
+                    </Route>
                     <Route path={"zmianastrony"} element={<ChangeSiteLayout/>}>
                         <Route index element={<ChangeOpenHours/>}/>
                         <Route path={"godziny"} element={<ChangeOpenHours/>}/>

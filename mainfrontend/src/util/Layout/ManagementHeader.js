@@ -2,6 +2,7 @@ import './Header.css'
 import {Link, NavLink} from "react-router-dom";
 import logo from "./logo-bowl.png";
 import React, {useEffect} from "react";
+import {getIsAdmin, getIsWorker} from "../UserType";
 
 export default function ManagementHeader()
 {
@@ -10,36 +11,10 @@ export default function ManagementHeader()
 
     useEffect(() =>
     {
-        if (localStorage.getItem('token') !== null)
-        {
-            const token = localStorage.getItem('token')
-            const claims=parseJwt(token)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
-            if(claims[2]&&claims[2]==="Admin")
-            {
-                setIsAdmin(true)
-                setIsWorker(true)
-            }
-            else if(claims[1]&&claims[1]==="Worker")
-            {
-                setIsWorker(true)
-                setIsAdmin(false)
-            }
-            else {
-                setIsAdmin(false)
-                setIsWorker(false)
-            }
-        }
+        setIsAdmin(getIsAdmin)
+        setIsWorker(getIsWorker)
     }, []);
 
-    function parseJwt (token) {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-
-        return JSON.parse(jsonPayload);
-    }
     function logout()
     {
         if (localStorage.getItem('token') !== null)
