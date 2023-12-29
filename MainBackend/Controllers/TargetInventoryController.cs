@@ -34,6 +34,15 @@ public class TargetInventoryController : ControllerBase
             return Ok(result);
         return NotFound();
     }
+    
+    [HttpGet("MagazineStatus/{usersPerPage}/{currentPage}")]
+    public async Task<IActionResult> GetMagazineStatus(int usersPerPage, int currentPage)
+    {
+        var result = await serviceWrapper.targetInventory.GetMagazineStatus(usersPerPage, currentPage);
+        if (result != null)
+            return Ok(result);
+        return NotFound();
+    }
 
     [HttpPost]
     public async Task<IActionResult> AddTargetInventoryItem(TargetInventory targetInventory)

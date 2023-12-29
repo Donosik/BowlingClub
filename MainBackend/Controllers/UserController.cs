@@ -29,10 +29,10 @@ public class UserController : ControllerBase
     }
 
     [Authorize(Policy = "Worker")]
-    [HttpGet("AllUsers")]
-    public async Task<IActionResult> AllUsers()
+    [HttpGet("AllUsers/{usersPerPage}/{currentPage}")]
+    public async Task<IActionResult> AllUsers(int usersPerPage, int currentPage)
     {
-        return Ok(await serviceWrapper.user.GetUsers());
+        return Ok(await serviceWrapper.user.GetUsers(usersPerPage, currentPage));
     }
 
 #endregion

@@ -50,6 +50,13 @@ public class TargetInventoryService : ITargetInventoryService
         return inventoryStatuses;
     }
 
+    public async Task<ICollection<InventoryStatus>> GetMagazineStatus(int usersPerPage, int currentPage)
+    {
+        var allStatuses = await GetMagazineStatus();
+        int startIndex = (currentPage - 1) * usersPerPage;
+        return allStatuses.Skip(startIndex).Take(usersPerPage).ToList();
+    }
+
     public async Task<bool> AddTargetInventoryItem(TargetInventory targetInventory)
     { var inventory = await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
         if (inventory.Any(x => x.Name == targetInventory.Name))

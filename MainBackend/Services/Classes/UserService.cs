@@ -29,8 +29,15 @@ public class UserService : IUserService
 
     public async Task<ICollection<User>> GetUsers()
     {
-        IEnumerable<User> users = await repositoryWrapper.normalDbWrapper.user.GetAll();
-        return (ICollection<User>)users;
+        IEnumerable<User> allUsers = await repositoryWrapper.normalDbWrapper.user.GetAll();
+        return (ICollection<User>)allUsers;
+    }
+    public async Task<ICollection<User>> GetUsers( int usersPerPage, int currentPage)
+    {
+        IEnumerable<User> allUsers = await repositoryWrapper.normalDbWrapper.user.GetAll();
+        int startIndex = (currentPage - 1) * usersPerPage;
+        var paginatedUsers= allUsers.Skip(startIndex).Take(usersPerPage);
+        return (ICollection<User>)paginatedUsers.ToList();
     }
 
     public async Task<ICollection<Worker>> GetWorkers()

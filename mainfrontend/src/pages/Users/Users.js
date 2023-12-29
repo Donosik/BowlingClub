@@ -10,6 +10,9 @@ export default function Users()
     const [users, setUsers] = useState([])
     const [onlyWorker, setOnlyWorker] = useState(false)
     const [filter, setFilter] = useState("")
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(100);
+    const [noMoreUsers,setNoMoreUsers] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() =>
@@ -21,9 +24,18 @@ export default function Users()
     {
         try
         {
-            const response = await mainBackendApi.get('User/AllUsers')
+            const response = await mainBackendApi.get('User/AllUsers/' + usersPerPage + '/' + currentPage)
             const data = response.data
-            setUsers(data)
+            if (data.length === 0)
+            {
+                setNoMoreUsers(true)
+            }
+            else
+            {
+                setNoMoreUsers(false)
+                setUsers([...users, ...data])
+                setCurrentPage(currentPage + 1);
+            }
         } catch (error)
         {
             console.log('Error fetching users:', error)
@@ -31,7 +43,8 @@ export default function Users()
     }
 
     function filteredUsers(users)
-    {   const filtered=users
+    {
+        const filtered = users
         if (onlyWorker === true)
         {
             return filtered.filter((user) => user.isClient === false)
@@ -47,7 +60,8 @@ export default function Users()
         <>
             <div className="users-container">
                 <div className="table-name">UŻYTKOWNICY</div>
-                <input type={"text"} onChange={e=>setFilter(e.target.value)}/>
+                <input type={"text"}
+                       onChange={e => setFilter(e.target.value)}/>
                 <img src={lupa}
                      alt="lupa"/>
                 <button onClick={() => navigate('dodaj')}>DODAJ PRACOWNIKA
@@ -59,7 +73,10 @@ export default function Users()
 
                 <br/>
                 <UserListTable users={filteredUsers(users)}
-                               deletedUserCallback={fetchUsers}/></div>
+                               deletedUserCallback={fetchUsers}/>
+                <button onClick={fetchUsers}>ZAŁADUJ DALEJ UŻYTKOWNIKÓW</button>
+                {(noMoreUsers===true)&&<div className="no-more-users">Brak więcej użytkowników</div>}
+            </div>
         </>
     )
 }

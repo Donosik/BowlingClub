@@ -1,11 +1,14 @@
 import "./Magazine_table.css"
 import {mainBackendApi} from "../../util/Requests";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 export default function MagazineTable({filter})
 {
     const [productsState, setProductsState] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(100);
+    const [noMoreProducts, setNoMoreProducts] = useState(false);
 
     useEffect(() =>
     {
@@ -16,8 +19,18 @@ export default function MagazineTable({filter})
     {
         try
         {
-            const response = await mainBackendApi.get('TargetInventory/MagazineStatus')
-            setProductsState(response.data)
+            const response = await mainBackendApi.get('TargetInventory/MagazineStatus/' + usersPerPage + '/' + currentPage)
+            const data = response.data
+            if (data.length === 0)
+            {
+                setNoMoreProducts(true)
+            }
+            else
+            {
+                setNoMoreProducts(false)
+                setProductsState([...productsState, ...data])
+                setCurrentPage(currentPage + 1);
+            }
         } catch (error)
         {
             console.log(error)
@@ -83,7 +96,7 @@ export default function MagazineTable({filter})
                     </tr>
                     </thead>
                     <tbody>
-                    {productsState.filter(product=>product.name.toLowerCase().includes(filter.toLowerCase())).map((product, index) => (
+                    {productsState.filter(product => product.name.toLowerCase().includes(filter.toLowerCase())).map((product, index) => (
                         <tr key={index}>
                             <td>{product.id}</td>
                             <td>{product.name}</td>
@@ -110,6 +123,8 @@ export default function MagazineTable({filter})
                     ))}
                     </tbody>
                 </table>
+                <button onClick={fetchProducts}>ZAŁADUJ DALEJ UŻYTKOWNIKÓW</button>
+                {(noMoreProducts === true) && <div className="no-more-users">Brak więcej użytkowników</div>}
             </div>
         </>
     )
