@@ -41,21 +41,31 @@ export default function SaleListTable({sales})
 
     const generateFakturaDefinition = (sale) =>
     {
-        const content = countOccurrences(sale.inventories).map((occurrence) => {
+        const content = countOccurrences(sale.inventories).map((occurrence) =>
+        {
             const itemDetails = sale.inventories.find((item) => item.name === occurrence.name);
 
             return [
-                { text: occurrence.name, style: 'text' },
-                { text: occurrence.count, style: 'text' },
-                { text: itemDetails.price, style: 'text' },
-                { text: itemDetails.price * occurrence.count, style: 'text' },
+                {text: occurrence.name, style: 'text'},
+                {text: occurrence.count, style: 'text'},
+                {text: itemDetails.price, style: 'text'},
+                {text: itemDetails.price * occurrence.count, style: 'text'},
             ];
         });
 
         const tableBody = [
-            [{ text: 'Nazwa', style: 'tableHeader' }, { text: 'Ilość', style: 'tableHeader' }, { text: 'Cena za jednostkę', style: 'tableHeader' }, { text: 'Cena za całość', style: 'tableHeader' }],
+            [{text: 'Nazwa', style: 'tableHeader'}, {text: 'Ilość', style: 'tableHeader'}, {
+                text: 'Cena za jednostkę',
+                style: 'tableHeader'
+            }, {text: 'Cena za całość', style: 'tableHeader'}],
             ...content,
-        ];
+            [
+                { text: 'Razem:', colSpan: 3, alignment: 'right', bold: true, style: 'tableHeader' },
+                {},
+                {},
+                { text: sale.amount, bold: true, style: 'tableHeader' },
+            ],
+        ]
         return {
             content: [
                 {text: 'FAKTURA', style: 'header'},
@@ -89,12 +99,10 @@ export default function SaleListTable({sales})
                     text: `Imię i nazwisko: ${sale.client.person.firstName} ${sale.client.person.lastName}`,
                     style: 'text',
                 },
-                {text: `ID Klienta: ${sale.client.user.id}`, style: 'text'},
                 {text: 'Szczegóły sprzedaży:', style: 'subheader'},
-                {text: `ID: ${sale.id}`, style: 'text'},
+                {text: `Numer faktury: ${sale.id}`, style: 'text'},
                 {text: `Data wystawienia: ${extractDatePart(sale.issueDate)}`, style: 'text'},
                 {text: `Data zapłaty: ${extractDatePart(sale.dueDate)}`, style: 'text'},
-                {text: `Kwota do zapłaty: ${sale.amount}`, style: 'text'},
                 {text: 'Zawartość:', style: 'subheader'},
                 {
                     table: {

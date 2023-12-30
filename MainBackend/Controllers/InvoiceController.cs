@@ -24,7 +24,10 @@ public class InvoiceController : ControllerBase
     [HttpGet("AllInvoices")]
     public async Task<IActionResult> AllInvoices()
     {
-        return BadRequest("Not Implemented");
+        var invoices = await serviceWrapper.invoice.GetInvoices();
+        if (invoices != null)
+            return Ok(invoices);
+        return BadRequest();
     }
 
     [Authorize(Policy = "Client")]
