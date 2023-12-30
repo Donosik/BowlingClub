@@ -8,26 +8,7 @@ import {mainBackendApi} from "../../util/Requests";
 export default function Sale()
 {
     const navigate=useNavigate()
-    const [sales,setSales] = useState([
-        {
-            Id: 1,
-            IssueDate: '1990-01-01',
-            DueDate: '1990-01-01',
-            Client:
-                {
-                    Id: 1,
-                    FirstName: 'John',
-                    LastName: 'Doe',
-                },
-            Worker:
-                {
-                    Id: 1,
-                    FirstName: 'John',
-                    LastName: 'Doe',
-                },
-            content: 'zawartosc'
-        },
-    ])
+    const [sales,setSales] = useState([])
     const [isWorker,setIsWorker] = useState(false)
 
     useEffect(() =>
@@ -47,12 +28,12 @@ export default function Sale()
     {
         try
         {
-            const response=await mainBackendApi.get('Invoice/GetAllInvoices')
-            //console.log(response.data)
+            const response=await mainBackendApi.get('Invoice/AllInvoices')
+            setSales(response.data)
         }
         catch (e)
         {
-            //console.log(e)
+            console.log(e)
         }
     }
 
@@ -60,7 +41,7 @@ export default function Sale()
     {
         try
         {
-            const response=await mainBackendApi.get('Invoice/ClientInvoices')
+            //const response=await mainBackendApi.get('Invoice/ClientInvoices')
             //console.log(response.data)
         }
         catch (e)
