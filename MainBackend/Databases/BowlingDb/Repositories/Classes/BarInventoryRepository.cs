@@ -1,4 +1,5 @@
-﻿using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
+﻿using MainBackend.Databases.BowlingDb.Entities;
+using MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 using MainBackend.Databases.Generic.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,5 +9,15 @@ public class BarInventoryRepository : GenericRepository<Entities.Inventory>,IBar
 {
     public BarInventoryRepository(Context.BowlingDb dbContext) : base(dbContext)
     {
+    }
+
+    public async Task<Inventory> GetByProductName(string name)
+    {
+        return await GetQuery().Where(t => t.Name == name).Where(t=>t.Invoice==null).FirstOrDefaultAsync();
+    }
+    
+    public async Task<ICollection<Inventory>> GetByProductName(string name,int howMany)
+    {
+        return await GetQuery().Where(t => t.Name == name).Where(t=>t.Invoice==null).Take(howMany).ToListAsync();
     }
 }

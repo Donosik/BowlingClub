@@ -1,4 +1,5 @@
-﻿using MainBackend.DTO;
+﻿using System.Security.Claims;
+using MainBackend.DTO;
 using MainBackend.Services.Wrapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,13 @@ public class InvoiceController : ControllerBase
     [HttpPost("CreateInvoice")]
     public async Task<IActionResult> CreateInvoice(InvoiceForm invoiceForm)
     {
-        return BadRequest("Not Implemented");
+        var workerIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (workerIdClaim == null || !int.TryParse(workerIdClaim, out int workerId))
+            return BadRequest("Worker not found");
+
+        if (await serviceWrapper.invoice.AddInvoice(invoiceForm, workerId))
+            return Ok();
+        return BadRequest();
     }
 
 #endregion

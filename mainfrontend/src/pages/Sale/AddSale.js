@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Calendar from "react-calendar";
 import {mainBackendApi} from "../../util/Requests";
+import {useNavigate} from "react-router-dom";
 
 export default function AddSale()
 {
@@ -18,6 +19,8 @@ export default function AddSale()
     const [errorMessage, setErrorMessage] = useState("")
     const [allClients, setAllClients] = useState([])
     const [allProducts, setAllProducts] = useState([])
+
+    const navigate=useNavigate()
 
     useEffect(() =>
     {
@@ -44,7 +47,7 @@ export default function AddSale()
             const response = await mainBackendApi.get('TargetInventory/MagazineStatus')
             const allProd = response.data
             const filteredProds = allProd.filter((product) => product.currentQuantity > 0)
-            setAllProducts(allProd)
+            setAllProducts(filteredProds)
         } catch (e)
         {
             console.log(e)
@@ -89,12 +92,13 @@ export default function AddSale()
                 "clientUserId": choosenClient.id,
                 "products": choosenProducts.map((product) => (
                     {
-                        "productId": product.id,
+                        "name": product.name,
                         "quantity": product.choosenQuantity
                     }
                 ))
             }
             const response = await mainBackendApi.post('Invoice/CreateInvoice', data)
+            navigate('/sprzedaz')
         } catch (e)
         {
             console.log(e)
@@ -184,7 +188,7 @@ export default function AddSale()
                                         onClick={handleSubmit}>STWÓRZ FAKTURĘ
                                 </button>
                             </div>
-                            {(isAddingFailed == true) && errorMessage}
+                            {(isAddingFailed === true) && errorMessage}
 
                         </div>
                     </div>

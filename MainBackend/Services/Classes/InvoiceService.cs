@@ -1,5 +1,6 @@
 ﻿using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.Databases.Generic.Repositories;
+using MainBackend.DTO;
 using MainBackend.Services.Interfaces;
 using MainBackend.Services.Wrapper;
 
@@ -47,6 +48,29 @@ public class InvoiceService : IInvoiceService
         }
 
         return await repositoryWrapper.normalDbWrapper.Save(entities);
+    }
+
+    public async Task<bool> AddInvoice(InvoiceForm invoiceForm, int workerId)
+    {
+        ICollection<Inventory> products = new List<Inventory>();
+        foreach (var product in invoiceForm.Products)
+        {
+                ICollection<Inventory> inventory =
+                    await repositoryWrapper.normalDbWrapper.barInventory.GetByProductName(product.Name,product.Quantity);
+                if (inventory == null)
+                    return false;
+                foreach (var item in inventory)
+                {
+                    products.Add(item);
+                }
+        }
+        User userClient = await repositoryWrapper.normalDbWrapper.user.Get(invoiceForm.ClientUserId);
+        Client client = userClient.Person.Client;
+        User userWorker= await repositoryWrapper.normalDbWrapper.user.Get(workerId);
+        Worker worker = userWorker.Person.Worker;
+        DateTime dueDate = invoiceForm.PayingDate;
+        DateTime issueDate = DateTime.Now;
+        return await AddInvoice(products, client, worker, issueDate, dueDate);
     }
 
     public async Task<bool> DeleteInvoice(int id)
