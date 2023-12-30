@@ -11,6 +11,7 @@ public interface IUserService
     Task<ICollection<User>> GetUsers();
     Task<ICollection<User>> GetUsers(int usersPerPage, int currentPage);
     Task<ICollection<Worker>> GetWorkers();
+    Task<ICollection<User>> GetClients();
 
 #endregion
 

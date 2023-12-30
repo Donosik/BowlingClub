@@ -36,7 +36,7 @@ public class TargetInventoryController : ControllerBase
     }
     
     [HttpGet("MagazineStatus/{usersPerPage}/{currentPage}")]
-    public async Task<IActionResult> GetMagazineStatus(int usersPerPage, int currentPage)
+    public async Task<IActionResult> GetMagazineStatusPaginated(int usersPerPage, int currentPage)
     {
         var result = await serviceWrapper.targetInventory.GetMagazineStatus(usersPerPage, currentPage);
         if (result != null)

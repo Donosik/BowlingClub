@@ -42,7 +42,9 @@ export default function AddSale()
         try
         {
             const response = await mainBackendApi.get('TargetInventory/MagazineStatus')
-            setAllProducts(response.data)
+            const allProd = response.data
+            const filteredProds = allProd.filter((product) => product.currentQuantity > 0)
+            setAllProducts(allProd)
         } catch (e)
         {
             console.log(e)
@@ -58,7 +60,7 @@ export default function AddSale()
             return clientString === selectedValue;
         })
         setChoosenClient(selectedClient)
-        e.target.value=""
+        e.target.value = ""
     }
 
     function handleProductChange(e)
@@ -68,9 +70,8 @@ export default function AddSale()
         {
             return product.name === selectedValue;
         })
-        console.log("cyce")
         setChoosenProducts([...choosenProducts, selectedProduct])
-        e.target.value=""
+        e.target.value = ""
     }
 
     function removeProduct(product)
@@ -83,11 +84,20 @@ export default function AddSale()
     {
         try
         {
-            const data = {}
+            const data = {
+                "payingDate": selectedDate,
+                "clientUserId": choosenClient.id,
+                "products": choosenProducts.map((product) => (
+                    {
+                        "productId": product.id,
+                        "quantity": product.choosenQuantity
+                    }
+                ))
+            }
             const response = await mainBackendApi.post('Invoice/CreateInvoice', data)
         } catch (e)
         {
-
+            console.log(e)
         }
     }
 
@@ -102,7 +112,7 @@ export default function AddSale()
                             <div className="calendar-container">
                                 <button type="button"
                                         onClick={() => setCalendarVisible(!calendarVisible)}>
-                                    {calendarVisible ? 'UKRYJ KALENDARZ' : 'POKAŻ KALENDARZ'}
+                                    {calendarVisible ? 'UKRYJ KALENDARZ DATY ZAPŁATY' : 'POKAŻ KALENDARZ DATY ZAPŁATY'}
                                 </button>
                                 {calendarVisible && (
                                     <>
@@ -126,7 +136,7 @@ export default function AddSale()
                                     ))}
                                 </datalist>
                                 <div>
-                                    {choosenClient&&(choosenClient.id+". "+choosenClient.person.firstName+" "+choosenClient.person.lastName)}
+                                    {choosenClient && (choosenClient.id + ". " + choosenClient.person.firstName + " " + choosenClient.person.lastName)}
                                 </div>
                             </div>
 
@@ -141,15 +151,25 @@ export default function AddSale()
                                     <datalist id="productsList">
                                         {allProducts.filter((product) => !choosenProducts.some((chosenProduct) => (chosenProduct.name === product.name)))
                                             .map((product) => (
-                                            <option key={product.id}
-                                                    value={product.name}/>
-                                        ))}
+                                                <option key={product.id}
+                                                        value={product.name}/>
+                                            ))}
                                     </datalist>
                                 </div>
+                                {allProducts.length > 0 && choosenProducts.length === allProducts.length && (
+                                    <p>Brak dostępnych produktów do wyboru.</p>
+                                )}
                                 <ul>
                                     {choosenProducts.map((product, index) => (
                                         <li key={index}>
-                                            {product.name}
+                                            {product.name + " max(" + product.currentQuantity + ")"}
+                                            <input type={"number"}
+                                                   max={product.currentQuantity}
+                                                   min={1}
+                                                   onChange={(e) =>
+                                                   {
+                                                       product.choosenQuantity = parseInt(e.target.value, 10)
+                                                   }}/>
                                             <button type="button"
                                                     onClick={() => removeProduct(product)}>
                                                 USUŃ PRODUKT

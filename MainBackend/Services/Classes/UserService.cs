@@ -46,6 +46,11 @@ public class UserService : IUserService
         return (ICollection<Worker>)workers;
     }
 
+    public async Task<ICollection<User>> GetClients()
+    {
+        return GetUsers().Result.Where(x => x.IsClient).ToList();
+    }
+
 #endregion
 
 #region Create

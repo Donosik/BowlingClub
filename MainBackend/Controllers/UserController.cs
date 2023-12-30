@@ -34,6 +34,13 @@ public class UserController : ControllerBase
     {
         return Ok(await serviceWrapper.user.GetUsers(usersPerPage, currentPage));
     }
+    
+    [Authorize(Policy = "Worker")]
+    [HttpGet("AllClients")]
+    public async Task<IActionResult> GetClients()
+    {
+        return Ok(await serviceWrapper.user.GetClients());
+    }
 
 #endregion
 
