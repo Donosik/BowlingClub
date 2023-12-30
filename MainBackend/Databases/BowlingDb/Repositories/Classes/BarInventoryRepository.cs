@@ -20,4 +20,9 @@ public class BarInventoryRepository : GenericRepository<Entities.Inventory>,IBar
     {
         return await GetQuery().Where(t => t.Name == name).Where(t=>t.Invoice==null).Take(howMany).ToListAsync();
     }
+
+    public async Task<ICollection<Inventory>> GetALlWithInvoices()
+    {
+        return await GetQuery().Include(t=>t.Invoice).ToListAsync();
+    }
 }

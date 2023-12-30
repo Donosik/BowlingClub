@@ -98,7 +98,7 @@ export default function AddSale()
                 ))
             }
             const response = await mainBackendApi.post('Invoice/CreateInvoice', data)
-            navigate('/sprzedaz')
+            navigate('/management/sprzedaz')
         } catch (e)
         {
             console.log(e)

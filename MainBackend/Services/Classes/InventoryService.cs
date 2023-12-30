@@ -22,8 +22,8 @@ public class InventoryService : IInventoryService
 
     public async Task<ICollection<(string, int)>> CheckAllInventoryItemQuantities()
     {
-        var inventory = await repositoryWrapper.normalDbWrapper.barInventory.GetAll();
-        inventory = inventory.Where(x=>x.Invoice!=null).ToList();
+        var inventory = await repositoryWrapper.normalDbWrapper.barInventory.GetALlWithInvoices();
+        inventory = inventory.Where(x=>x.Invoice==null).ToList();
         return inventory.GroupBy(x => x.Name).Select(x => (x.Key, x.Count())).ToList();
     }
     

@@ -7,4 +7,5 @@ public interface IBarInventoryRepository : IGenericRepository<Inventory>
 {
     Task<Inventory> GetByProductName(string name);
     Task<ICollection<Inventory>> GetByProductName(string name,int howMany);
+    Task<ICollection<Inventory>> GetALlWithInvoices();
 }
