@@ -41,6 +41,16 @@ public class UserController : ControllerBase
     {
         return Ok(await serviceWrapper.user.GetClients());
     }
+    
+    [Authorize(Policy = "Worker")]
+    [HttpGet("GetUser/{id}")]
+    public async Task<IActionResult> GetUser(int id)
+    {
+        User user = await serviceWrapper.user.GetUser(id);
+        if (user!=null)
+            return Ok(user);
+        return NotFound();
+    }
 
 #endregion
 
@@ -144,6 +154,15 @@ public class UserController : ControllerBase
 #endregion
 
 #region Put
+    
+    [Authorize(Policy = "Admin")]
+    [HttpPut("ChangeUser/{userId}")]
+    public async Task<IActionResult> ChangeUser(int userId,EditUserForm user)
+    {
+        if (await serviceWrapper.user.ChangeUser(userId,user))
+            return Ok();
+        return NotFound();
+    }
 
     [Authorize(Policy = "Admin")]
     [HttpPut("ChangeToAdmin/{workerId}/{isAdmin}")]

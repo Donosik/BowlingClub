@@ -27,6 +27,11 @@ public class UserService : IUserService
 
 #region Get
 
+    public async Task<User> GetUser(int id)
+    {
+        return await repositoryWrapper.normalDbWrapper.user.Get(id);
+    }
+
     public async Task<ICollection<User>> GetUsers()
     {
         IEnumerable<User> allUsers = await repositoryWrapper.normalDbWrapper.user.GetAll();
@@ -287,6 +292,21 @@ public class UserService : IUserService
             return false;
         user.IsActive = deactivate;
         repositoryWrapper.normalDbWrapper.user.Edit(user);
+        return await repositoryWrapper.normalDbWrapper.Save();
+    }
+
+    public async Task<bool> ChangeUser(int userId, EditUserForm user)
+    {
+        User oldUser = await repositoryWrapper.normalDbWrapper.user.Get(userId);
+        if (oldUser == null)
+            return false;
+        oldUser.Login = user.Login;
+        oldUser.Password = user.Password;
+        oldUser.Person.FirstName = user.FirstName;
+        oldUser.Person.LastName = user.LastName;
+        oldUser.Person.Email = user.Email;
+        oldUser.Person.DateOfBirth = user.DateOfBirth;
+        repositoryWrapper.normalDbWrapper.user.Edit(oldUser);
         return await repositoryWrapper.normalDbWrapper.Save();
     }
 
