@@ -306,6 +306,7 @@ public class UserService : IUserService
         oldUser.Person.LastName = user.LastName;
         oldUser.Person.Email = user.Email;
         oldUser.Person.DateOfBirth = user.DateOfBirth;
+        oldUser.IsActive = user.IsActive;
         repositoryWrapper.normalDbWrapper.user.Edit(oldUser);
         return await repositoryWrapper.normalDbWrapper.Save();
     }
