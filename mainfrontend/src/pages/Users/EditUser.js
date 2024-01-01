@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import React, {useState} from "react";
 import {mainBackendApi} from "../../util/Requests";
 
@@ -6,41 +6,45 @@ export default function EditUser()
 {
     const {id} = useParams()
 
-        const [login, setLogin] = useState('')
-        const [password, setPassword] = useState('')
-        const [firstName, setFirstName] = useState('')
-        const [lastName, setLastName] = useState('')
-        const [email, setEmail] = useState('')
-        const [dateOfBirth, setDateOfBirth] = useState('')
-        const [isRegisterFailed, setIsRegisterFailed] = useState(false)
-        const [errorMessage, setErrorMessage] = useState('')
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
+    const [dateOfBirth, setDateOfBirth] = useState('')
+    const [isRegisterFailed, setIsRegisterFailed] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate()
 
-        async function handleSubmit(e) {
-            e.preventDefault()
+    async function handleSubmit(e)
+    {
+        e.preventDefault()
 
-            setIsRegisterFailed(false)
-            setErrorMessage('')
+        setIsRegisterFailed(false)
+        setErrorMessage('')
 
-            try {
-                const requestData = {
-                    "login": login,
-                    "password": password,
-                    "firstName": firstName,
-                    "lastName": lastName,
-                    "email": email,
-                    "dateOfBirth": dateOfBirth
-                }
-                const response = await mainBackendApi.post('User/RegisterWorker', requestData)
-                console.log(response)
-            } catch (error) {
-                setIsRegisterFailed(true)
-                setErrorMessage("Błąd")
-                console.log(error)
+        try
+        {
+            const requestData = {
+                "login": login,
+                "password": password,
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "dateOfBirth": dateOfBirth
             }
-
+            const response = await mainBackendApi.post('User/RegisterWorker', requestData)
+            navigate('/management/uzytkownicy')
+        } catch (error)
+        {
+            setIsRegisterFailed(true)
+            setErrorMessage("Błąd")
+            console.log(error)
         }
 
-    return(
+    }
+
+    return (
         <>
             <div className="auth-page">
                 <div className="container page d-flex justify-content-center align-items-center">
@@ -55,14 +59,14 @@ export default function EditUser()
                             </label>
                             <label>
                                 Nowe hasło:
-                                <br />
+                                <br/>
                                 <input
                                     type={"password"}
                                     name={"password"}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </label>
-                            <br />
+                            <br/>
                             <label>
                                 Imię:<br/>
                                 <input type={"text"}

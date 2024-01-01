@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { mainBackendApi } from "../../util/Requests";
+import {useNavigate} from "react-router-dom";
 
 export default function AddWorker() {
     const [login, setLogin] = useState("");
@@ -10,6 +11,7 @@ export default function AddWorker() {
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [isRegisterFailed, setIsRegisterFailed] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate=useNavigate()
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -99,7 +101,7 @@ export default function AddWorker() {
                 "User/RegisterWorker",
                 requestData
             );
-            console.log(response);
+            navigate('/management/uzytkownicy')
         } catch (error) {
             setIsRegisterFailed(true);
             setErrorMessage("Błąd");

@@ -54,6 +54,10 @@ export default function AddReservation()
                                 <label htmlFor="laneNumber">GODZINA ROZPOCZĘCIA</label>
                                 <input type="time"/>
                             </div>
+                            <div>
+                                <label htmlFor="laneNumber">GODZINA ZAKOŃCZENIA</label>
+                                <input type="time"/>
+                            </div>
                             <div className="d-flex justify-content-center align-items-center">
                                 <button type="button"
                                         onClick={handleSubmit}>STWÓRZ REZERWACJĘ
