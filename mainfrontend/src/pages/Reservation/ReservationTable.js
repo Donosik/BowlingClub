@@ -4,8 +4,6 @@ export default function ReservationTable({reservations}) {
     return (
 
         <div className="table-container">
-            <div className="table-name">ZARZĄDZANIE REZERWACJAMI</div>
-            <div className="table-container">
             <table className="table-bordered">
                     <thead>
                     <tr>
@@ -31,7 +29,7 @@ export default function ReservationTable({reservations}) {
                         </tr>
                     ))}
                     </tbody>
-                </table></div></div>
+                </table></div>
 
     );
 }

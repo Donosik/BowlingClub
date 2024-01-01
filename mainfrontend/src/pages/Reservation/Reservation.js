@@ -1,4 +1,5 @@
 import ReservationTable from "./ReservationTable";
+import React from "react";
 
 export default function Reservation()
 {
@@ -31,12 +32,12 @@ export default function Reservation()
     return (
         <>
             <div className="table-container">
-
                 <form>
-                <ReservationTable reservations={reservations}/>
-                </form> </div>
-
-
-</>
+                    <div className="table-name">ZARZĄDZANIE REZERWACJAMI</div>
+                    <button>DODAJ REZERWACJE</button>
+                    <ReservationTable reservations={reservations}/>
+                </form>
+            </div>
+        </>
     )
 }

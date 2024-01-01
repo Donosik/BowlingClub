@@ -29,7 +29,7 @@ export default function LoginForm(props)
         try{
             const response=await mainBackendApi.post('User/LoginGoogle',userObject.email)
             setAuth(response.data)
-            navigate('/management')
+            navigate('/home')
         }
         catch (e)
         {
@@ -37,7 +37,7 @@ export default function LoginForm(props)
                 const response=await mainBackendApi.post('User/RegisterClientGoogle',googleForm)
                 const response2=await mainBackendApi.post('User/LoginGoogle',userObject.email)
                 setAuth(response2.data)
-                navigate('/management')
+                navigate('/home')
             }
             catch (e2)
             {
@@ -65,7 +65,7 @@ export default function LoginForm(props)
                 "password": password
             }
             const response = await mainBackendApi.post('User/Login', requestData)
-            setAuth(response.data)
+            await setAuth(response.data)
             navigate('/management')
         } catch (error)
         {

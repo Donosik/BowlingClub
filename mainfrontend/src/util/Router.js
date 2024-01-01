@@ -65,6 +65,11 @@ export default function Router()
                     <Route path={"login"} element={<Login/>}/>
                     <Route path={"kontakt"} element={<Contact/>}/>
                     <Route path={"oferta"} element={<Offer/>}/>
+                    <Route path={"sprzedaz"}>
+                        <Route index element={<Sale/>}/>
+                        <Route path={"dodaj"} element={<AddSale/>}/>
+                    </Route>
+                    <Route path={"rezerwacje"} element={<Reservation/>}/>
                     <Route path={"*"} element={<NoMatch/>}/>
                 </Route>
             </Routes>
