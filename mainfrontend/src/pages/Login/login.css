@@ -40,6 +40,7 @@ div button {
     color: #fff; /* kolor czcionki */
     cursor: pointer; /* typ kursora po najechaniu */
     text-align: center; /* wyśrodkownanie tekstu */
+    text-transform: uppercase; /* ustawiene wielkich liter */
 }
 
 .google-img{
