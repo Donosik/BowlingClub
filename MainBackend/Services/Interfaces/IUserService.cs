@@ -8,6 +8,7 @@ public interface IUserService
 {
 #region Get
     
+    Task<User> GetUser(int id);
     Task<ICollection<User>> GetUsers();
     Task<ICollection<User>> GetUsers(int usersPerPage, int currentPage);
     Task<ICollection<Worker>> GetWorkers();
@@ -32,6 +33,8 @@ public interface IUserService
 
     Task<bool> ChangePassword(int userId, string newPassword);
     Task<bool> Deactivate(int workerId, bool deactivate);
+    
+    Task<bool> ChangeUser(int userId, EditUserForm user);
 
 #endregion
 

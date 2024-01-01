@@ -17,7 +17,7 @@ public class InvoiceService : IInvoiceService
 
     public async Task<ICollection<Invoice>> GetInvoices()
     {
-        return await repositoryWrapper.normalDbWrapper.invoice.GetAll();
+        return await repositoryWrapper.normalDbWrapper.invoice.GetAllWithUsers();
     }
 
     public async Task<bool> AddInvoice(ICollection<Inventory> products, Client client, Worker worker,

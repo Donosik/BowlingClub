@@ -20,4 +20,11 @@ public class InvoiceRepository : GenericRepository<Invoice>, IInvoiceRepository
     {
         return await dbContext.Set<Invoice>().Where(i => i.ClientId == clientId).ToListAsync();
     }
+
+    public async Task<ICollection<Invoice>> GetAllWithUsers()
+    {
+        return await dbContext.Set<Invoice>().Include(i => i.Client).ThenInclude(c => c.Person).Include(i => i.Client)
+            .ThenInclude(c => c.User).Include(i => i.Worker).ThenInclude(w => w.Person).Include(i => i.Worker)
+            .ThenInclude(w => w.User).Include(i => i.Inventories).ToListAsync();
+    }
 }
