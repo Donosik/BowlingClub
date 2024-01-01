@@ -12,6 +12,7 @@ export default function EditUser()
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [dateOfBirth, setDateOfBirth] = useState("")
+    const [isActive, setIsActive] = useState(false)
     const [user, setUser] = useState({
         login: '',
         password: '',
@@ -20,11 +21,12 @@ export default function EditUser()
             lastName: '',
             email: '',
             dateOfBirth: '',
-        }
+        },
+        isActive: false,
     })
     const [isRegisterFailed, setIsRegisterFailed] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() =>
     {
@@ -43,6 +45,7 @@ export default function EditUser()
             setLastName(response.data.person.lastName)
             setEmail(response.data.person.email)
             setDateOfBirth(response.data.person.dateOfBirth)
+            setIsActive(response.data.isActive)
         } catch (error)
         {
             setIsRegisterFailed(true)
@@ -145,6 +148,7 @@ export default function EditUser()
                 lastName: lastName,
                 email: email,
                 dateOfBirth: dateOfBirth,
+                isActive: isActive
             };
             const response = await mainBackendApi.put('User/ChangeUser/' + id, requestData)
             navigate('/management/uzytkownicy')
@@ -232,6 +236,15 @@ export default function EditUser()
                                 />
                             </label>
                             <br/>
+                            <label>
+                                Czy aktywny:
+                                <input
+                                    type="checkbox"
+                                    name="isActive"
+                                    onChange={(e) => setIsActive(e.target.checked)}
+                                    checked={isActive}
+                                />
+                            </label>
 
                             <div className="d-flex justify-content-center align-items-center">
                                 <button type="button"
