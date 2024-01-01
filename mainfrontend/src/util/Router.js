@@ -23,6 +23,7 @@ import ChangePromotions from "../pages/ChangeSite/ChangePromotions";
 import AddRegulation from "../pages/ChangeSite/AddRegulation";
 import AddNewItem from "../pages/Magazine/AddNewItem";
 import AddSale from "../pages/Sale/AddSale";
+import AddReservation from "../pages/Reservation/AddReservation";
 
 export default function Router()
 {
@@ -54,7 +55,10 @@ export default function Router()
                             <Route path={"dodaj"} element={<AddRegulation/>}/>
                         </Route>
                     </Route>
-                    <Route path={"rezerwacje"} element={<Reservation/>}/>
+                    <Route path={"rezerwacje"}>
+                        <Route index element={<Reservation/>}/>
+                        <Route path={"dodaj"} element={<AddReservation/>}/>
+                    </Route>
                     <Route path={"grafik"} element={<Schedule/>}/>
                     <Route path={"raporty"} element={<Raports/>}/>
                     <Route path={"systemzakupow"} element={<PurchaseSystem/>}/>
@@ -69,7 +73,10 @@ export default function Router()
                         <Route index element={<Sale/>}/>
                         <Route path={"dodaj"} element={<AddSale/>}/>
                     </Route>
-                    <Route path={"rezerwacje"} element={<Reservation/>}/>
+                    <Route path={"rezerwacje"}>
+                        <Route index element={<Reservation/>}/>
+                        <Route path={"dodaj"} element={<AddReservation/>}/>
+                    </Route>
                     <Route path={"*"} element={<NoMatch/>}/>
                 </Route>
             </Routes>

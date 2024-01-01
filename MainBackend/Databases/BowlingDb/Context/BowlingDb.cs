@@ -65,6 +65,12 @@ public class BowlingDb : DbContext
             .HasForeignKey(i => i.WorkerId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        modelBuilder.Entity<Invoice>()
+            .HasOne(i => i.Reservation)
+            .WithOne(r => r.Invoice)
+            .HasForeignKey<Invoice>(i => i.ReservationId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
         base.OnModelCreating(modelBuilder);
     }
 }

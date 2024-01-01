@@ -1,5 +1,6 @@
 import ReservationTable from "./ReservationTable";
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function Reservation()
 {
@@ -28,13 +29,14 @@ export default function Reservation()
         },
         // Dodaj więcej przykładowych rezerwacji tutaj...
     ];
+    const navigate=useNavigate()
 
     return (
         <>
             <div className="table-container">
                 <form>
                     <div className="table-name">ZARZĄDZANIE REZERWACJAMI</div>
-                    <button>DODAJ REZERWACJE</button>
+                    <button onClick={()=>navigate('dodaj')}>DODAJ REZERWACJE</button>
                     <ReservationTable reservations={reservations}/>
                 </form>
             </div>
