@@ -1,6 +1,7 @@
 import ReservationTable from "./ReservationTable";
-import React from "react";
+import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {getIsAdmin, getIsWorker, isUserLoggedIn} from "../../util/UserType";
 
 export default function Reservation()
 {
@@ -27,16 +28,25 @@ export default function Reservation()
                 LastName: 'Smith',
             },
         },
-        // Dodaj więcej przykładowych rezerwacji tutaj...
     ];
-    const navigate=useNavigate()
+    const [isClient, setIsClient] = React.useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() =>
+    {
+        if (isUserLoggedIn() === true && getIsWorker() === false && getIsAdmin() === false)
+            setIsClient(true)
+        else
+            setIsClient(false)
+    }, []);
 
     return (
         <>
             <div className="table-container">
                 <form>
                     <div className="table-name">ZARZĄDZANIE REZERWACJAMI</div>
-                    <button onClick={()=>navigate('dodaj')}>DODAJ REZERWACJE</button>
+
+                    {(isClient === true) && <button onClick={() => navigate('dodaj')}>DODAJ REZERWACJE</button>}
                     <ReservationTable reservations={reservations}/>
                 </form>
             </div>

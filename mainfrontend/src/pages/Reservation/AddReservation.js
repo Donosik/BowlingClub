@@ -11,11 +11,26 @@ export default function AddReservation()
     const [errorMessage, setErrorMessage] = useState("")
     const navigate = useNavigate()
     const [selectedDate, setSelectedDate] = useState(new Date())
+    const [startTime, setStartTime] = useState("")
+    const [endTime, setEndTime] = useState("")
 
     async function handleSubmit()
     {
         try
         {
+            const startDate = new Date(selectedDate);
+            const startTimeDate = new Date(`1970-01-01T${startTime}`);
+            const endTimeDate = new Date(`1970-01-01T${endTime}`);
+
+            startDate.setHours(startTimeDate.getHours(), startTimeDate.getMinutes());
+            const endDate = new Date(selectedDate);
+            endDate.setHours(endTimeDate.getHours(), endTimeDate.getMinutes());
+
+            const request = {
+                startTime: startDate.toISOString(),
+                endTime: endDate.toISOString(),
+            };
+            console.log(request)
 
             if (getIsWorker() === true)
                 navigate('/management/rezerwacje')
@@ -52,11 +67,11 @@ export default function AddReservation()
                             </div>
                             <div>
                                 <label htmlFor="laneNumber">GODZINA ROZPOCZĘCIA</label>
-                                <input type="time"/>
+                                <input type="time" onChange={e=>setStartTime(e.target.value)}/>
                             </div>
                             <div>
                                 <label htmlFor="laneNumber">GODZINA ZAKOŃCZENIA</label>
-                                <input type="time"/>
+                                <input type="time" onChange={e=>setEndTime(e.target.value)}/>
                             </div>
                             <div className="d-flex justify-content-center align-items-center">
                                 <button type="button"
