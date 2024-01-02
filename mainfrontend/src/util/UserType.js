@@ -25,11 +25,11 @@ export function getIsAdmin()
     {
         const token = localStorage.getItem('token')
         const claims=parseJwt(token)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
-        if(claims[2]&&claims[2]==="Admin")
+        if(claims[2]==="Admin")
         {
             return false
         }
-        else if(claims[1]&&claims[1]==="Worker")
+        else if(claims[1]==="Worker")
         {
             return false
         }
@@ -38,6 +38,15 @@ export function getIsAdmin()
         }
     }
     return true
+}
+
+export function isUserLoggedIn()
+{
+    if (localStorage.getItem('token') !== null)
+    {
+        return true
+    }
+    return false
 }
 
 function parseJwt (token) {

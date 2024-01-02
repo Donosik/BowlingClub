@@ -1,18 +1,23 @@
 import './Header.css'
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import logo from "./logo-bowl.png";
 import React, {useEffect} from "react";
-import {getIsAdmin, getIsWorker} from "../UserType";
+import {getIsAdmin, getIsWorker, isUserLoggedIn} from "../UserType";
 
 export default function ManagementHeader()
 {
     const [isAdmin, setIsAdmin] = React.useState(false)
     const [isWorker, setIsWorker] = React.useState(false)
+    const navigate = useNavigate()
 
     useEffect(() =>
     {
         setIsAdmin(getIsAdmin)
         setIsWorker(getIsWorker)
+        if (isUserLoggedIn() === true && getIsAdmin() === false && getIsWorker() === false)
+        {
+            navigate('/home')
+        }
     }, []);
 
     function logout()
@@ -25,14 +30,6 @@ export default function ManagementHeader()
         }
     }
 
-    function isUserLoggedIn()
-    {
-        if (localStorage.getItem('token') !== null)
-        {
-            return true
-        }
-        return false
-    }
 
     return (
         <div>
@@ -53,41 +50,36 @@ export default function ManagementHeader()
                                          to="/management/uzytkownicy"
                                          activeClassName="active">UŻYTKOWNICY</NavLink>
                             </li>}
-                        {(isAdmin === true || isWorker === true) &&
-                            <li className="nav-item">
-                                <NavLink className="nav-link"
-                                         to="/management/magazyn"
-                                         activeClassName="active">MAGAZYN</NavLink>
-                            </li>}
+                        <li className="nav-item">
+                            <NavLink className="nav-link"
+                                     to="/management/magazyn"
+                                     activeClassName="active">MAGAZYN</NavLink>
+                        </li>
                         <li className="nav-item">
                             <NavLink className="nav-link"
                                      to="/management/sprzedaz"
                                      activeClassName="active">SPRZEDAŻ</NavLink>
                         </li>
-
                         <li className="nav-item">
                             <NavLink className="nav-link"
                                      to="/management/rezerwacje"
                                      activeClassName="active">REZERWACJE</NavLink>
                         </li>
-                        {(isAdmin === true || isWorker === true) &&
-                            <li className="nav-item">
-                                <NavLink className="nav-link"
-                                         to="/management/grafik"
-                                         activeClassName="active">GRAFIK</NavLink>
-                            </li>}
-                        {(isAdmin === true || isWorker === true) &&
-                            <li className="nav-item">
-                                <NavLink className="nav-link"
-                                         to="/management/raporty"
-                                         activeClassName="active">RAPORTY</NavLink>
-                            </li>}
-                        {(isAdmin === true || isWorker === true) &&
-                            <li className="nav-item">
-                                <NavLink className="nav-link"
-                                         to="/management/zmianastrony"
-                                         activeClassName="active">ZMIANA STRONY</NavLink>
-                            </li>}
+                        <li className="nav-item">
+                            <NavLink className="nav-link"
+                                     to="/management/grafik"
+                                     activeClassName="active">GRAFIK</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link"
+                                     to="/management/raporty"
+                                     activeClassName="active">RAPORTY</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link"
+                                     to="/management/zmianastrony"
+                                     activeClassName="active">ZMIANA STRONY</NavLink>
+                        </li>
                         {isUserLoggedIn() === true &&
                             <li className="nav-item">
                                 <Link className="nav-link"

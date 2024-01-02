@@ -1,29 +1,31 @@
 import './Header.css'
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import logo from "./logo-bowl.png"
+import {getIsAdmin, getIsWorker, isUserLoggedIn} from "../UserType";
 
 export default function Header()
 {
-    const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(isLoggedIn())
+    const [isLogged, setIsLogged] = React.useState(false)
+    const [isAdmin, setIsAdmin] = React.useState(false)
+    const [isWorker, setIsWorker] = React.useState(false)
+
+    useEffect(() =>
+    {
+        setIsLogged(isUserLoggedIn())
+        setIsAdmin(getIsAdmin())
+        setIsWorker(getIsWorker())
+    }, []);
 
     function logout()
     {
         if (localStorage.getItem('token') !== null)
         {
             localStorage.removeItem('token')
-            setIsUserLoggedIn(false)
+            setIsLogged(false)
         }
     }
 
-    function isLoggedIn()
-    {
-        if (localStorage.getItem('token') !== null)
-        {
-            return true
-        }
-        return false
-    }
 
     return (<div>
         <nav className="container-style sticky-top navbar navbar-expand-lg">
@@ -53,19 +55,33 @@ export default function Header()
                                  to="/kontakt"
                                  activeClassName="active">KONTAKT</NavLink>
                     </li>
-                    {isUserLoggedIn ? (
+                    {(isLogged === true && isAdmin === false && isWorker === false) &&
                         <>
                             <li className="nav-item">
                                 <NavLink className="nav-link"
-                                         to="/management"
-                                         activeClassName="active">ZARZĄDZANIE</NavLink>
+                                         to="/sprzedaz"
+                                         activeClassName="active">SPRZEDAŻ</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link"
-                                         to="/home"
-                                         onClick={logout}>WYLOGUJ</NavLink>
+                                         to="/rezerwacje"
+                                         activeClassName="active">REZERWACJE</NavLink>
                             </li>
-                        </>
+                        </>}
+
+                    {(isLogged === true && (isAdmin === true || isWorker === true)) &&
+                        <li className="nav-item">
+                            <NavLink className="nav-link"
+                                     to="/management"
+                                     activeClassName="active">ZARZĄDZANIE</NavLink>
+                        </li>}
+
+                    {isLogged === true ? (
+                        <li className="nav-item">
+                            <NavLink className="nav-link"
+                                     to="/home"
+                                     onClick={logout}>WYLOGUJ</NavLink>
+                        </li>
                     ) : (
                         <li className="nav-item">
                             <NavLink className="nav-link"

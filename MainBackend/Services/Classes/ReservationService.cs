@@ -1,5 +1,6 @@
 ﻿using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.Databases.Generic.Repositories;
+using MainBackend.DTO;
 using MainBackend.Services.Interfaces;
 
 namespace MainBackend.Services.Classes;
@@ -15,8 +16,33 @@ public class ReservationService : IReservationService
 
     public async Task<ICollection<Reservation>> GetReservations()
     {
-        IEnumerable<Reservation> reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAll();
+        IEnumerable<Reservation> reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllWithIncludes();
         return (ICollection<Reservation>)reservations;
+    }
+
+    public async Task<ICollection<Reservation>> GetReservations(int usersPerPage, int currentPage,bool onlyNew,bool onlyWithoutInvoice)
+    {
+        var allReservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllWithIncludes(usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
+        return allReservations;
+    }
+
+    public async Task<ICollection<Reservation>> GetReservationsByClient(int clientId)
+    {
+        Client client=await repositoryWrapper.normalDbWrapper.client.Get(clientId);
+        if(client==null)
+            return null;
+        IEnumerable<Reservation> reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(client);
+        return (ICollection<Reservation>)reservations;
+    }
+
+    public async Task<ICollection<Reservation>> GetReservationsByClient(int clientId, int usersPerPage, int currentPage,bool onlyNew,bool onlyWithoutInvoice)
+    {
+        
+        Client client=await repositoryWrapper.normalDbWrapper.client.Get(clientId);
+        if(client==null)
+            return null;
+        var reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(client,usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
+        return reservations;
     }
 
     public async Task<bool> MakeReservation(DateTime start, DateTime end, Client client)
@@ -47,6 +73,18 @@ public class ReservationService : IReservationService
         repositoryWrapper.normalDbWrapper.client.Edit(client);
         repositoryWrapper.normalDbWrapper.lane.Edit(lane);
         return await repositoryWrapper.normalDbWrapper.Save(3);
+    }
+
+    public async Task<bool> MakeReservation(ReservationForm reservationForm, int clientId)
+    {
+        User userClient=await repositoryWrapper.normalDbWrapper.user.Get(clientId);
+        Client client = userClient.Person.Client;
+        if(client == null)
+            return false;
+        DateTime start = reservationForm.StartTime;
+        DateTime end = reservationForm.EndTime;
+
+        return await MakeReservation(start, end, client);
     }
 
     public async Task<bool> DeleteReservation(int id)

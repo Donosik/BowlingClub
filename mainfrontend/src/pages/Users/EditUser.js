@@ -1,42 +1,87 @@
-import { useParams } from "react-router-dom";
-import React, { useState } from "react";
-import { mainBackendApi } from "../../util/Requests";
+import {useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {mainBackendApi} from "../../util/Requests";
 
-export default function EditUser() {
-    const { id } = useParams();
+export default function EditUser()
+{
+    const {id} = useParams();
 
-    const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [dateOfBirth, setDateOfBirth] = useState("");
-    const [isRegisterFailed, setIsRegisterFailed] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [login, setLogin] = useState("")
+    const [password, setPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [dateOfBirth, setDateOfBirth] = useState("")
+    const [isActive, setIsActive] = useState(false)
+    const [user, setUser] = useState({
+        login: '',
+        password: '',
+        person: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            dateOfBirth: '',
+        },
+        isActive: false,
+    })
+    const [isRegisterFailed, setIsRegisterFailed] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const navigate = useNavigate()
 
-    const validateEmail = (email) => {
+    useEffect(() =>
+    {
+        getUser()
+    }, []);
+
+    async function getUser()
+    {
+        try
+        {
+            const response = await mainBackendApi.get('User/GetUser/' + id)
+            setUser(response.data)
+            setLogin(response.data.login)
+            setPassword(response.data.password)
+            setFirstName(response.data.person.firstName)
+            setLastName(response.data.person.lastName)
+            setEmail(response.data.person.email)
+            setDateOfBirth(response.data.person.dateOfBirth)
+            setIsActive(response.data.isActive)
+        } catch (error)
+        {
+            setIsRegisterFailed(true)
+            setErrorMessage("Błąd")
+            console.log(error)
+        }
+    }
+
+    const validateEmail = (email) =>
+    {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
 
-    const validateLettersOnly = (text) => {
+    const validateLettersOnly = (text) =>
+    {
         const lettersOnlyRegex = /^[A-Za-z]+$/;
         return lettersOnlyRegex.test(text);
     };
 
-    const validateLogin = (login) => {
+    const validateLogin = (login) =>
+    {
         // Login musi mieć min. 3 znaki, może zawierać cyfry, ale nie znaki specjalne
         const loginRegex = /^[A-Za-z0-9]{3,}$/;
         return loginRegex.test(login);
     };
 
-    const validatePassword = (password) => {
+    const validatePassword = (password) =>
+    {
         // Hasło musi zawierać co najmniej 8 znaków, jedną cyfrę i jeden znak specjalny
         const passwordRegex = /(?=.*\d)(?=.*[@\-!]).{8,}/;
         return passwordRegex.test(password);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) =>
+    {
         e.preventDefault();
 
         setIsRegisterFailed(false);
@@ -48,13 +93,15 @@ export default function EditUser() {
             !lastName.trim() ||
             !email.trim() ||
             !dateOfBirth.trim()
-        ) {
+        )
+        {
             setIsRegisterFailed(true);
             setErrorMessage("Wszystkie pola muszą być wypełnione");
             return;
         }
 
-        if (!validateLogin(login)) {
+        if (!validateLogin(login))
+        {
             setIsRegisterFailed(true);
             setErrorMessage(
                 "Login musi mieć minimum 3 znaki i nie może zawierać znaków specjalnych"
@@ -62,7 +109,8 @@ export default function EditUser() {
             return;
         }
 
-        if (password.trim() && !validatePassword(password)) {
+        if (password.trim() && !validatePassword(password))
+        {
             setIsRegisterFailed(true);
             setErrorMessage(
                 "Hasło musi mieć minimum 8 znaków, jedną cyfrę i jeden znak specjalny"
@@ -70,25 +118,29 @@ export default function EditUser() {
             return;
         }
 
-        if (!validateLettersOnly(firstName)) {
+        if (!validateLettersOnly(firstName))
+        {
             setIsRegisterFailed(true);
             setErrorMessage("Imię może zawierać tylko litery");
             return;
         }
 
-        if (!validateLettersOnly(lastName)) {
+        if (!validateLettersOnly(lastName))
+        {
             setIsRegisterFailed(true);
             setErrorMessage("Nazwisko może zawierać tylko litery");
             return;
         }
 
-        if (!validateEmail(email)) {
+        if (!validateEmail(email))
+        {
             setIsRegisterFailed(true);
             setErrorMessage("Niepoprawny format adresu e-mail");
             return;
         }
 
-        try {
+        try
+        {
             const requestData = {
                 login: login,
                 password: password,
@@ -96,13 +148,12 @@ export default function EditUser() {
                 lastName: lastName,
                 email: email,
                 dateOfBirth: dateOfBirth,
+                isActive: isActive
             };
-            const response = await mainBackendApi.post(
-                "User/RegisterWorker",
-                requestData
-            );
-            console.log(response);
-        } catch (error) {
+            const response = await mainBackendApi.put('User/ChangeUser/' + id, requestData)
+            navigate('/management/uzytkownicy')
+        } catch (error)
+        {
             setIsRegisterFailed(true);
             setErrorMessage("Błąd");
             console.log(error);
@@ -119,68 +170,85 @@ export default function EditUser() {
                             <p>Instrukcja:</p>
                             <ul>
                                 <li>Login musi mieć min. 3 znaki i nie może zawierać znaków specjalnych.</li>
-                                <li>Hasło musi zawierać minimalnie: 8 znaków, jedną cyfrę oraz znak specjalny (np. @-!).</li>
+                                <li>Hasło musi zawierać minimalnie: 8 znaków, jedną cyfrę oraz znak specjalny (np.
+                                    @-!).
+                                </li>
                             </ul>
                             <label>
                                 Login:
-                                <br />
+                                <br/>
                                 <input
                                     type={"text"}
                                     name={"login"}
                                     onChange={(e) => setLogin(e.target.value)}
+                                    placeholder={user.login}
                                 />
                             </label>
                             <label>
                                 Nowe hasło:
-                                <br />
+                                <br/>
                                 <input
                                     type={"password"}
                                     name={"password"}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </label>
-                            <br />
+                            <br/>
                             <label>
                                 Imię:
-                                <br />
+                                <br/>
                                 <input
                                     type={"text"}
                                     name={"firstName"}
                                     onChange={(e) => setFirstName(e.target.value)}
+                                    placeholder={user.person.firstName}
                                 />
                             </label>
                             <label>
                                 Nazwisko:
-                                <br />
+                                <br/>
                                 <input
                                     type={"text"}
                                     name={"lastName"}
                                     onChange={(e) => setLastName(e.target.value)}
+                                    placeholder={user.person.lastName}
                                 />
                             </label>
-                            <br />
+                            <br/>
                             <label>
                                 Email:
-                                <br />
+                                <br/>
                                 <input
                                     type={"email"}
                                     name={"email"}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    placeholder={user.person.email}
                                 />
                             </label>
                             <label>
                                 Data urodzenia:
-                                <br />
+                                <br/>
                                 <input
                                     type={"date"}
                                     name={"dateOfBirth"}
                                     onChange={(e) => setDateOfBirth(e.target.value)}
+                                    defaultValue={user.person.dateOfBirth.slice(0, 10)}
                                 />
                             </label>
-                            <br />
+                            <br/>
+                            <label>
+                                Czy aktywny:
+                                <input
+                                    type="checkbox"
+                                    name="isActive"
+                                    onChange={(e) => setIsActive(e.target.checked)}
+                                    checked={isActive}
+                                />
+                            </label>
 
                             <div className="d-flex justify-content-center align-items-center">
-                                <button type="button" onClick={handleSubmit}>
+                                <button type="button"
+                                        onClick={handleSubmit}>
                                     ZAPISZ ZMIANY
                                 </button>
                             </div>

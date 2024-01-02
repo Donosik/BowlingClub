@@ -13,6 +13,8 @@ public class Invoice : IEntity
     public virtual Client Client { get; set; }
     public virtual int WorkerId { get; set; }
     public virtual Worker Worker { get; set; }
+    public virtual int? ReservationId { get; set; }
+    public virtual Reservation? Reservation { get; set; }
     public virtual ICollection<Inventory> Inventories { get; set; }
 
     public Invoice()
