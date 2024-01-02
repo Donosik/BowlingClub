@@ -116,6 +116,7 @@ export default function ReservationTable()
                        }}
                        checked={onlyUnrealizedReservations}/>
             </div>
+            <div className="table-container">
             <table className="table-bordered">
                 <thead>
                 <tr>
@@ -145,13 +146,13 @@ export default function ReservationTable()
                     </tr>
                 ))}
                 </tbody>
-            </table>
+            </table> </div>
             <button onClick={(e) =>
             {
                 isClient === true ? fetchReservationsForClient() : fetchReservations()
             }}>ZAŁADUJ DALEJ REZERWACJE
             </button>
-            {(noMoreUsers === true) && <div className="no-more-users">Brak więcej rezerwacji</div>}
+            {(noMoreUsers === true) && <div className="no-more-users">ZAŁADOWANO JUŻ WSZYSTKIE</div>}
         </div>
 
     );

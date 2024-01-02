@@ -23,7 +23,7 @@ export default function Reservation()
 
     return (
         <>
-            <div className="table-container">
+            <div className="magazine-container">
                     <div className="table-name">ZARZĄDZANIE REZERWACJAMI</div>
 
                     {(isClient === true) && <button onClick={() => navigate('dodaj')}>DODAJ REZERWACJE</button>}
