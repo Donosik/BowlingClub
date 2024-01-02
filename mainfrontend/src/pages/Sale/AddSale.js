@@ -20,7 +20,7 @@ export default function AddSale()
     const [allClients, setAllClients] = useState([])
     const [allProducts, setAllProducts] = useState([])
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() =>
     {
@@ -163,24 +163,37 @@ export default function AddSale()
                                 {allProducts.length > 0 && choosenProducts.length === allProducts.length && (
                                     <p>Brak dostępnych produktów do wyboru.</p>
                                 )}
-                                <ul>
+                                <div className="table-container">
+                                <table className="table-bordered">
+                                    <thead></thead>
+                                    <tr>
+                                        <th>NAZWA</th>
+                                        <th>ILOŚĆ</th>
+                                        <th>USUŃ</th>
+                                    </tr>
+                                    <tbody>
                                     {choosenProducts.map((product, index) => (
-                                        <li key={index}>
-                                            {product.name + " max(" + product.currentQuantity + ")"}
-                                            <input type={"number"}
-                                                   max={product.currentQuantity}
-                                                   min={1}
-                                                   onChange={(e) =>
-                                                   {
-                                                       product.choosenQuantity = parseInt(e.target.value, 10)
-                                                   }}/>
-                                            <button type="button"
-                                                    onClick={() => removeProduct(product)}>
-                                                USUŃ PRODUKT
-                                            </button>
-                                        </li>
+                                        <tr key={index}>
+                                            <td>
+                                                {product.name + " max(" + product.currentQuantity + ")"}</td>
+                                            <td><input type={"number"}
+                                                       max={product.currentQuantity}
+                                                       min={1}
+                                                       onChange={(e) =>
+                                                       {
+                                                           product.choosenQuantity = parseInt(e.target.value, 10)
+                                                       }}/></td>
+                                            <td>
+                                                <button type="button"
+                                                        onClick={() => removeProduct(product)}>
+                                                    USUŃ
+                                                </button>
+                                            </td>
+                                        </tr>
                                     ))}
-                                </ul>
+                                    </tbody>
+                                </table>
+                                </div>
                             </div>
 
                             <div className="d-flex justify-content-center align-items-center">
