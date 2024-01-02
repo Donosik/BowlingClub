@@ -10,12 +10,13 @@ export function getIsWorker()
         }
         else if(claims[1]&&claims[1]==="Worker")
         {
+            return false
         }
         else {
             return false
         }
     }
-    return false
+    return true
 }
 
 export function getIsAdmin()
@@ -26,7 +27,7 @@ export function getIsAdmin()
         const claims=parseJwt(token)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
         if(claims[2]&&claims[2]==="Admin")
         {
-            return true
+            return false
         }
         else if(claims[1]&&claims[1]==="Worker")
         {
@@ -36,7 +37,7 @@ export function getIsAdmin()
             return false
         }
     }
-    return false
+    return true
 }
 
 function parseJwt (token) {
