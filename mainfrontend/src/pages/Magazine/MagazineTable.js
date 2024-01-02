@@ -2,6 +2,7 @@ import "./Magazine_table.css"
 import {mainBackendApi} from "../../util/Requests";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
+import "./Magazine.css";
 
 export default function MagazineTable({filter})
 {
