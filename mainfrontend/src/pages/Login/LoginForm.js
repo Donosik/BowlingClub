@@ -29,6 +29,7 @@ export default function LoginForm(props)
         try{
             const response=await mainBackendApi.post('User/LoginGoogle',userObject.email)
             setAuth(response.data)
+            console.log(response)
             navigate('/home')
         }
         catch (e)

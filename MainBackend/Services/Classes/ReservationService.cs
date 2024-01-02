@@ -16,10 +16,16 @@ public class ReservationService : IReservationService
 
     public async Task<ICollection<Reservation>> GetReservations()
     {
-        IEnumerable<Reservation> reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAll();
+        IEnumerable<Reservation> reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllWithIncludes();
         return (ICollection<Reservation>)reservations;
     }
-    
+
+    public async Task<ICollection<Reservation>> GetReservations(int usersPerPage, int currentPage)
+    {
+        var allReservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllWithIncludes(usersPerPage,currentPage);
+        return allReservations;
+    }
+
     public async Task<ICollection<Reservation>> GetReservationsByClient(int clientId)
     {
         Client client=await repositoryWrapper.normalDbWrapper.client.Get(clientId);
@@ -27,6 +33,16 @@ public class ReservationService : IReservationService
             return null;
         IEnumerable<Reservation> reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(client);
         return (ICollection<Reservation>)reservations;
+    }
+
+    public async Task<ICollection<Reservation>> GetReservationsByClient(int clientId, int usersPerPage, int currentPage)
+    {
+        
+        Client client=await repositoryWrapper.normalDbWrapper.client.Get(clientId);
+        if(client==null)
+            return null;
+        var reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(client,usersPerPage,currentPage);
+        return reservations;
     }
 
     public async Task<bool> MakeReservation(DateTime start, DateTime end, Client client)

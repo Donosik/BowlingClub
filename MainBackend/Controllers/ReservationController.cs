@@ -28,6 +28,16 @@ public class ReservationController : ControllerBase
             return Ok(allReservations);
         return NotFound();
     }
+    
+    [Authorize(Policy = "Worker")]
+    [HttpGet("GetAllReservations/{usersPerPage}/{currentPage}")]
+    public async Task<IActionResult> GetAllReservations(int usersPerPage,int currentPage)
+    {
+        var allReservations = await serviceWrapper.reservation.GetReservations(usersPerPage,currentPage);
+        if (allReservations != null)
+            return Ok(allReservations);
+        return NotFound();
+    }
 
     [HttpGet("GetClientReservations")]
     public async Task<IActionResult> GetClientReservations()
@@ -36,6 +46,18 @@ public class ReservationController : ControllerBase
         if (clientIdClaim == null || !int.TryParse(clientIdClaim, out int clientId))
             return BadRequest("Client not found");
         var clientReservations = await serviceWrapper.reservation.GetReservationsByClient(clientId);
+        if (clientReservations != null)
+            return Ok(clientReservations);
+        return NotFound();
+    }
+    
+    [HttpGet("GetClientReservations/{usersPerPage}/{currentPage}")]
+    public async Task<IActionResult> GetClientReservations(int usersPerPage,int currentPage)
+    {
+        var clientIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (clientIdClaim == null || !int.TryParse(clientIdClaim, out int clientId))
+            return BadRequest("Client not found");
+        var clientReservations = await serviceWrapper.reservation.GetReservationsByClient(clientId,usersPerPage,currentPage);
         if (clientReservations != null)
             return Ok(clientReservations);
         return NotFound();

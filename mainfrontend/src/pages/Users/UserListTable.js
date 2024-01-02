@@ -40,9 +40,9 @@ export default function UserListTable({users,deletedUserCallback})
                         <td>{user.person.firstName}</td>
                         <td>{user.person.lastName}</td>
                         <td>{user.login}</td>
-                        <td>{user.isClient ? 'Yes' : 'No'}</td>
-                        <td>{user.person.worker ? (user.person.worker.isAdmin?'Yes':'No'):'No' }</td>
-                        <td>{user.isActive ? 'Yes' : 'No'}</td>
+                        <td>{user.isClient ? 'Tak' : 'Nie'}</td>
+                        <td>{user.person.worker ? (user.person.worker.isAdmin?'Tak':'Nie'):'Nie' }</td>
+                        <td>{user.isActive ? 'Tak' : 'Nie'}</td>
                         <td>{user.person.email}</td>
                         <td>{formatData(user.person.dateOfBirth)}</td>
                         <td><button onClick={()=>navigate('edytuj/'+user.id)}>EDYTUJ</button>

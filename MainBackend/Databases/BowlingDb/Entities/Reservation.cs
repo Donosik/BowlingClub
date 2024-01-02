@@ -11,6 +11,8 @@ public class Reservation : IEntity
 
     
     public virtual Invoice? Invoice { get; set; }
+    public virtual int LaneId { get; set; }
     public virtual Lane Lane { get; set; }
+    public virtual int ClientId { get; set; }
     public virtual Client Client { get; set; }
 }
