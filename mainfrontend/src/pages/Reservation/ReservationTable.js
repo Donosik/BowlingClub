@@ -13,6 +13,7 @@ export default function ReservationTable()
     const [onlyNewReservations, setOnlyNewReservations] = useState(true);
     const [onlyUnrealizedReservations, setOnlyUnrealizedReservations] = useState(false);
     const [shouldFetch, setShouldFetch] = useState(false);
+    const navigate=useNavigate()
 
     useEffect(() =>
     {
@@ -155,7 +156,7 @@ export default function ReservationTable()
                                     :
                                     (<button onClick={(e) =>
                                     {
-                                        console.log("csa")
+                                        navigate('/management/sprzedaz/dodaj/'+reservation.id)
                                     }}>STWÓRZ FAKTURĘ</button>)
                             )}</td>
                         </tr>

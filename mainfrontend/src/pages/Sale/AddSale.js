@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Calendar from "react-calendar";
 import {mainBackendApi} from "../../util/Requests";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 export default function AddSale()
 {
@@ -21,6 +21,8 @@ export default function AddSale()
     const [allProducts, setAllProducts] = useState([])
 
     const navigate = useNavigate()
+
+    const {id} = useParams()
 
     useEffect(() =>
     {
@@ -97,7 +99,14 @@ export default function AddSale()
                     }
                 ))
             }
-            const response = await mainBackendApi.post('Invoice/CreateInvoice', data)
+            if(id)
+            {
+                const response = await mainBackendApi.post('Invoice/CreateInvoice', data)
+            }
+            else
+            {
+                const response = await mainBackendApi.post('Invoice/CreateInvoice/'+id, data)
+            }
             navigate('/management/sprzedaz')
         } catch (e)
         {
@@ -164,35 +173,35 @@ export default function AddSale()
                                     <p>Brak dostępnych produktów do wyboru.</p>
                                 )}
                                 <div className="table-container">
-                                <table className="table-bordered">
-                                    <thead></thead>
-                                    <tr>
-                                        <th>NAZWA</th>
-                                        <th>ILOŚĆ</th>
-                                        <th>USUŃ</th>
-                                    </tr>
-                                    <tbody>
-                                    {choosenProducts.map((product, index) => (
-                                        <tr key={index}>
-                                            <td>
-                                                {product.name + " max(" + product.currentQuantity + ")"}</td>
-                                            <td><input type={"number"}
-                                                       max={product.currentQuantity}
-                                                       min={1}
-                                                       onChange={(e) =>
-                                                       {
-                                                           product.choosenQuantity = parseInt(e.target.value, 10)
-                                                       }}/></td>
-                                            <td>
-                                                <button type="button"
-                                                        onClick={() => removeProduct(product)}>
-                                                    USUŃ
-                                                </button>
-                                            </td>
+                                    <table className="table-bordered">
+                                        <thead></thead>
+                                        <tr>
+                                            <th>NAZWA</th>
+                                            <th>ILOŚĆ</th>
+                                            <th>USUŃ</th>
                                         </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
+                                        <tbody>
+                                        {choosenProducts.map((product, index) => (
+                                            <tr key={index}>
+                                                <td>
+                                                    {product.name + " max(" + product.currentQuantity + ")"}</td>
+                                                <td><input type={"number"}
+                                                           max={product.currentQuantity}
+                                                           min={1}
+                                                           onChange={(e) =>
+                                                           {
+                                                               product.choosenQuantity = parseInt(e.target.value, 10)
+                                                           }}/></td>
+                                                <td>
+                                                    <button type="button"
+                                                            onClick={() => removeProduct(product)}>
+                                                        USUŃ
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 

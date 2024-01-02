@@ -55,6 +55,19 @@ public class InvoiceController : ControllerBase
         return BadRequest();
     }
 
+    [Authorize(Policy = "Worker")]
+    [HttpPost("CreateInvoice/{reservationId}")]
+    public async Task<IActionResult> CreateInvoice(InvoiceForm invoiceForm, int reservationId)
+    {
+        var workerIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (workerIdClaim == null || !int.TryParse(workerIdClaim, out int workerId))
+            return BadRequest("Worker not found");
+
+        if (await serviceWrapper.invoice.AddInvoice(invoiceForm, workerId,reservationId))
+            return Ok();
+        return BadRequest();
+    }
+
 #endregion
 
 #region Delete

@@ -30,54 +30,88 @@ export default function Router()
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={"/test"} element={<LoginForm/>}/>
-                <Route path={"/management"} element={<ManagementLayout/>}>
-                    <Route index element={<Home/>}/>
+                <Route path={"/test"}
+                       element={<LoginForm/>}/>
+                <Route path={"/management"}
+                       element={<ManagementLayout/>}>
+                    <Route index
+                           element={<Home/>}/>
                     <Route path={"uzytkownicy"}>
-                        <Route index element={<Users/>}/>
-                        <Route path={"dodaj"} element={<AddWorker/>}/>
-                        <Route path={"edytuj/:id"} element={<EditUser/>}/>
+                        <Route index
+                               element={<Users/>}/>
+                        <Route path={"dodaj"}
+                               element={<AddWorker/>}/>
+                        <Route path={"edytuj/:id"}
+                               element={<EditUser/>}/>
                     </Route>
                     <Route path={"magazyn"}>
-                        <Route index element={<Magazine/>}/>
-                        <Route path={"dodaj"} element={<AddNewItem/>}/>
+                        <Route index
+                               element={<Magazine/>}/>
+                        <Route path={"dodaj"}
+                               element={<AddNewItem/>}/>
                     </Route>
                     <Route path={"sprzedaz"}>
-                        <Route index element={<Sale/>}/>
-                        <Route path={"dodaj"} element={<AddSale/>}/>
+                        <Route index
+                               element={<Sale/>}/>
+                        <Route path={"dodaj"}
+                               element={<AddSale/>}/>
+                        <Route path={"dodaj/:id"}
+                               element={<AddSale/>}/>
                     </Route>
-                    <Route path={"zmianastrony"} element={<ChangeSiteLayout/>}>
-                        <Route index element={<ChangeOpenHours/>}/>
-                        <Route path={"godziny"} element={<ChangeOpenHours/>}/>
-                        <Route path={"promocje"} element={<ChangePromotions/>}/>
+                    <Route path={"zmianastrony"}
+                           element={<ChangeSiteLayout/>}>
+                        <Route index
+                               element={<ChangeOpenHours/>}/>
+                        <Route path={"godziny"}
+                               element={<ChangeOpenHours/>}/>
+                        <Route path={"promocje"}
+                               element={<ChangePromotions/>}/>
                         <Route path={"regulamin"}>
-                            <Route index element={<ChangeRegulations/>}/>
-                            <Route path={"dodaj"} element={<AddRegulation/>}/>
+                            <Route index
+                                   element={<ChangeRegulations/>}/>
+                            <Route path={"dodaj"}
+                                   element={<AddRegulation/>}/>
                         </Route>
                     </Route>
                     <Route path={"rezerwacje"}>
-                        <Route index element={<Reservation/>}/>
-                        <Route path={"dodaj"} element={<AddReservation/>}/>
+                        <Route index
+                               element={<Reservation/>}/>
+                        <Route path={"dodaj"}
+                               element={<AddReservation/>}/>
                     </Route>
-                    <Route path={"grafik"} element={<Schedule/>}/>
-                    <Route path={"raporty"} element={<Raports/>}/>
-                    <Route path={"systemzakupow"} element={<PurchaseSystem/>}/>
+                    <Route path={"grafik"}
+                           element={<Schedule/>}/>
+                    <Route path={"raporty"}
+                           element={<Raports/>}/>
+                    <Route path={"systemzakupow"}
+                           element={<PurchaseSystem/>}/>
                 </Route>
-                <Route path={"/"} element={<ClientLayout/>}>
-                    <Route index element={<Home/>}/>
-                    <Route path={"home"} element={<Home/>}/>
-                    <Route path={"login"} element={<Login/>}/>
-                    <Route path={"kontakt"} element={<Contact/>}/>
-                    <Route path={"oferta"} element={<Offer/>}/>
+                <Route path={"/"}
+                       element={<ClientLayout/>}>
+                    <Route index
+                           element={<Home/>}/>
+                    <Route path={"home"}
+                           element={<Home/>}/>
+                    <Route path={"login"}
+                           element={<Login/>}/>
+                    <Route path={"kontakt"}
+                           element={<Contact/>}/>
+                    <Route path={"oferta"}
+                           element={<Offer/>}/>
                     <Route path={"sprzedaz"}>
-                        <Route index element={<Sale/>}/>
-                        <Route path={"dodaj"} element={<AddSale/>}/>
+                        <Route index
+                               element={<Sale/>}/>
+                        <Route path={"dodaj"}
+                               element={<AddSale/>}/>
                     </Route>
                     <Route path={"rezerwacje"}>
-                        <Route index element={<Reservation/>}/>
-                        <Route path={"dodaj"} element={<AddReservation/>}/>
+                        <Route index
+                               element={<Reservation/>}/>
+                        <Route path={"dodaj"}
+                               element={<AddReservation/>}/>
                     </Route>
-                    <Route path={"*"} element={<NoMatch/>}/>
+                    <Route path={"*"}
+                           element={<NoMatch/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

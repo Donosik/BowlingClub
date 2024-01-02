@@ -132,7 +132,7 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
                 var totalProductsCount = productCountDictionary[target.Name];
                 var targetProductsCount = target.Quantity;
 
-                if (totalProductsCount > targetProductsCount)
+                if (totalProductsCount >= targetProductsCount)
                     continue;
                 else
                 {
