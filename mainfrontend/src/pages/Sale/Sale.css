@@ -11,3 +11,9 @@ div input{
     width: 40%;
     margin: 5px;
 }
+
+.invoice-client{
+    text-transform: uppercase;
+    margin-left: 10px;
+    font-weight: bold;
+}
