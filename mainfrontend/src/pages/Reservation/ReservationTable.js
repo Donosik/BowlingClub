@@ -126,7 +126,7 @@ export default function ReservationTable()
                     <th>Id klienta</th>
                     <th>Imię klienta</th>
                     <th>Nazwisko klienta</th>
-                    <th>Akcje</th>
+                    <th>Faktura</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -139,7 +139,9 @@ export default function ReservationTable()
                         <td>{reservation.client.user.id} </td>
                         <td>{reservation.client.person.firstName} </td>
                         <td>{reservation.client.person.lastName} </td>
-                        <td>{reservation.invoice&&'TAK'}</td>
+                        <td>{reservation.invoice?'TAK':(
+                            <button onClick={(e)=>{console.log("csa")}}>STWÓRZ FAKTURĘ</button>
+                        )}</td>
                     </tr>
                 ))}
                 </tbody>
