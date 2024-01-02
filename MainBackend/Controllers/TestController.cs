@@ -82,6 +82,16 @@ public class TestController : ControllerBase
         await serviceWrapper.promotion.CreateDefaultPromotions();
         return Ok();
     }
+    
+    [HttpGet("GenerateProd")]
+    public async Task<IActionResult> GenerateDbProd()
+    {
+        await serviceWrapper.generator.GenerateAdmin();
+        await serviceWrapper.data.CreateDefaultOpenHours();
+        await serviceWrapper.promotion.CreateDefaultPromotions();
+        await serviceWrapper.generator.GenerateLanes(10);
+        return Ok();
+    }
 
     [HttpGet("GenerateAdmin")]
     public async Task<IActionResult> GenerateAdmin()

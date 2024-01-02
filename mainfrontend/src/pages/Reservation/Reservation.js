@@ -24,12 +24,10 @@ export default function Reservation()
     return (
         <>
             <div className="table-container">
-                <form>
                     <div className="table-name">ZARZĄDZANIE REZERWACJAMI</div>
 
                     {(isClient === true) && <button onClick={() => navigate('dodaj')}>DODAJ REZERWACJE</button>}
                     <ReservationTable/>
-                </form>
             </div>
         </>
     )

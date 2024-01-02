@@ -108,7 +108,7 @@ public class GeneratorService : IGeneratorService
 
     public async Task GenerateLanes(int howManyLanes)
     {
-        for (int i = 0; i < howManyLanes; i++)
+        for (int i = 1; i <= howManyLanes; i++)
         {
             await lane.AddLane(i);
         }

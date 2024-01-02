@@ -30,7 +30,7 @@ export default function AddReservation()
                 startTime: startDate.toISOString(),
                 endTime: endDate.toISOString(),
             };
-            console.log(request)
+            const response=await mainBackendApi.post('Reservation/MakeReservation',request)
 
             if (getIsWorker() === true)
                 navigate('/management/rezerwacje')

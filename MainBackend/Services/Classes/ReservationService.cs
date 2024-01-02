@@ -20,9 +20,9 @@ public class ReservationService : IReservationService
         return (ICollection<Reservation>)reservations;
     }
 
-    public async Task<ICollection<Reservation>> GetReservations(int usersPerPage, int currentPage)
+    public async Task<ICollection<Reservation>> GetReservations(int usersPerPage, int currentPage,bool onlyNew,bool onlyWithoutInvoice)
     {
-        var allReservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllWithIncludes(usersPerPage,currentPage);
+        var allReservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllWithIncludes(usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
         return allReservations;
     }
 
@@ -35,13 +35,13 @@ public class ReservationService : IReservationService
         return (ICollection<Reservation>)reservations;
     }
 
-    public async Task<ICollection<Reservation>> GetReservationsByClient(int clientId, int usersPerPage, int currentPage)
+    public async Task<ICollection<Reservation>> GetReservationsByClient(int clientId, int usersPerPage, int currentPage,bool onlyNew,bool onlyWithoutInvoice)
     {
         
         Client client=await repositoryWrapper.normalDbWrapper.client.Get(clientId);
         if(client==null)
             return null;
-        var reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(client,usersPerPage,currentPage);
+        var reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(client,usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
         return reservations;
     }
 

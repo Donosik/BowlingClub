@@ -30,10 +30,10 @@ public class ReservationController : ControllerBase
     }
     
     [Authorize(Policy = "Worker")]
-    [HttpGet("GetAllReservations/{usersPerPage}/{currentPage}")]
-    public async Task<IActionResult> GetAllReservations(int usersPerPage,int currentPage)
+    [HttpGet("GetAllReservations/{usersPerPage}/{currentPage}/{onlyNew}/{onlyWithoutInvoice}")]
+    public async Task<IActionResult> GetAllReservations(int usersPerPage,int currentPage,bool onlyNew,bool onlyWithoutInvoice)
     {
-        var allReservations = await serviceWrapper.reservation.GetReservations(usersPerPage,currentPage);
+        var allReservations = await serviceWrapper.reservation.GetReservations(usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
         if (allReservations != null)
             return Ok(allReservations);
         return NotFound();
@@ -51,13 +51,13 @@ public class ReservationController : ControllerBase
         return NotFound();
     }
     
-    [HttpGet("GetClientReservations/{usersPerPage}/{currentPage}")]
-    public async Task<IActionResult> GetClientReservations(int usersPerPage,int currentPage)
+    [HttpGet("GetClientReservations/{usersPerPage}/{currentPage}/{onlyNew}/{onlyWithoutInvoice}")]
+    public async Task<IActionResult> GetClientReservations(int usersPerPage,int currentPage,bool onlyNew,bool onlyWithoutInvoice)
     {
         var clientIdClaim = User.FindFirst(ClaimTypes.Name).Value;
         if (clientIdClaim == null || !int.TryParse(clientIdClaim, out int clientId))
             return BadRequest("Client not found");
-        var clientReservations = await serviceWrapper.reservation.GetReservationsByClient(clientId,usersPerPage,currentPage);
+        var clientReservations = await serviceWrapper.reservation.GetReservationsByClient(clientId,usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
         if (clientReservations != null)
             return Ok(clientReservations);
         return NotFound();

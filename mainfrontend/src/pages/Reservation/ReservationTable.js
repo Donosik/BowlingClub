@@ -5,33 +5,56 @@ import {getIsAdmin, getIsWorker, isUserLoggedIn} from "../../util/UserType";
 
 export default function ReservationTable()
 {
-
-    const [reservations, setReservations] = React.useState([])
+    const [reservations, setReservations] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [usersPerPage] = useState(100);
     const [noMoreUsers, setNoMoreUsers] = useState(false);
-    const [isClient, setIsClient] = React.useState(true)
+    const [isClient, setIsClient] = useState(true)
+    const [onlyNewReservations, setOnlyNewReservations] = useState(true);
+    const [onlyUnrealizedReservations, setOnlyUnrealizedReservations] = useState(false);
+    const [shouldFetch, setShouldFetch] = useState(false);
 
     useEffect(() =>
     {
         if (isUserLoggedIn() === true && getIsWorker() === false && getIsAdmin() === false)
         {
             setIsClient(true)
+            setOnlyNewReservations(true)
+            setOnlyUnrealizedReservations(false)
             fetchReservationsForClient()
         }
         else
         {
             setIsClient(false)
+            setOnlyNewReservations(true)
+            setOnlyUnrealizedReservations(true)
             fetchReservations()
         }
     }, []);
 
+    useEffect(() => {
+        if (shouldFetch) {
+            if (isClient) {
+                fetchReservationsForClient()
+            } else {
+                fetchReservations()
+            }
+            setShouldFetch(false)
+        }
+    }, [shouldFetch])
+
+    async function reset()
+    {
+        setCurrentPage(1)
+        setReservations([])
+        setShouldFetch(true)
+    }
 
     async function fetchReservations()
     {
         try
         {
-            const response = await mainBackendApi.get('/Reservation/GetAllReservations/' + usersPerPage + '/' + currentPage)
+            const response = await mainBackendApi.get('/Reservation/GetAllReservations/' + usersPerPage + '/' + currentPage + '/' + onlyNewReservations + '/' + onlyUnrealizedReservations)
             const data = response.data
             if (data.length === 0)
             {
@@ -53,7 +76,7 @@ export default function ReservationTable()
     {
         try
         {
-            const response = await mainBackendApi.get('/Reservation/GetClientReservations/' + usersPerPage + '/' + currentPage)
+            const response = await mainBackendApi.get('/Reservation/GetClientReservations/' + usersPerPage + '/' + currentPage + '/' + onlyNewReservations + '/' + onlyUnrealizedReservations)
             const data = response.data
             if (data.length === 0)
             {
@@ -73,6 +96,26 @@ export default function ReservationTable()
 
     return (
         <div className="table-container">
+            <div>
+                <label>TYLKO NOWE REZERWACJE</label>
+                <input type={"checkbox"}
+                       onChange={(e) =>
+                       {
+                           setOnlyNewReservations(e.target.checked)
+                           reset()
+                       }}
+                       checked={onlyNewReservations}/>
+            </div>
+            <div>
+                <label>TYLKO NIEZREALIZOWANE REZERWACJE</label>
+                <input type={"checkbox"}
+                       onChange={(e) =>
+                       {
+                           setOnlyUnrealizedReservations(e.target.checked)
+                           reset()
+                       }}
+                       checked={onlyUnrealizedReservations}/>
+            </div>
             <table className="table-bordered">
                 <thead>
                 <tr>
@@ -101,7 +144,6 @@ export default function ReservationTable()
             </table>
             <button onClick={(e) =>
             {
-                e.preventDefault()
                 isClient === true ? fetchReservationsForClient() : fetchReservations()
             }}>ZAŁADUJ DALEJ REZERWACJE
             </button>
