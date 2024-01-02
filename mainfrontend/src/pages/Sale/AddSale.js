@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Calendar from "react-calendar";
 import {mainBackendApi} from "../../util/Requests";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate,useParams} from "react-router-dom";
+import "./Sale.css";
 
 export default function AddSale()
 {
@@ -138,7 +139,11 @@ export default function AddSale()
                                 )}
                             </div>
                             <div>
-                                <label>Klient</label>
+                                <br/> KLIENT:
+                                <div className="invoice-client">
+                                {choosenClient && (choosenClient.person.firstName + " " + choosenClient.person.lastName)}</div>
+                             <br/>
+
                                 <input type="text"
                                        list="clients"
                                        onChange={handleClientChange}/>
@@ -148,19 +153,17 @@ export default function AddSale()
                                                 value={client.id + ". " + client.person.firstName + " " + client.person.lastName}/>
                                     ))}
                                 </datalist>
-                                <div>
-                                    {choosenClient && (choosenClient.id + ". " + choosenClient.person.firstName + " " + choosenClient.person.lastName)}
-                                </div>
+
                             </div>
 
                             <div>
-                                <label>Produkty</label>
+                                <br/> PRODUKTY: <br/>
                                 <div>
                                     <input
                                         type="text"
                                         list="productsList"
                                         onChange={handleProductChange}
-                                    />
+                                    /><br/>
                                     <datalist id="productsList">
                                         {allProducts.filter((product) => !choosenProducts.some((chosenProduct) => (chosenProduct.name === product.name)))
                                             .map((product) => (
@@ -172,6 +175,7 @@ export default function AddSale()
                                 {allProducts.length > 0 && choosenProducts.length === allProducts.length && (
                                     <p>Brak dostępnych produktów do wyboru.</p>
                                 )}
+                                <br/>
                                 <div className="table-container">
                                     <table className="table-bordered">
                                         <thead></thead>
@@ -204,7 +208,7 @@ export default function AddSale()
                                     </table>
                                 </div>
                             </div>
-
+<br/>
                             <div className="d-flex justify-content-center align-items-center">
                                 <button type="button"
                                         onClick={handleSubmit}>STWÓRZ FAKTURĘ
