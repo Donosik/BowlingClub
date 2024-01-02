@@ -119,13 +119,14 @@ export default function ReservationTable()
             <table className="table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Id</th>
                     <th>Początek rezerwacji</th>
                     <th>Koniec rezerwacji</th>
                     <th>Tor</th>
                     <th>Id klienta</th>
                     <th>Imię klienta</th>
                     <th>Nazwisko klienta</th>
+                    <th>Akcje</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -138,6 +139,7 @@ export default function ReservationTable()
                         <td>{reservation.client.user.id} </td>
                         <td>{reservation.client.person.firstName} </td>
                         <td>{reservation.client.person.lastName} </td>
+                        <td>{reservation.invoice&&'TAK'}</td>
                     </tr>
                 ))}
                 </tbody>
