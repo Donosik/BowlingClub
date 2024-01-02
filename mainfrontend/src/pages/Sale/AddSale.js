@@ -108,7 +108,7 @@ export default function AddSale()
     return (
         <>
             <div className="auth-page">
-                <div className="container page d-flex justify-content-center align-items-center">
+                <div className="container  justify-content-center align-items-center">
                     <div className="row">
                         <div className="form-box">
                             <h1 className="text-login">DODAWANIE FAKTURY</h1>
