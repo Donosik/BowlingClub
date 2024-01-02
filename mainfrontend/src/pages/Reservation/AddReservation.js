@@ -1,5 +1,5 @@
 import Calendar from "react-calendar";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {mainBackendApi} from "../../util/Requests";
 import {useNavigate} from "react-router-dom";
 import {getIsWorker} from "../../util/UserType";
@@ -13,11 +13,52 @@ export default function AddReservation()
     const [selectedDate, setSelectedDate] = useState(new Date())
     const [startTime, setStartTime] = useState("")
     const [endTime, setEndTime] = useState("")
+    const [openingTime, setOpeningTime] = useState("");
+    const [closingTime, setClosingTime] = useState("");
+
+    useEffect(() => {
+        const getOpeningHours = async () => {
+            const openingHours = await fetchOpeningHours()
+            const currentDay = new Date().getDay()
+            const currentDayHours = openingHours.find((hours) => hours.dayOfWeek === currentDay)
+
+            if (currentDayHours) {
+                setOpeningTime(currentDayHours.startTime.substring(0, 5))
+                setClosingTime(currentDayHours.endTime.substring(0, 5))
+                console.log(currentDayHours.startTime.substring(0, 5))
+                console.log(currentDayHours.endTime.substring(0, 5))
+            }
+        }
+        getOpeningHours()
+    }, [])
+
+    useEffect(() => {
+        validateTimes()
+    }, [startTime, endTime])
+
+    const validateTimes = () => {
+        if (startTime && endTime) {
+            if (startTime >= endTime) {
+                setEndTime("")
+            }
+        }
+    }
+
+    async function fetchOpeningHours() {
+        try {
+            const response = await mainBackendApi.get('Data')
+            return response.data
+
+        } catch (error) {
+            console.error('Error fetching opening hours:', error)
+        }
+    }
 
     async function handleSubmit()
     {
         try
         {
+            setIsAddingFailed(false)
             const startDate = new Date(selectedDate);
             const startTimeDate = new Date(`1970-01-01T${startTime}`);
             const endTimeDate = new Date(`1970-01-01T${endTime}`);
@@ -39,6 +80,8 @@ export default function AddReservation()
         } catch (e)
         {
             console.log(e)
+            setIsAddingFailed(true)
+            setErrorMessage("BŁĄD")
         }
     }
 
@@ -67,11 +110,25 @@ export default function AddReservation()
                             </div>
                             <div>
                                 <label htmlFor="laneNumber">GODZINA ROZPOCZĘCIA</label>
-                                <input type="time" onChange={e=>setStartTime(e.target.value)}/>
+                                <input
+                                    type="time"
+                                    id="startTime"
+                                    min={openingTime}
+                                    max={closingTime}
+                                    onChange={e => setStartTime(e.target.value)}
+                                    value={startTime}
+                                />
                             </div>
                             <div>
                                 <label htmlFor="laneNumber">GODZINA ZAKOŃCZENIA</label>
-                                <input type="time" onChange={e=>setEndTime(e.target.value)}/>
+                                <input
+                                    type="time"
+                                    id="startTime"
+                                    min={openingTime}
+                                    max={closingTime}
+                                    onChange={e => setEndTime(e.target.value)}
+                                    value={endTime}
+                                />
                             </div>
                             <div className="d-flex justify-content-center align-items-center">
                                 <button type="button"
