@@ -10,7 +10,6 @@ export function getIsWorker()
         }
         else if(claims[1]&&claims[1]==="Worker")
         {
-            return true
         }
         else {
             return false

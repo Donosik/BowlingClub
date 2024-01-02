@@ -41,3 +41,4 @@ SuppliesBackend/obj/Debug/net7.0/SuppliesBackend.AssemblyInfoInputs.cache
 SuppliesBackend/obj/SuppliesBackend.csproj.nuget.g.targets
 MainBackend/appsettings.json
 MainBackend/appsettings.json
+mainfrontend/src/util/UserType.js
