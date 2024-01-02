@@ -20,8 +20,27 @@ export default function AddNewItem() {
     };
 
     const handlePriceChange = (e) => {
-        const validPrice = e.target.value.replace(/[^0-9.,]/g, "");
-        setPrice(validPrice);
+        let enteredPrice = e.target.value.replace(/[^0-9.,]/g, "");
+
+        // Jeśli istnieje więcej niż jedna kropka lub przecinek, pozostaw tylko pierwszy
+        const dotIndex = enteredPrice.indexOf(".");
+        const commaIndex = enteredPrice.indexOf(",");
+
+        if (dotIndex !== -1 && commaIndex !== -1) {
+            if (dotIndex < commaIndex) {
+                enteredPrice = enteredPrice.replace(/,/g, "");
+            } else {
+                enteredPrice = enteredPrice.replace(/\./g, "");
+            }
+        }
+
+        // Ogranicz liczbę miejsc po przecinku do dwóch
+        const parts = enteredPrice.split(".");
+        if (parts[1] && parts[1].length > 2) {
+            enteredPrice = parts[0] + "." + parts[1].slice(0, 2);
+        }
+
+        setPrice(enteredPrice);
         setErrors((prevErrors) => ({ ...prevErrors, price: "" }));
     };
 
@@ -85,7 +104,7 @@ export default function AddNewItem() {
                         </label>
                         <br />
                         <label>
-                            CENA W PLN:
+                            CENA W PLN (np. 45.12):
                             <br />
                             <input type={"text"} value={price} onChange={handlePriceChange} />
                             {errors.price && <div className="error-message">{errors.price}</div>}

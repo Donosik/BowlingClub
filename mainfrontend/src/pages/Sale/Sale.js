@@ -54,9 +54,10 @@ export default function Sale()
         <>
             <div className="magazine-container">
            <div className="table-name"> FAKTURY I SPRZEDAŻE</div>
-                <input/><img src={lupa} alt="lupa"/>
+                <input type={"text"}/><img src={lupa} alt="lupa"/>
                 {(isWorker===true)&&<button onClick={()=>navigate('dodaj')}>ZAREJESTRUJ SPRZEDAŻ</button>}
                 <br/><SaleListTable sales={sales}/></div>
+
         </>
     )
 }

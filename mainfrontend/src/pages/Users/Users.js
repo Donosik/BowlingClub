@@ -75,7 +75,7 @@ export default function Users()
                 <UserListTable users={filteredUsers(users)}
                                deletedUserCallback={fetchUsers}/>
                 <button onClick={fetchUsers}>ZAŁADUJ DALEJ UŻYTKOWNIKÓW</button>
-                {(noMoreUsers===true)&&<div className="no-more-users">Brak więcej użytkowników</div>}
+                {(noMoreUsers===true)&&<div className="no-more-users">ZAŁADOWANO JUŻ WSZYSTKICH UŻYTKOWNIKÓW, KTÓRZY SĄ W BAZIE DANYCH</div>}
             </div>
         </>
     )
