@@ -6,6 +6,7 @@ export default function AddNewItem() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [targetAmount, setTargetAmount] = useState("");
+    const[isBar,setIsBar]=useState(true)
     const navigate = useNavigate();
     const [errors, setErrors] = useState({
         name: "",
@@ -80,6 +81,7 @@ export default function AddNewItem() {
                 Name: name,
                 Price: price,
                 Quantity: targetAmount,
+                IsBar:isBar
             };
             const response = await mainBackendApi.post("TargetInventory", requestData);
             navigate("/management/magazyn");
@@ -123,6 +125,11 @@ export default function AddNewItem() {
                             )}
                         </label>
                         <br />
+                        <label>
+                            CZY PRODUKT NA BAR:
+                            <br/>
+                            <input type={"checkbox"} checked={isBar} onChange={(e)=>setIsBar(e.target.checked)}/>
+                        </label><br/>
                         <button onClick={handleSubmit}>DODAJ</button>
                     </div>
                 </div>

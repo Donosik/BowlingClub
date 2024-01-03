@@ -153,7 +153,7 @@ public class GeneratorService : IGeneratorService
         {
             String name = InventoryItemNames[random.Next(InventoryItemNames.Count)];
             decimal price = (decimal)random.Next(100, 10000) / 100;
-            await inventory.AddInventoryItem(name, price);
+            await inventory.AddInventoryItem(name, price, true);
         }
     }
 
@@ -175,7 +175,7 @@ public class GeneratorService : IGeneratorService
             DateTime issueDate = DateTime.Today;
             issueDate = issueDate.AddDays(random.Next(15));
             DateTime dueDate = issueDate.AddDays(30);
-            await invoice.AddInvoice(barItems, client,worker, issueDate, dueDate);
+            await invoice.AddInvoice(barItems, client, worker, issueDate, dueDate);
         }
     }
 
@@ -187,12 +187,12 @@ public class GeneratorService : IGeneratorService
         registerForm.Login = "admin";
         registerForm.Password = "admin";
         registerForm.Email = "admin@admin.com";
-        registerForm.DateOfBirth= new DateTime(2000, 1, 1);
-        if(!await user.RegisterWorker(registerForm))
+        registerForm.DateOfBirth = new DateTime(2000, 1, 1);
+        if (!await user.RegisterWorker(registerForm))
             return;
         var workers = await user.GetUsers();
         User worker = workers.FirstOrDefault(x => x.Login == registerForm.Login);
-        if(worker == null)
+        if (worker == null)
             return;
         await user.ChangeToAdmin(worker.Person.Worker.Id, true);
     }

@@ -5,6 +5,7 @@ namespace MainBackend.Services.Interfaces;
 
 public interface ITargetInventoryService
 {
+    Task<ICollection<TargetInventory>> GetMagazineOffer();
     Task<ICollection<TargetInventory>> GetTargetInventoryItems();
     Task<ICollection<InventoryStatus>> GetMagazineStatus();
     Task<ICollection<InventoryStatus>> GetMagazineStatus(int usersPerPage, int currentPage);

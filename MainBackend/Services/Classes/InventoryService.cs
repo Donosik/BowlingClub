@@ -33,11 +33,12 @@ public class InventoryService : IInventoryService
         return (ICollection<Inventory>)barInventories;
     }
 
-    public async Task<bool> AddInventoryItem(string name, decimal price)
+    public async Task<bool> AddInventoryItem(string name, decimal price,bool isBar)
     {
         Inventory inventory = new Inventory();
         inventory.Name = name;
         inventory.Price = price;
+        inventory.isBar = isBar;
         repositoryWrapper.normalDbWrapper.barInventory.Create(inventory);
         return await repositoryWrapper.normalDbWrapper.Save();
     }

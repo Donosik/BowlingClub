@@ -184,9 +184,8 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
             {
                 foreach (var product in fullfilledOrder.Products)
                 {
-                    decimal price = targetInventory.Where(x => x.Name == product.Name).Select(x => x.Price)
-                        .FirstOrDefault();
-                    if (!await inventoryService.AddInventoryItem(product.Name, price))
+                    var target = targetInventory.Where(x => x.Name == product.Name).FirstOrDefault();
+                    if (!await inventoryService.AddInventoryItem(product.Name, target.Price,target.IsBar))
                         return false;
                 }
             }

@@ -23,6 +23,13 @@ public class TargetInventoryService : ITargetInventoryService
         return targetInventory.FirstOrDefault(x => x.Name == name);
     }
 
+    public async Task<ICollection<TargetInventory>> GetMagazineOffer()
+    {
+        var magazineOffer = await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
+        magazineOffer = magazineOffer.Where(x => x.IsBar == true).ToList();
+        return magazineOffer;
+    }
+
     public async Task<ICollection<TargetInventory>> GetTargetInventoryItems()
     {
         return await repositoryWrapper.normalDbWrapper.targetInventory.GetAll();
