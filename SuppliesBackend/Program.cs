@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SuppliesBackend.Database.Generic.Repositories;
@@ -63,6 +64,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddScoped<IProductRepository, ProductRepository>();
     services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
     services.AddScoped<IOrderService, OrderService>();
+    services.AddScoped<IUserService, UserService>();
     services.AddScoped<IServiceWrapper, ServiceWrapper>();
 }
 // Cors configuration

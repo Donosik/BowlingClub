@@ -18,13 +18,17 @@ public class UserController : ControllerBase
     [HttpPost("Register")]
     public async Task<IActionResult> Register(LoginForm loginForm)
     {
-        return Ok();
+        if (await service.user.Register(loginForm))
+            return Ok();
+        return BadRequest();
     }
 
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginForm loginForm)
-
     {
-        return Ok();
+        var user = await service.user.Login(loginForm);
+        if (user != null)
+            return Ok(await service.user.GenerateToken(user));
+        return NotFound();
     }
 }

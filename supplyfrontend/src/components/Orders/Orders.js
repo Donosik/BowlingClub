@@ -1,30 +1,27 @@
-import './home.css';
 import {useEffect, useState} from "react";
-import {supplyBackendApi} from "../../util/Requests";
-import {getIsLogged} from "../../util/UserUtil";
 import {useNavigate} from "react-router-dom";
+import {getIsLogged} from "../../util/UserUtil";
+import {supplyBackendApi} from "../../util/Requests";
 
-
-export default function Home()
+export default function Orders()
 {
     const [orders, setOrders] = useState([])
     const navigate = useNavigate()
-
     useEffect(() =>
     {
         if (getIsLogged() == false)
-        {
-            navigate('/login')
+        {    navigate('/Login')
             return
         }
         getOrders()
-    }, [])
+    }, []);
 
     async function getOrders()
     {
         try
         {
-            const response = await supplyBackendApi.get('Order/GetUnfullfilledOrders')
+            const response = await supplyBackendApi.get('Order/MyOrders')
+            console.log(response)
             const modifiedOrders = response.data.map(order => ({
                 id: order.id,
                 products: countProducts(order.products)
@@ -54,23 +51,6 @@ export default function Home()
         return resultArray
     }
 
-    async function fullflillOrder(orderId)
-    {
-        try
-        {
-            const response = await supplyBackendApi.post('Order/FullfillOrder/' + orderId)
-            console.log(response)
-            if (response.status === 200)
-            {
-                const updatedOrders = orders.filter(order => order.id !== orderId)
-                setOrders(updatedOrders)
-            }
-        } catch (error)
-        {
-            console.log(error)
-        }
-    }
-
     return (
         <div className="magazine-container">
             <div className="table-container">
@@ -80,7 +60,6 @@ export default function Home()
                         <th>ID ZAMÓWIENIA</th>
                         <th>PRODUKT</th>
                         <th>ILOŚĆ</th>
-                        <th>AKCJA</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -93,9 +72,6 @@ export default function Home()
                             <td>{order.products.map(product => (
                                 <div>{product.amount}</div>
                             ))}</td>
-                            <td>
-                                <button onClick={e => fullflillOrder(order.id)}>SPEŁNIJ ZAMÓWIENIE</button>
-                            </td>
                         </tr>
                     ))}
                     </tbody>

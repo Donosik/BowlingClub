@@ -5,5 +5,4 @@ namespace SuppliesBackend.Database.SuppliesDb.Repositories;
 
 public interface IOrderRepository : IGenericRepository<Order>
 {
-    
 }

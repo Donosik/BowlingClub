@@ -2,7 +2,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "../pages/Home/Home";
 import ClientLayout from "./Layout/ClientLayout";
 import NoMatch from "../pages/NoMatch/NoMatch";
-import LoginForm from "../pages/Login/LoginForm";
 import Login from "../pages/Login/Login";
 import Contact from "../pages/Contact/Contact";
 import Offer from "../pages/Offer/Offer";
@@ -25,14 +24,13 @@ import AddNewItem from "../pages/Magazine/AddNewItem";
 import AddSale from "../pages/Sale/AddSale";
 import AddReservation from "../pages/Reservation/AddReservation";
 import Profile from "../pages/Profile/Profile";
+import AddInternalInvoice from "../pages/Sale/AddInternalInvoice";
 
 export default function Router()
 {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={"/test"}
-                       element={<LoginForm/>}/>
                 <Route path={"/management"}
                        element={<ManagementLayout/>}>
                     <Route index
@@ -58,6 +56,8 @@ export default function Router()
                                element={<AddSale/>}/>
                         <Route path={"dodaj/:id"}
                                element={<AddSale/>}/>
+                        <Route path={"wewnetrzna"}
+                               element={<AddInternalInvoice/>}/>
                     </Route>
                     <Route path={"zmianastrony"}
                            element={<ChangeSiteLayout/>}>

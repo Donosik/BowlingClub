@@ -9,6 +9,7 @@ public class Invoice : IEntity
     public DateTime IssueDate { get; set; }
     public DateTime DueDate { get; set; }
     public decimal Amount { get; set; }
+    public bool isInternal { get; set; } = false;
     public virtual int ClientId { get; set; }
     public virtual Client Client { get; set; }
     public virtual int WorkerId { get; set; }

@@ -6,4 +6,5 @@ namespace SuppliesBackend.Services.Wrapper;
 public interface IServiceWrapper
 {
     IOrderService order { get; }
+    IUserService user { get; }
 }

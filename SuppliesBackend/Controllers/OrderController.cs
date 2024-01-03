@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SuppliesBackend.Database.SuppliesDb.Entities;
+using SuppliesBackend.DTO;
 using SuppliesBackend.Services.Wrapper;
 
 namespace SuppliesBackend.Controllers;
@@ -52,7 +54,7 @@ public class OrderController : ControllerBase
 
 
     [HttpPost("CreateOrder")]
-    public async Task<IActionResult> CreateOrder(ICollection<Product> products)
+    public async Task<IActionResult> CreateOrder(ICollection<ProductDTO> products)
     {
         if (await service.order.CreateOrder(products))
             return Ok();
@@ -63,9 +65,25 @@ public class OrderController : ControllerBase
     [HttpPost("FullfillOrder/{orderId}")]
     public async Task<IActionResult> FullfillOrder(int orderId)
     {
-        if (await service.order.FullfillOrder(orderId))
+        var userIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (userIdClaim == null || !int.TryParse(userIdClaim, out int clientId))
+            return BadRequest("Client not found");
+        
+        if (await service.order.FullfillOrder(orderId,clientId))
             return Ok();
         else
             return BadRequest();
+    }
+    
+    [HttpGet("MyOrders")]
+    public async Task<IActionResult> GetMyOrders()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (userIdClaim == null || !int.TryParse(userIdClaim, out int clientId))
+            return BadRequest("Client not found");
+        var orders = service.order.GetMyOrders(clientId);
+        if (orders != null)
+            return Ok(orders);
+        return NotFound();
     }
 }

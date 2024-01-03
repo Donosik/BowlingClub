@@ -27,7 +27,17 @@ public class InvoiceController : ControllerBase
         var invoices = await serviceWrapper.invoice.GetInvoices();
         if (invoices != null)
             return Ok(invoices);
-        return BadRequest();
+        return NotFound();
+    }
+
+    [Authorize(Policy = "Worker")]
+    [HttpGet("AllInternalInvoices")]
+    public async Task<IActionResult> AllInternalInvoices()
+    {
+        var invoices = await serviceWrapper.invoice.GetInternalInvoices();
+        if (invoices != null)
+            return Ok(invoices);
+        return NotFound();
     }
 
     [Authorize(Policy = "Client")]
@@ -64,6 +74,18 @@ public class InvoiceController : ControllerBase
             return BadRequest("Worker not found");
 
         if (await serviceWrapper.invoice.AddInvoice(invoiceForm, workerId,reservationId))
+            return Ok();
+        return BadRequest();
+    }
+
+    [Authorize(Policy = "Worker")]
+    [HttpPost("CreateInternalInvoice")]
+    public async Task<IActionResult> CreateInternalInvoice(InvoiceForm invoiceForm)
+    {
+        var workerIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (workerIdClaim == null || !int.TryParse(workerIdClaim, out int workerId))
+            return BadRequest("Worker not found");
+        if (await serviceWrapper.invoice.AddInternalInvoice(invoiceForm, workerId))
             return Ok();
         return BadRequest();
     }

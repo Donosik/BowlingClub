@@ -9,4 +9,5 @@ public class Order : IEntity
     public bool IsFullfilled { get; set; } = false;
     public bool IsTaken { get; set; } = false;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public virtual User? User { get; set; }
 }

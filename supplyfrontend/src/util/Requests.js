@@ -7,3 +7,18 @@ export const supplyBackendApi = axios.create({
             'Content-Type': 'application/json'
         }
 })
+
+supplyBackendApi.interceptors.request.use(config=>{
+    const token=localStorage.getItem("tokenSupply")
+    if(token)
+        config.headers.Authorization=`Bearer ${token}`
+    return config
+})
+
+export function setAuth(token)
+{
+    if (token)
+    {
+        localStorage.setItem('tokenSupply', token)
+    }
+}

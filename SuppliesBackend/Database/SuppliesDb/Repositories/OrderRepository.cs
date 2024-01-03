@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections;
+using Microsoft.EntityFrameworkCore;
 using SuppliesBackend.Database.Generic.Repositories;
 using SuppliesBackend.Database.SuppliesDb.Entities;
 
