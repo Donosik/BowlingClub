@@ -30,7 +30,7 @@ export default function Offer()
                 <div className="left-panel">
                     <h2>Bar</h2>
                     <ul>
-                        <table>
+                        <table className="table-bordered">
                             <thead>
                             <tr>
                                 <th>NAZWA</th>
@@ -51,9 +51,23 @@ export default function Offer()
                 <div className="right-panel">
                     <h2>Tory</h2>
                     <ul>
-                        <li>Ceny gry w kręgle</li>
-                        <li>Godziny otwarcia</li>
-                        {/* Dodaj inne informacje */}
+                        <table className="table-bordered">
+                            <thead>
+                            <tr>
+                                <th>NAZWA</th>
+                                <th>CENA</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>TOR - 1 MINUTA GRY</td>
+                                    <td>2 zł</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
                     </ul>
                 </div>
             </div>
