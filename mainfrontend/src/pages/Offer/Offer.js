@@ -30,6 +30,7 @@ export default function Offer()
                 <div className="left-panel">
                     <h2>Bar</h2>
                     <ul>
+
                         <table className="table-bordered">
                             <thead>
                             <tr>
@@ -46,11 +47,13 @@ export default function Offer()
                             ))}
                             </tbody>
                         </table>
+
                     </ul>
                 </div>
                 <div className="right-panel">
                     <h2>Tory</h2>
                     <ul>
+
                         <table className="table-bordered">
                             <thead>
                             <tr>
