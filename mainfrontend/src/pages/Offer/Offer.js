@@ -41,7 +41,7 @@ export default function Offer()
                             {magazineOffer.map((item) => (
                                 <tr>
                                     <td>{item.name}</td>
-                                    <td>{item.price}</td>
+                                    <td>{item.price+' zł'}</td>
                                 </tr>
                             ))}
                             </tbody>
