@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import './login.css';
-import google from './google_icon.png'
 import {mainBackendApi, setAuth} from "../../util/Requests";
 import {Link, useNavigate} from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
@@ -71,7 +70,7 @@ export default function LoginForm(props)
         } catch (error)
         {
             setIsLoginFailed(true)
-            setErrorMessage("Błąd")
+            setErrorMessage("Podano błędny login lub hasło")
             console.log(error)
         }
     }

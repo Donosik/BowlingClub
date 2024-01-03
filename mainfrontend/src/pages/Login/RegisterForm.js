@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { mainBackendApi } from "../../util/Requests";
 import "./login.css";
-import google from "./google_icon.png";
 import {GoogleLogin} from "@react-oauth/google";
 import {jwtDecode} from "jwt-decode";
 
