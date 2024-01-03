@@ -1,8 +1,7 @@
 import LoginForm from "./LoginForm";
 import {useEffect, useState} from "react";
 import RegisterForm from "./RegisterForm";
-import {GoogleLogin} from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
+
 
 export default function Login()
 {

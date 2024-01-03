@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {mainBackendApi} from "../../util/Requests";
-
+import './profile.css';
 export default function Profile()
 {
     const [login, setLogin] = useState("")
@@ -161,18 +161,22 @@ export default function Profile()
             <div className="container page d-flex justify-content-center align-items-center">
                 <div className="row">
                     <div className="form-box">
-                        <h1 className="text-login">EDYTOWANIE UŻYTKOWNIKA</h1>
+                        <h1 className="text-login">EDYCJA PROFILU UŻYTKOWNIKA</h1>
                         <p>Instrukcja:</p>
                         <ul>
                             <li>Login musi mieć min. 3 znaki i nie może zawierać znaków specjalnych.</li>
                             <li>Hasło musi zawierać minimalnie: 8 znaków, jedną cyfrę oraz znak specjalny (np.
                                 @-!).
                             </li>
+                            <li>ID, które jest poniżej służy do wystawiania faktur - podaj je pracowikowi, kiedy prosisz o wystawienie faktury.
+                            </li>
                         </ul>
-                        <label>
-                            Id:{user.id}
-                        </label>
+
                         <br/>
+                        <div className="id-edit-prof">
+
+                            PROFIL:
+                        </div>
                         <label>
                             Login:
                             <br/>
@@ -245,6 +249,10 @@ export default function Profile()
                         {isRegisterFailed ? (
                             <div className="error-message">{errorMessage}</div>
                         ) : null}
+                        <div className="id-edit-prof">
+
+                            TWOJE ID W SYSTEMIE: {user.id}
+                        </div>
                     </div>
                 </div>
             </div>
