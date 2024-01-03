@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.Databases.Generic.Repositories;
@@ -37,11 +38,12 @@ public class UserService : IUserService
         IEnumerable<User> allUsers = await repositoryWrapper.normalDbWrapper.user.GetAll();
         return (ICollection<User>)allUsers;
     }
-    public async Task<ICollection<User>> GetUsers( int usersPerPage, int currentPage)
+
+    public async Task<ICollection<User>> GetUsers(int usersPerPage, int currentPage)
     {
         IEnumerable<User> allUsers = await repositoryWrapper.normalDbWrapper.user.GetAll();
         int startIndex = (currentPage - 1) * usersPerPage;
-        var paginatedUsers= allUsers.Skip(startIndex).Take(usersPerPage);
+        var paginatedUsers = allUsers.Skip(startIndex).Take(usersPerPage);
         return (ICollection<User>)paginatedUsers.ToList();
     }
 
@@ -76,6 +78,7 @@ public class UserService : IUserService
             return false;
         }
 
+        registerForm.Password = HashPassword(registerForm.Password);
 
         // This person doesn't exist
         if (person == null)
@@ -115,7 +118,7 @@ public class UserService : IUserService
         if (user != null)
             return false;
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
-        if(person== null)
+        if (person == null)
         {
             Person newPerson = new Person(registerForm);
             User newUser = new User(registerForm);
@@ -141,6 +144,7 @@ public class UserService : IUserService
             repositoryWrapper.normalDbWrapper.client.Create(client);
             return await repositoryWrapper.normalDbWrapper.Save(2);
         }
+
         return false;
     }
 
@@ -152,6 +156,8 @@ public class UserService : IUserService
         Person person = await repositoryWrapper.normalDbWrapper.person.GetPerson(registerForm.Email);
 
         await CheckRegisterForm(registerForm);
+
+        registerForm.Password = HashPassword(registerForm.Password);
 
         if (person == null)
         {
@@ -206,8 +212,8 @@ public class UserService : IUserService
     {
         foreach (var user in await GetUsers())
         {
-            if ((user.Login == loginForm.Login) && (user.Password == loginForm.Password) && user.IsActive &&
-                !user.IsGoogle)
+            if ((user.Login == loginForm.Login) && (user.Password == HashPassword(loginForm.Password)) &&
+                user.IsActive && !user.IsGoogle)
             {
                 return user;
             }
@@ -280,7 +286,7 @@ public class UserService : IUserService
         User user = await repositoryWrapper.normalDbWrapper.user.Get(userId);
         if (user == null)
             return false;
-        user.Password = newPassword;
+        user.Password = HashPassword(newPassword);
         repositoryWrapper.normalDbWrapper.user.Edit(user);
         return await repositoryWrapper.normalDbWrapper.Save();
     }
@@ -301,7 +307,7 @@ public class UserService : IUserService
         if (oldUser == null)
             return false;
         oldUser.Login = user.Login;
-        oldUser.Password = user.Password;
+        oldUser.Password = HashPassword(user.Password);
         oldUser.Person.FirstName = user.FirstName;
         oldUser.Person.LastName = user.LastName;
         oldUser.Person.Email = user.Email;
@@ -352,4 +358,11 @@ public class UserService : IUserService
     }
 
 #endregion
+
+    private string HashPassword(string password)
+    {
+        using var sha256 = SHA256.Create();
+        var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+        return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+    }
 }
