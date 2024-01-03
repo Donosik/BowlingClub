@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Calendar from "react-calendar";
 import {mainBackendApi} from "../../util/Requests";
-import {useNavigate,useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "./Sale.css";
 
 export default function AddSale()
@@ -28,8 +28,27 @@ export default function AddSale()
     useEffect(() =>
     {
         fetchAllProducts()
-        fetchAllClients()
+        if (id)
+        {
+            fetchClient()
+        }
+        else
+        {
+            fetchAllClients()
+        }
     }, [])
+
+    async function fetchClient()
+    {
+        try
+        {
+            const response = await mainBackendApi.get('Reservation/GetClientFromReservation/' + id)
+            setChoosenClient(response.data.client.user)
+        } catch (e)
+        {
+            console.log(e)
+        }
+    }
 
     async function fetchAllClients()
     {
@@ -100,13 +119,13 @@ export default function AddSale()
                     }
                 ))
             }
-            if(id)
+            if (!id)
             {
                 const response = await mainBackendApi.post('Invoice/CreateInvoice', data)
             }
             else
             {
-                const response = await mainBackendApi.post('Invoice/CreateInvoice/'+id, data)
+                const response = await mainBackendApi.post('Invoice/CreateInvoice/' + id, data)
             }
             navigate('/management/sprzedaz')
         } catch (e)
@@ -141,18 +160,19 @@ export default function AddSale()
                             <div>
                                 <br/> KLIENT:
                                 <div className="invoice-client">
-                                {choosenClient && (choosenClient.person.firstName + " " + choosenClient.person.lastName)}</div>
-                             <br/>
-
-                                <input type="text"
-                                       list="clients"
-                                       onChange={handleClientChange}/>
-                                <datalist id="clients">
-                                    {allClients.map((client) => (
-                                        <option key={client.id}
-                                                value={client.id + ". " + client.person.firstName + " " + client.person.lastName}/>
-                                    ))}
-                                </datalist>
+                                    {choosenClient && (choosenClient.person.firstName + " " + choosenClient.person.lastName)}</div>
+                                <br/>
+                                {(!id) && <>
+                                    <input type="text"
+                                           list="clients"
+                                           onChange={handleClientChange}/>
+                                    <datalist id="clients">
+                                        {allClients.map((client) => (
+                                            <option key={client.id}
+                                                    value={client.id + ". " + client.person.firstName + " " + client.person.lastName}/>
+                                        ))}
+                                    </datalist>
+                                </>}
 
                             </div>
 
@@ -208,7 +228,7 @@ export default function AddSale()
                                     </table>
                                 </div>
                             </div>
-<br/>
+                            <br/>
                             <div className="d-flex justify-content-center align-items-center">
                                 <button type="button"
                                         onClick={handleSubmit}>STWÓRZ FAKTURĘ

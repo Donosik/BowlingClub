@@ -20,6 +20,16 @@ public class ReservationController : ControllerBase
     }
 
     [Authorize(Policy = "Worker")]
+    [HttpGet("GetClientFromReservation/{id}")]
+    public async Task<IActionResult> GetClientFromReservation(int id)
+    {
+        var user = await serviceWrapper.reservation.GetClientFromReservation(id);
+        if (user != null)
+            return Ok(user);
+        return NotFound();
+    }
+
+    [Authorize(Policy = "Worker")]
     [HttpGet("GetAllReservations")]
     public async Task<IActionResult> GetAllReservations()
     {

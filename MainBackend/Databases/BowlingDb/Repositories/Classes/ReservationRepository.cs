@@ -11,6 +11,11 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
     {
     }
 
+    public async Task<Reservation> GetClientFromReservation(int id)
+    {
+        return await GetQuery().Include(x => x.Client).ThenInclude(x => x.Person).Include(x => x.Client).ThenInclude(x => x.User).Where(x => x.Id == id).FirstOrDefaultAsync();
+    }
+
     public async Task<ICollection<Reservation>> GetAllOfClient(Client client)
     {
         if(client==null)

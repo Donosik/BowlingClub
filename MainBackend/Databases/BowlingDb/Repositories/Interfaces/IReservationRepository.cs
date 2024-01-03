@@ -5,6 +5,7 @@ namespace MainBackend.Databases.BowlingDb.Repositories.Interfaces;
 
 public interface IReservationRepository : IGenericRepository<Reservation>
 {
+    Task<Reservation> GetClientFromReservation(int id);
     Task<ICollection<Reservation>> GetAllOfClient(Client client);
     Task<ICollection<Reservation>> GetAllOfClient(Client client,int usersPerPage,int currentPage,bool onlyNew,bool onlyWithoutInvoice);
     Task<ICollection<Reservation>> GetAllWithIncludes();

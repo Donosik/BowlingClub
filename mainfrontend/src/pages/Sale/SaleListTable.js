@@ -9,7 +9,7 @@ export default function SaleListTable({sales})
     const handleFakturaClick = (sale) =>
     {
         const documentDefinition = generateFakturaDefinition(sale);
-        pdfMake.createPdf(documentDefinition).download(`faktura_${sale.Id}_${sale.client.person.firstName}_${sale.client.person.lastName}.pdf`);
+        pdfMake.createPdf(documentDefinition).download(`faktura_${sale.id}_${sale.client.person.firstName}_${sale.client.person.lastName}.pdf`);
     };
 
     function countOccurrences(inventory)

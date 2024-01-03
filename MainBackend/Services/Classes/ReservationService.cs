@@ -14,6 +14,11 @@ public class ReservationService : IReservationService
         this.repositoryWrapper = repositoryWrapper;
     }
 
+    public async Task<Reservation> GetClientFromReservation(int id)
+    {
+        return await repositoryWrapper.normalDbWrapper.reservation.GetClientFromReservation(id);
+    }
+
     public async Task<ICollection<Reservation>> GetReservations()
     {
         IEnumerable<Reservation> reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllWithIncludes();

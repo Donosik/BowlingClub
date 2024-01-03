@@ -11,7 +11,7 @@ export default function ReservationTable()
     const [noMoreUsers, setNoMoreUsers] = useState(false);
     const [isClient, setIsClient] = useState(true)
     const [onlyNewReservations, setOnlyNewReservations] = useState(true);
-    const [onlyUnrealizedReservations, setOnlyUnrealizedReservations] = useState(false);
+    const [onlyUnrealizedReservations, setOnlyUnrealizedReservations] = useState(getIsWorker());
     const [shouldFetch, setShouldFetch] = useState(false);
     const navigate=useNavigate()
 
@@ -20,15 +20,11 @@ export default function ReservationTable()
         if (isUserLoggedIn() === true && getIsWorker() === false && getIsAdmin() === false)
         {
             setIsClient(true)
-            setOnlyNewReservations(true)
-            setOnlyUnrealizedReservations(false)
             fetchReservationsForClient()
         }
         else
         {
             setIsClient(false)
-            setOnlyNewReservations(true)
-            setOnlyUnrealizedReservations(true)
             fetchReservations()
         }
     }, []);
