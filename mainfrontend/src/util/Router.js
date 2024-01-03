@@ -24,6 +24,7 @@ import AddRegulation from "../pages/ChangeSite/AddRegulation";
 import AddNewItem from "../pages/Magazine/AddNewItem";
 import AddSale from "../pages/Sale/AddSale";
 import AddReservation from "../pages/Reservation/AddReservation";
+import Profile from "../pages/Profile/Profile";
 
 export default function Router()
 {
@@ -98,6 +99,8 @@ export default function Router()
                            element={<Contact/>}/>
                     <Route path={"oferta"}
                            element={<Offer/>}/>
+                    <Route path={"profil"}
+                           element={<Profile/>}/>
                     <Route path={"sprzedaz"}>
                         <Route index
                                element={<Sale/>}/>

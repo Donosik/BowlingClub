@@ -20,9 +20,7 @@ public class InvoiceService : IInvoiceService
         return await repositoryWrapper.normalDbWrapper.invoice.GetAllWithUsers();
     }
 
-    public async Task<bool> AddInvoice(ICollection<Inventory> products, Client client, Worker worker,
-        DateTime issueDate,
-        DateTime dueDate)
+    public async Task<bool> AddInvoice(ICollection<Inventory> products, Client client, Worker worker, DateTime issueDate, DateTime dueDate)
     {
         Invoice invoice = new Invoice();
         invoice.Client = client;
@@ -50,9 +48,7 @@ public class InvoiceService : IInvoiceService
         return await repositoryWrapper.normalDbWrapper.Save(entities);
     }
     
-    public async Task<bool> AddInvoice(ICollection<Inventory> products, Client client, Worker worker,
-        DateTime issueDate,
-        DateTime dueDate,Reservation reservation)
+    public async Task<bool> AddInvoice(ICollection<Inventory> products, Client client, Worker worker, DateTime issueDate, DateTime dueDate,Reservation reservation)
     {
         Invoice invoice = new Invoice();
         invoice.Client = client;
@@ -67,6 +63,9 @@ public class InvoiceService : IInvoiceService
             value += product.Price;
         }
 
+        int minutes = (reservation.EndTime - reservation.StartTime).Minutes;
+        //TODO: Tutaj kwota
+        value += minutes * 1;
         invoice.Amount = value;
         repositoryWrapper.normalDbWrapper.invoice.Create(invoice);
         repositoryWrapper.normalDbWrapper.client.Edit(client);

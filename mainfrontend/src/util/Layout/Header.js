@@ -77,11 +77,17 @@ export default function Header()
                         </li>}
 
                     {isLogged === true ? (
-                        <li className="nav-item">
-                            <NavLink className="nav-link"
-                                     to="/home"
-                                     onClick={logout}>WYLOGUJ</NavLink>
-                        </li>
+                        <>
+                            <li className="nav-item">
+                                <NavLink className="nav-link"
+                                         to="/profil">PROFIL</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link"
+                                         to="/home"
+                                         onClick={logout}>WYLOGUJ</NavLink>
+                            </li>
+                        </>
                     ) : (
                         <li className="nav-item">
                             <NavLink className="nav-link"

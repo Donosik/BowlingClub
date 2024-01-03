@@ -1,4 +1,5 @@
-﻿using MainBackend.Databases.BowlingDb.Entities;
+﻿using System.Security.Claims;
+using MainBackend.Databases.BowlingDb.Entities;
 using MainBackend.DTO;
 using MainBackend.Exceptions;
 using MainBackend.Services.Wrapper;
@@ -21,6 +22,18 @@ public class UserController : ControllerBase
 
 #region Get
 
+    [HttpGet("GetMe")]
+    public async Task<IActionResult> GetMe()
+    {
+        var clientIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (clientIdClaim == null || !int.TryParse(clientIdClaim, out int clientId))
+            return BadRequest("Client not found");
+        User user = await serviceWrapper.user.GetUser(clientId);
+        if (user!=null)
+            return Ok(user);
+        return NotFound();
+    }
+    
     [Authorize(Policy = "Worker")]
     [HttpGet("AllWorkers")]
     public async Task<IActionResult> AllWorkers()
@@ -160,6 +173,17 @@ public class UserController : ControllerBase
     public async Task<IActionResult> ChangeUser(int userId,EditUserForm user)
     {
         if (await serviceWrapper.user.ChangeUser(userId,user))
+            return Ok();
+        return NotFound();
+    }
+
+    [HttpPut("ChangeMe")]
+    public async Task<IActionResult> ChangeMe(EditUserForm user)
+    {
+        var clientIdClaim = User.FindFirst(ClaimTypes.Name).Value;
+        if (clientIdClaim == null || !int.TryParse(clientIdClaim, out int clientId))
+            return BadRequest("Client not found");
+        if (await serviceWrapper.user.ChangeUser(clientId,user))
             return Ok();
         return NotFound();
     }
