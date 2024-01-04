@@ -46,7 +46,7 @@ export default function Login()
         } catch (e)
         {
             setIsLoginFailed(true);
-            setErrorMessage("ISTNIEJE JUŻ KONTO Z TYM LOGINEM");
+            setErrorMessage("NIE POPRAWNE DANE");
             console.log(e)
         }
     }

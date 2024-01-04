@@ -81,7 +81,7 @@ public class OrderController : ControllerBase
         var userIdClaim = User.FindFirst(ClaimTypes.Name).Value;
         if (userIdClaim == null || !int.TryParse(userIdClaim, out int clientId))
             return BadRequest("Client not found");
-        var orders = service.order.GetMyOrders(clientId);
+        var orders = await service.order.GetMyOrders(clientId);
         if (orders != null)
             return Ok(orders);
         return NotFound();
