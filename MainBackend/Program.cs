@@ -79,7 +79,6 @@ void ConfigureRepositoriesDb(IServiceCollection services)
     services.AddScoped<ITargetInventoryRepository, TargetInventoryRepository>();
     services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IWorkerRepository, WorkerRepository>();
-    services.AddScoped<IWorkScheduleRepository, WorkScheduleRepository>();
 }
 
 // Repositories for BowlingDw
@@ -87,7 +86,6 @@ void ConfigureRepositoriesDw(IServiceCollection services)
 {
     services.AddScoped<IFactInvoiceRepository, FactInvoiceRepository>();
     services.AddScoped<IFactReservationRepository, FactReservationRepository>();
-    services.AddScoped<IFactWorkScheduleRepository, FactWorkScheduleRepository>();
 }
 
 // Services
@@ -108,7 +106,6 @@ void ConfigureServices(IServiceCollection services)
     services.AddScoped<ITargetInventoryService, TargetInventoryService>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IWorkerService, WorkerService>();
-    services.AddScoped<IWorkScheduleService, WorkScheduleService>();
 }
 
 // Wrappers

@@ -16,13 +16,12 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
     public ITargetInventoryRepository targetInventory { get; }
     public IUserRepository user { get; }
     public IWorkerRepository worker { get; }
-    public IWorkScheduleRepository workSchedule { get; }
     private readonly Context.BowlingDb dbContext;
 
 #region Constructors
 
     public RepositoryWrapperDb(Context.BowlingDb dbContext, IUserRepository user, IPersonRepository person,
-        IClientRepository client, IWorkerRepository worker, IWorkScheduleRepository workSchedule, ILaneRepository lane,
+        IClientRepository client, IWorkerRepository worker, ILaneRepository lane,
         IReservationRepository reservation, IInvoiceRepository invoice, IBarInventoryRepository barInventory, IOpenHourRepository openHour,IPromotionRepository promotion,IRegulationRepository regulation,ITargetInventoryRepository targetInventory)
     {
         this.dbContext = dbContext;
@@ -31,7 +30,6 @@ public class RepositoryWrapperDb : IRepositoryWrapperDb
         this.person = person;
         this.client = client;
         this.worker = worker;
-        this.workSchedule = workSchedule;
         this.lane = lane;
         this.reservation = reservation;
         this.barInventory = barInventory;

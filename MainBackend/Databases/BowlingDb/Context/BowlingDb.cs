@@ -21,7 +21,6 @@ public class BowlingDb : DbContext
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Worker> Workers { get; set; }
-    public DbSet<WorkSchedule> WorkSchedules { get; set; }
     public DbSet<TargetInventory> TargetInventories { get; set; }
 
 #region Constructors

@@ -13,11 +13,9 @@ public class Worker : IEntity
     public virtual int UserId { get; set; }
     public virtual User User { get; set; }
     public virtual ICollection<Invoice> Invoices { get; set; }
-    public virtual ICollection<WorkSchedule> WorkSchedules { get; set; }
 
     public Worker()
     {
-        WorkSchedules = new List<WorkSchedule>();
         Invoices = new List<Invoice>();
         IsAdmin = false;
     }

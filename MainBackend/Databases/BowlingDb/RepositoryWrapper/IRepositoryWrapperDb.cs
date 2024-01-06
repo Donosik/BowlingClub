@@ -16,7 +16,6 @@ public interface IRepositoryWrapperDb : IDisposable
     ITargetInventoryRepository targetInventory { get; }
     IUserRepository user { get; }
     IWorkerRepository worker { get; }
-    IWorkScheduleRepository workSchedule { get; }
     
 #region Methods
 

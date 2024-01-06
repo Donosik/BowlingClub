@@ -40,14 +40,6 @@ public class TestController : ControllerBase
             }
         }
 
-        var workSchedules = await serviceWrapper.workSchedule.GetWorkSchedules();
-        foreach (var shift in workSchedules)
-        {
-            bool result = await serviceWrapper.workSchedule.DeleteShift(shift.Id);
-            if (result == false)
-                return BadRequest("Something went wrong");
-        }
-
         var lanes = await serviceWrapper.lane.GetLanes();
         foreach (var lane in lanes)
         {
@@ -71,7 +63,6 @@ public class TestController : ControllerBase
     public async Task<IActionResult> GenerateDb()
     {
         await serviceWrapper.generator.GenerateUsers(1000);
-        await serviceWrapper.generator.GenerateShifts(5, 10);
         await serviceWrapper.generator.GenerateLanes(10);
         await serviceWrapper.generator.GenerateReservations(30, 50);
         //await serviceWrapper.generator.GenerateInventoryItems(1000);

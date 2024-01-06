@@ -10,7 +10,6 @@ public class GeneratorService : IGeneratorService
 {
     private IClientService client { get; }
     private IUserService user { get; }
-    private IWorkScheduleService workSchedule { get; }
     private IWorkerService worker { get; }
     private ILanesService lane { get; }
     private IReservationService reservation { get; }
@@ -41,13 +40,12 @@ public class GeneratorService : IGeneratorService
         "Inne", "Kubki i szklanki", "Miksery", "Opakowania na napoje"
     };
 
-    public GeneratorService(IUserService user, IWorkScheduleService workSchedule, IWorkerService worker,
+    public GeneratorService(IUserService user, IWorkerService worker,
         ILanesService lane, IReservationService reservation, IClientService client, IInventoryService inventory,
         IInvoiceService invoice)
     {
         this.inventory = inventory;
         this.user = user;
-        this.workSchedule = workSchedule;
         this.worker = worker;
         this.lane = lane;
         this.reservation = reservation;
@@ -71,37 +69,6 @@ public class GeneratorService : IGeneratorService
             {
                 registerForm.Login = GenerateRandomLogin(registerForm.FirstName, registerForm.LastName);
                 await user.RegisterWorker(registerForm);
-            }
-        }
-    }
-
-    public async Task GenerateShifts(int normalDayShifts, int weekendShifts)
-    {
-        DateTime startDate = DateTime.Today;
-        DateTime endDate = startDate.AddDays(30);
-        IEnumerable<Worker> workers = await worker.GetWorkers();
-
-        foreach (var currentDate in EachDay(startDate, endDate))
-        {
-            int shiftsToAdd = currentDate.DayOfWeek >= DayOfWeek.Monday && currentDate.DayOfWeek <= DayOfWeek.Friday
-                ? normalDayShifts
-                : weekendShifts;
-            var selectedWorkers = workers.OrderBy(x => Guid.NewGuid()).Take(shiftsToAdd);
-
-            foreach (var worker in selectedWorkers)
-            {
-                if (currentDate.DayOfWeek >= DayOfWeek.Monday && currentDate.DayOfWeek <= DayOfWeek.Friday)
-                {
-                    DateTime shiftStart = currentDate.Date.AddHours(14);
-                    DateTime shiftEnd = currentDate.Date.AddHours(22);
-                    await workSchedule.AddShift(worker, shiftStart, shiftEnd);
-                }
-                else
-                {
-                    DateTime shiftStart = currentDate.Date.AddHours(10);
-                    DateTime shiftEnd = currentDate.Date.AddHours(22);
-                    await workSchedule.AddShift(worker, shiftStart, shiftEnd);
-                }
             }
         }
     }

@@ -20,5 +20,4 @@ public interface IServiceWrapper
     ITargetInventoryService targetInventory { get; }
     IUserService user { get; }
     IWorkerService worker { get; }
-    IWorkScheduleService workSchedule { get; }
 }

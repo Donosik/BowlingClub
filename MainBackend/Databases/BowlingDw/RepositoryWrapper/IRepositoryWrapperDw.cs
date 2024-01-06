@@ -6,7 +6,6 @@ public interface IRepositoryWrapperDw : IDisposable
 {
     IFactInvoiceRepository invoice { get; }
     IFactReservationRepository reservation { get; }
-    IFactWorkScheduleRepository workSchedule { get; }
     
     Task<bool> Save(int entities = 1);
     void Dispose();

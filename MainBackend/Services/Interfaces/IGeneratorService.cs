@@ -5,7 +5,6 @@ namespace MainBackend.Services.Interfaces;
 public interface IGeneratorService
 {
     Task GenerateUsers(int howManyUsersToGenerate);
-    Task GenerateShifts(int normalDayShifts, int weekendShifts);
     Task GenerateLanes(int howManyLanes);
     Task GenerateReservations(int normalDayReservations,int weekendReservations);
     Task GenerateInventoryItems(int howManyItems);

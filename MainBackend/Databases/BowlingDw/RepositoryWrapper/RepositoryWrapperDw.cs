@@ -6,15 +6,13 @@ public class RepositoryWrapperDw : IRepositoryWrapperDw
 {
     public IFactInvoiceRepository invoice { get; }
     public IFactReservationRepository reservation { get; }
-    public IFactWorkScheduleRepository workSchedule { get; }
     private readonly Context.BowlingDw dbContext;
 
-    public RepositoryWrapperDw(Context.BowlingDw dbContext, IFactInvoiceRepository invoice,IFactReservationRepository reservation,IFactWorkScheduleRepository workSchedule)
+    public RepositoryWrapperDw(Context.BowlingDw dbContext, IFactInvoiceRepository invoice,IFactReservationRepository reservation)
     {
         this.dbContext = dbContext;
         this.invoice = invoice;
         this.reservation = reservation;
-        this.workSchedule = workSchedule;
     }
 
     public async Task<bool> Save(int entities = 1)

@@ -19,15 +19,6 @@ public class RaportController : ControllerBase
 #region Get
 
     [Authorize(Policy = "Worker")]
-    [HttpGet("MostWorkedHours/{howManyDaysAgo}/{howManyDaysForward}/{howManyTop}")]
-    public async Task<IActionResult> MostWorkedHours(int howManyDaysAgo, int howManyDaysForward, int howManyTop)
-    {
-        var workerWithHours =
-            await serviceWrapper.raport.MostWorkedHours(howManyDaysAgo, howManyDaysForward, howManyTop);
-        return Ok(workerWithHours);
-    }
-
-    [Authorize(Policy = "Worker")]
     [HttpGet("BestBuyingClient/{howManyDaysAgo}/{howManyDaysForward}/{howManyTop}")]
     public async Task<IActionResult> BestBuyingClient(int howManyDaysAgo, int howManyDaysForward, int howManyTop)
     {

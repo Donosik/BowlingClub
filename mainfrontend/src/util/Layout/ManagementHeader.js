@@ -65,11 +65,6 @@ export default function ManagementHeader()
                                      to="/management/rezerwacje"
                                      activeClassName="active">REZERWACJE</NavLink>
                         </li>
-                        {false &&<li className="nav-item">
-                            <NavLink className="nav-link"
-                                     to="/management/grafik"
-                                     activeClassName="active">GRAFIK</NavLink>
-                        </li>}
                         <li className="nav-item">
                             <NavLink className="nav-link"
                                      to="/management/raporty"

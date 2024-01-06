@@ -10,7 +10,6 @@ import Users from "../pages/Users/Users";
 import Magazine from "../pages/Magazine/Magazine";
 import ChangeOpenHours from "../pages/ChangeSite/ChangeOpenHours";
 import Reservation from "../pages/Reservation/Reservation";
-import Schedule from "../pages/Schedule/Schedule";
 import Raports from "../pages/Raports/Raports";
 import PurchaseSystem from "../pages/PurchaseSystem/PurchaseSystem";
 import Sale from "../pages/Sale/Sale";
@@ -80,8 +79,6 @@ export default function Router()
                         <Route path={"dodaj"}
                                element={<AddReservation/>}/>
                     </Route>
-                    <Route path={"grafik"}
-                           element={<Schedule/>}/>
                     <Route path={"raporty"}
                            element={<Raports/>}/>
                     <Route path={"systemzakupow"}

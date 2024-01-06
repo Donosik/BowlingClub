@@ -14,32 +14,6 @@ public class RaportService : IRaportService
         this.repositoryWrapper = repositoryWrapper;
     }
 
-    public async Task<IEnumerable<WorkerWithHours>> MostWorkedHours(int howManyDaysAgo, int howManyDaysForward,
-        int howManyTop)
-    {
-        DateTime today = DateTime.Today;
-        DateTime endDate = today.AddDays(howManyDaysForward);
-        DateTime startDate = today.AddDays(-howManyDaysAgo);
-        IEnumerable<FactWorkSchedule> workSchedules =
-            await repositoryWrapper.normalDwWrapper.workSchedule.GetAllWithDims();
-
-        var workersWithWorkHours = workSchedules
-            .Where(work => work.WorkStart.CalendarDate >= startDate && work.WorkEnd.CalendarDate <= endDate)
-            .GroupBy(work => work.Worker)
-            .Select(group => new WorkerWithHours
-            {
-                Id = group.Key.Id,
-                FullName = group.Key.FullName,
-                Email = group.Key.Email,
-                TotalWorkHours = group.Sum(work =>
-                    Math.Max(0, (work.WorkEnd.CalendarDate - work.WorkStart.CalendarDate).TotalHours))
-            }).OrderByDescending(worker => worker.TotalWorkHours)
-            .Take(howManyTop)
-            .ToList();
-
-        return workersWithWorkHours;
-    }
-
     public async Task<IEnumerable<ClientWIthInvoices>> BestBuyingClient(int howManyDaysAgo, int howManyDaysForward,
         int howManyTop)
     {
