@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {mainBackendApi} from "../../util/Requests";
 import {useNavigate} from "react-router-dom";
 import {getIsWorker} from "../../util/UserType";
+import './WorkerSchedule.css'
 
 export default function AddReservation()
 {

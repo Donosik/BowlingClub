@@ -6,8 +6,7 @@ namespace MainBackend.Databases.BowlingDb.Context;
 
 public class BowlingDb : DbContext
 {
-    public DbSet<Inventory> BarInventories { get; set; }
-    public DbSet<InternalInventory> InternalInventories { get; set; }
+    public DbSet<Inventory> Inventories { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<Invoice> Invoices { get; set; }
 

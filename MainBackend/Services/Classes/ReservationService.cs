@@ -42,11 +42,10 @@ public class ReservationService : IReservationService
 
     public async Task<ICollection<Reservation>> GetReservationsByClient(int clientId, int usersPerPage, int currentPage,bool onlyNew,bool onlyWithoutInvoice)
     {
-        
-        Client client=await repositoryWrapper.normalDbWrapper.client.Get(clientId);
-        if(client==null)
+        User user=await repositoryWrapper.normalDbWrapper.user.Get(clientId);
+        if(user==null)
             return null;
-        var reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(client,usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
+        var reservations = await repositoryWrapper.normalDbWrapper.reservation.GetAllOfClient(user.Person.Client,usersPerPage,currentPage,onlyNew,onlyWithoutInvoice);
         return reservations;
     }
 
