@@ -15,7 +15,7 @@ public class SupplyService : GeneralRequestHelper, ISupplyService
 
     //TODO: Dodać żeby adres był z appsettings
     public SupplyService(IRepositoryWrapper repositoryWrapper, IInventoryService inventoryService) : base(
-        "https://localhost:44373")
+        "https://suppliesbowlingclub.azurewebsites.net")
     {
         this.repositoryWrapper = repositoryWrapper;
         this.inventoryService = inventoryService;

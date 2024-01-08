@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export const mainBackendApi = axios.create({
-    baseURL: 'https://localhost:44302/',
+    baseURL: 'https://bowlingclub.azurewebsites.net/',
     headers:
         {
             'Content-Type': 'application/json'

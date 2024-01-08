@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const supplyBackendApi = axios.create({
-    baseURL:'https://localhost:44373/',
+    baseURL:'https://suppliesbowlingclub.azurewebsites.net',
     headers:
         {
             'Content-Type': 'application/json'
